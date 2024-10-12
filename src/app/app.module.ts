@@ -12,26 +12,27 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { OrderModule } from "ngx-order-pipe";
 import { ArraySortPipe } from './array-sort.pipe';
 import { EvolvesHowComponent } from './evolves-how/evolves-how.component';
+import { PokemonService } from './services/pokemon.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokedexComponent,
-    PokemonListComponent,
+    //PokemonListComponent,
     routingComponents,
     ArraySortPipe,
     EvolvesHowComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        NgxPaginationModule,
-        MatSlideToggleModule,
-        BrowserAnimationsModule,
-        OrderModule
-    ],
-  providers: [],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    NgxPaginationModule,
+    MatSlideToggleModule,
+    BrowserAnimationsModule,
+    OrderModule
+  ],
+  providers: [PokemonService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
