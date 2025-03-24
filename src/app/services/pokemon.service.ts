@@ -567,4 +567,14 @@ export class PokemonService {
       [480, [[906], [907], [908]]]
     ]);
   }
+
+  getPokemonNamesThatEvolveFromTrading(): any {
+    console.log("Getting Pokemon names that evolve from trading...");
+    let triggerUrl = "https://pokeapi.co/api/v2/evolution-trigger/2/";
+    this.callURL(triggerUrl).toPromise().then((triggerResponse: any) => {
+      let triggerMap = JSON.parse(triggerResponse.body);
+      let pkmnNames = triggerMap.pokemon_species.map((m: any) => m.name);
+      return pkmnNames;
+    });
+  }
 }

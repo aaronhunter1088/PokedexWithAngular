@@ -89,6 +89,11 @@
       >{{turnUpsideDown | titlecase}}</h3>
       <br>
     </div> <!-- with turn upside down -->
+    <div *ngIf="hasTradeSpecies">
+      <h3 id="tradeSpeciesTitle"
+          class="listStyle"><b>Evolves by Trading</b></h3>
+      <br>
+    </div> <!-- with trade species -->
   </ng-template>
   <ng-template #doesNotEvolve>
     <h3 id="levelOfPokemon">Final Form</h3>

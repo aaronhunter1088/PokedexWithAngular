@@ -44,6 +44,8 @@ export class EvolvesHowComponent implements OnInit {
   // other attributes
   hasTurnUpsideDown: boolean = false
   turnUpsideDown: any
+  hasTradeSpecies: boolean = false
+  tradeSpecies: any
   emptyChain: boolean = true;
 
   constructor(private route: ActivatedRoute, private pokemonService: PokemonService) {
@@ -119,11 +121,12 @@ export class EvolvesHowComponent implements OnInit {
           // other attributes
           this.hasTurnUpsideDown = this.specificAttributesMap.get("turn_upside_down") != null ? this.specificAttributesMap.get("turn_upside_down")[0] : this.specificAttributesMap.get("turn_upside_down")
           if (this.hasTurnUpsideDown) this.turnUpsideDown = this.specificAttributesMap.get("turn_upside_down")
-
+          this.hasTradeSpecies = this.specificAttributesMap.get("trade_species") != null ? this.specificAttributesMap.get("trade_species")[0] : this.specificAttributesMap.get("trade_species")
+          //if (this.tradeSpecies) this.tradeSpecies = this.specificAttributesMap.get("trade_species")
           // @ts-ignore
           this.doesPokemonEvolve = this.determineIfPokemonEvolves(
             this.hasMinimumLevel, this.isABaby, this.hasUseItem, this.hasHeldItem, this.hasMinimumHappiness, this.hasBeauty,
-            this.hasMinimumAffection, this.hasDayNight, this.hasKnownMoves, this.hasNeedsRain
+            this.hasMinimumAffection, this.hasDayNight, this.hasKnownMoves, this.hasNeedsRain, this.hasTradeSpecies
           )
           console.log("does pokemon evolve: ", this.doesPokemonEvolve)
         })
@@ -184,7 +187,7 @@ export class EvolvesHowComponent implements OnInit {
   }
 
   getEvolutionDetails(chain: any) {
-    //console.log("chain: ",chain);
+    console.log("chain: ",chain);
     let name = chain['species'].name
     let pkmnId = chain['species'].url.split("/")[6]
     let evolutionDetails: any;
@@ -407,7 +410,7 @@ export class EvolvesHowComponent implements OnInit {
   }
 
   setAttributesMap(details: any) {
-    console.log("evolution_details for:", details.name, " ", details)
+    console.info("details: ", details)
     this.specificAttributesMap = this.generateDefaultAttributesMap()
     //if (details == null) return attributesMap
     if (this.specificAttributesMap.get("name") == null) this.specificAttributesMap.set("name", details.name)
@@ -458,6 +461,17 @@ export class EvolvesHowComponent implements OnInit {
     if (this.specificAttributesMap.get("turn_upside_down") == null) {
       this.specificAttributesMap.set("turn_upside_down", details?.turn_upside_down ? Array.of(details.turn_upside_down) : null)
     }
+    let triggerMap = this.specificAttributesMap.get("trigger");
+
+    let triggerUrl = triggerMap != null ? triggerMap.get("url").toString() : "";
+    if (triggerUrl !== "" && triggerUrl.endsWith("/2")) {
+      //let names = this.pokemonService.getPokemonNamesThatEvolveFromTrading();
+      //if (!names.isEmpty()) {
+        this.specificAttributesMap.set("trade_species", true);
+      //}
+    }
+    console.log("evolution_details for:", details.name, " ", details)
+
     this.pokemonIdAndAttributesMap.set(Number.parseInt(details.id), this.specificAttributesMap)
   }
 
@@ -555,7 +569,7 @@ export class EvolvesHowComponent implements OnInit {
   determineIfPokemonEvolves(level: boolean, isBabyPokemon: boolean, evolvesWithItem: boolean,
                             evolvesWithHeldItem: boolean, evolvesByHappinessAttribute: boolean,
                             hasBeauty: boolean, hasMinAffection: boolean, hasDayNight: boolean,
-                            hasKnownMove: boolean, hasNeedsRain: boolean)
+                            hasKnownMove: boolean, hasNeedsRain: boolean, hasTradeSpecies: boolean)
   {
     //console.log(level, " ", isBabyPokemon, " ", evolvesWithItem, " ", evolvesWithHeldItem, " ", evolvesByHappinessAttribute)
     return level ||
@@ -567,7 +581,8 @@ export class EvolvesHowComponent implements OnInit {
       hasMinAffection ||
       hasDayNight ||
       hasKnownMove ||
-      hasNeedsRain
+      hasNeedsRain ||
+      hasTradeSpecies
   }
 
   checkTypeAndUpdateIfNecessary(id: number, item: any, pokemonType: any): string {
