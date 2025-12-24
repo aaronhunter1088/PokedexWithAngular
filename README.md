@@ -1,12 +1,12 @@
 # PokédexWithAngular
 #### Versions
 - Angular Pokédex App v1.0.0
-- Angular CLI: 15.0.5
-- Angular: 15.2.10
-- TypeScript: 4.9.5 (version check: npx tsc -v)
+- Inception Year: 2022
+- Angular CLI: 17.3.17
+- Angular: 17.3.12
+- TypeScript: 5.2.2 (version check: npx tsc -v)
 - Node: 18.19.1
 - Package Manager: npm 9.2.0
-- App Version 1.0.0
 
 The application starts at index.html. It defines the head, then the app-root component.
 
