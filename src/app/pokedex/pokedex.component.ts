@@ -46,106 +46,105 @@ export class PokedexComponent implements OnInit, OnChanges {
         this.screenHeight = window.innerHeight
         //console.log("w: " + this.screenWidth + " h: " + this.screenHeight)
         this.styleFlag = this.screenWidth > 400 && this.screenHeight > 400
-        this.route.params
-            .subscribe(params => {
-                //console.log("params", params)
-                //console.log("pokemonID", this.pokemonID);
-                if (Object.keys(params).length !== 0) {
-                    //console.log("params keys.length: ", Object.keys(params).length)
-                    this.pokemonID = <number>params['pokemonID'].split("=")[1].trim()
-                }
-                if (this.pokemonID === undefined) this.pokemonID = <number>params['pokemonID']
-                if (this.pokemonID > 0) {
-                    //console.log("chosen pokemon with ID: '" + this.pokemonID + "'")
-                    this.pokemonDescription = ''
-                    this.pokemonLocations = []
-                    this.pokemonMoves = []
-                    this.pokemonService.getPokemonByName(this.pokemonID)
-                        .then((pokemon: any) => {
-                            //console.log("pokemon: ", pokemon)
-                            this.pokemonName = pokemon.name
-                            //console.log("name: " + pokemon.name)
-                            let sprites = pokemon['sprites']//<object>pokemon['sprites']
-                            //sprites.official = sprites.official;
-                            pokemon['sprites'] = sprites;
-                            this.pokemonSprites = sprites;
-                            let species = pokemon['species']
-                            this.pokemonImage = pokemon['sprites']['front_default']
-                            this.pokemonImage = this.pokemonImage != null ? this.pokemonImage : "./assets/images/pokeball1.jpg"
-                            this.gifImage = pokemon['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
-                            this.officialImage = pokemon['sprites']['other']['official-artwork']['front_default']
-                            //this.pokemonName = pokemon.name
-                            this.pokemonID = pokemon.id
-                            // edit weight
-                            let weight = pokemon.weight.toString()
-                            //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
-                            weight = weight.slice(0, -1) + '.' + weight.slice(-1)
-                            this.pokemonWeight = weight
-                            // edit height
-                            let height = pokemon.height.toString()
-                            if (height.length == 1) height = "0." + height
-                            else height = height.slice(0, -1) + '.' + height.slice(-1)
-                            this.pokemonHeight = height
-                            // get and set color, and pokemon description
-                            this.pokemonService.getPokemonSpeciesData(species.url)
-                                .then((speciesData: any) => {
-                                    //console.log("pokemon species: ", speciesData);
-                                    this.pokemonColor = speciesData['color']['name'];
-                                    this.changeColor(this.pokemonColor);
-                                    this.pokemonDescriptions = speciesData.flavor_text_entries;
-                                    this.pokemonDescription = this.getEnglishDescriptions();
-                                }) //.subscribe
-                            // parse over the types
-                            this.pokemonType = pokemon.types
-                            //console.log("pokemonType", pokemon.types);
-                            if (this.pokemonType.length > 1) {
-                                // @ts-ignore
-                                this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1) + " and " + this.pokemonType[1].type.name[0].toUpperCase() + this.pokemonType[1].type.name.substring(1)
-                            } else {
-                                // @ts-ignore
-                                this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1)
-                            }
-                            // locations
-                            this.pokemonService.getPokemonLocationEncounters(this.pokemonID.toString()).then(
-                                (locations: any) => {
-                                    if (locations.length == 0) {
-                                        this.pokemonLocations.push("No known locations!")
-                                    } else {
-                                        locations.forEach((location: any) => {
-                                            let names = location['location_area']['name'].split("-")
-                                            let newName = ''
-                                            names.forEach((name: string) => {
-                                                name = name[0].toUpperCase() + name.substring(1)
-                                                newName += name + " "
-                                                //console.log(newName);
-                                            })
-                                            this.pokemonLocations.push(newName)
+        this.route.params.subscribe(params => {
+            //console.log("params", params)
+            //console.log("pokemonID", this.pokemonID);
+            if (Object.keys(params).length !== 0) {
+                //console.log("params keys.length: ", Object.keys(params).length)
+                this.pokemonID = <number>params['pokemonID'].split("=")[1].trim()
+            }
+            if (this.pokemonID === undefined) this.pokemonID = <number>params['pokemonID']
+            if (Number.parseInt(<string>this.pokemonID) > 0) {
+                //console.log("chosen pokemon with ID: '" + this.pokemonID + "'")
+                this.pokemonDescription = ''
+                this.pokemonLocations = []
+                this.pokemonMoves = []
+                this.pokemonService.getPokemonByName(this.pokemonID)
+                    .then((pokemon: any) => {
+                        //console.log("pokemon: ", pokemon)
+                        this.pokemonName = pokemon.name
+                        //console.log("name: " + pokemon.name)
+                        let sprites = pokemon['sprites']//<object>pokemon['sprites']
+                        //sprites.official = sprites.official;
+                        pokemon['sprites'] = sprites;
+                        this.pokemonSprites = sprites;
+                        let species = pokemon['species']
+                        this.pokemonImage = pokemon['sprites']['front_default']
+                        this.pokemonImage = this.pokemonImage != null ? this.pokemonImage : "./assets/images/pokeball1.jpg"
+                        this.gifImage = pokemon['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+                        this.officialImage = pokemon['sprites']['other']['official-artwork']['front_default']
+                        //this.pokemonName = pokemon.name
+                        this.pokemonID = pokemon.id
+                        // edit weight
+                        let weight = pokemon.weight.toString()
+                        //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
+                        weight = weight.slice(0, -1) + '.' + weight.slice(-1)
+                        this.pokemonWeight = weight
+                        // edit height
+                        let height = pokemon.height.toString()
+                        if (height.length == 1) height = "0." + height
+                        else height = height.slice(0, -1) + '.' + height.slice(-1)
+                        this.pokemonHeight = height
+                        // get and set color, and pokemon description
+                        this.pokemonService.getPokemonSpeciesData(species.url)
+                            .then((speciesData: any) => {
+                                //console.log("pokemon species: ", speciesData);
+                                this.pokemonColor = speciesData['color']['name'];
+                                this.changeColor(this.pokemonColor);
+                                this.pokemonDescriptions = speciesData.flavor_text_entries;
+                                this.pokemonDescription = this.getEnglishDescriptions();
+                            }) //.subscribe
+                        // parse over the types
+                        this.pokemonType = pokemon.types
+                        //console.log("pokemonType", pokemon.types);
+                        if (this.pokemonType.length > 1) {
+                            // @ts-ignore
+                            this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1) + " and " + this.pokemonType[1].type.name[0].toUpperCase() + this.pokemonType[1].type.name.substring(1)
+                        } else {
+                            // @ts-ignore
+                            this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1)
+                        }
+                        // locations
+                        this.pokemonService.getPokemonLocationEncounters(this.pokemonID.toString()).then(
+                            (locations: any) => {
+                                if (locations.length == 0) {
+                                    this.pokemonLocations.push("No known locations!")
+                                } else {
+                                    locations.forEach((location: any) => {
+                                        let names = location['location_area']['name'].split("-")
+                                        let newName = ''
+                                        names.forEach((name: string) => {
+                                            name = name[0].toUpperCase() + name.substring(1)
+                                            newName += name + " "
+                                            //console.log(newName);
                                         })
-                                        this.pokemonLocations.sort()
-                                    }
-                                });
-                            // moves
-                            let allMoves = pokemon['moves']
-                            //console.log("all moves: ")
-                            //console.log(allMoves)
-                            for (let i = 0; i < allMoves.length; i++) {
-                                //console.log("move: ")
-                                //console.log(allMoves[i]['move'].name)
-                                let move = allMoves[i]['move'].name
-                                move = move[0].toUpperCase() + move.substring(1)
-                                this.pokemonMoves.push(move)
-                            }
-                            this.pokemonMoves.sort()
-                        })
-                        .catch((error: any) => {
-                            console.log("Couldn't get Pokemon info with: '" + this.pokemonID + "'")
-                            console.log(error)
-                        })
-                    this.ngOnChanges()
-                } else {
-                    console.log("searching for a new pokemon")
-                }
-            })
+                                        this.pokemonLocations.push(newName)
+                                    })
+                                    this.pokemonLocations.sort()
+                                }
+                            });
+                        // moves
+                        let allMoves = pokemon['moves']
+                        //console.log("all moves: ")
+                        //console.log(allMoves)
+                        for (let i = 0; i < allMoves.length; i++) {
+                            //console.log("move: ")
+                            //console.log(allMoves[i]['move'].name)
+                            let move = allMoves[i]['move'].name
+                            move = move[0].toUpperCase() + move.substring(1)
+                            this.pokemonMoves.push(move)
+                        }
+                        this.pokemonMoves.sort()
+                    })
+                    .catch((error: any) => {
+                        console.log("Couldn't get Pokemon info with: '" + this.pokemonID + "'")
+                        console.log(error)
+                    })
+                this.ngOnChanges()
+            } else {
+                console.log("searching for a new pokemon")
+            }
+        })
     }
 
     @HostListener('window:resize', ['$event'])
