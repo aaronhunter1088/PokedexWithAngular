@@ -3,7 +3,7 @@
 - Angular Pokédex App v1.0.0
 - Angular CLI: 15.0.5
 - Angular: 15.2.10
-- TypeScript: 4.8.4 (version check: npx tsc -v)
+- TypeScript: 4.9.5 (version check: npx tsc -v)
 - Node: 18.19.1
 - Package Manager: npm 9.2.0
 - App Version 1.0.0
