@@ -1,4 +1,5 @@
 # PokédexWithAngular
+- Version 1.0.0
 
 The application starts at index.html. It defines the head, then the app-root component.
 
