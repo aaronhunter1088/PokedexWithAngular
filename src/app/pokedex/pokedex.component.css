@@ -1,20 +1,20 @@
 .listStyle {
-  display: block;
-  margin: 0;
+    display: block;
+    margin: 0;
 }
 
 .pokemon-grid {
-  display: grid;
-  grid-gap: 15px;
-  padding: 20px;
-  /*grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));*/
-  grid-template-columns: 1fr 1fr
+    display: grid;
+    grid-gap: 15px;
+    padding: 20px;
+    /*grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));*/
+    grid-template-columns: 1fr 1fr
 }
 
 .pokemon-grid .box {
-  width: 100%;
-  height: 400px;
-  box-shadow: 1px 2px 5px rgba(0,0,0,0.3);
+    width: 100%;
+    height: 400px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .stacked {
@@ -22,15 +22,16 @@
     text-align: center;
     vertical-align: middle;
 }
+
 ::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* make scrollbar transparent */
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
 }
 
 label {
-  display: inline-flex;
-  width: 50px;
-  text-align: center;
-  justify-content: center;
-  padding-top: 1.2em;
+    display: inline-flex;
+    width: 50px;
+    text-align: center;
+    justify-content: center;
+    padding-top: 1.2em;
 }

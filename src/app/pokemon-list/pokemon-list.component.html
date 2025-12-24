@@ -1,76 +1,78 @@
 <pagination-controls
-  style="justify-content: space-evenly;"
-  [maxSize]="this.itemsPerPage"
-  (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();">
+        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
+        [maxSize]="this.itemsPerPage"
+        style="justify-content: space-evenly;">
 </pagination-controls>
 <div style="display:inline-flex;">
-  <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
-    Show GIFs
-  </mat-slide-toggle>
-  <p style="padding-right: 10px;"></p>
-  <div id="jumpToPage" style="display:flex;width: 100%;">
-    <input type="text" placeholder="Page #" style="width:50px;"
-           #pageNumber
-           (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"/>
-    <button class="icon" (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';">Jump to Page</button>
-  </div>
-  <div id="show#Pokemon" style="display:flex;width: 100%;">
-    <input type="text" placeholder="# of PkMn" style="width:65px;"
-           #showNPokemon
-           (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"/>
-    <button class="icon" (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';">Show Pokemon</button>
-  </div>
+    <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
+        Show GIFs
+    </mat-slide-toggle>
+    <p style="padding-right: 10px;"></p>
+    <div id="jumpToPage" style="display:flex;width: 100%;">
+        <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" placeholder="Page #"
+               style="width:50px;"
+               type="text"/>
+        <button (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" class="icon">Jump to Page</button>
+    </div>
+    <div id="show#Pokemon" style="display:flex;width: 100%;">
+        <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" placeholder="# of PkMn"
+               style="width:65px;"
+               type="text"/>
+        <button (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" class="icon">Show
+            Pokemon
+        </button>
+    </div>
 </div>
 
 <div class="pokemon-grid">
-  <div
-    *ngFor="let pokemon of pokemonMap | keyvalue | paginate: {itemsPerPage: this.itemsPerPage, currentPage: this.page, totalItems: this.numberOfPokemon}">
-    <nav>
-      <a routerLink="/pokedex/?pokemonID={{pokemon.value.id}}" style="text-decoration: none; color: black;">
-        <div class="box" title="Click for more info"
-             [ngStyle]="{'background-color':changeColor(pokemon.value.color)}">
-          <div id="nameAndID" style="display:inline-flex;">
-            <h3 id="name"
-                *ngIf="pokemon.value.id;"
-            >{{pokemon.value.name | titlecase}}</h3>
-            <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <h3 id="idOfPokemon">ID: {{pokemon.value.id}}</h3>
-          </div>
-          <div id="image"
-               *ngFor="let sprites of getPokemonSprites(pokemon.value) | keyvalue;">
-            <ng-template [ngIf]="defaultImagePresent" [ngIfElse]="officialImage">
-              <img *ngIf="sprites.key == 'front' && !showGifs"
-                   [src]="sprites.value" alt="{{pokemon.value.name}}-default"
-                   (mouseover)="sprites.value = showOfficialArtwork(pokemon.value)"
-                   (mouseout)="sprites.value = showFrontImage(pokemon.value);"
-              >
-              <img *ngIf="sprites.key == 'gif' && showGifs && gifImagePresent;"
-                   [src]="sprites.value" alt="{{pokemon.value.name}}-gif"
-              >
-              <img *ngIf="sprites.key == 'official' && showGifs && !gifImagePresent;"
-                   [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-              >
-            </ng-template>
-            <ng-template #officialImage>
-              <img *ngIf="sprites.key == 'official' && sprites.value != null;"
-                   [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-              >
-              <img *ngIf="sprites.key == 'official' && sprites.value == null;"
-                src="assets/images/pokeball1.jpg" alt="pokeball">
-            </ng-template>
-          </div>
-          <div id="info" style="display:inline-block;">
-            <h3 id="heightOfPokemon">Height: {{pokemon.value.height}} m</h3>
-            <h3 id="weightOfPokemon">Weight: {{pokemon.value.weight}} kg</h3>
-            <h3 id="colorOfPokemon">Color: {{pokemon.value.color | titlecase}}</h3>
-            <h3 id="typeOfPokemon">Type: {{pokemon.value.type}}</h3>
-          </div>
-        </div>
-      </a>
-    </nav>
-  </div>
+    <div
+            *ngFor="let pokemon of pokemonMap | keyvalue | paginate: {itemsPerPage: this.itemsPerPage, currentPage: this.page, totalItems: this.numberOfPokemon}">
+        <nav>
+            <a routerLink="/pokedex/?pokemonID={{pokemon.value.id}}" style="text-decoration: none; color: black;">
+                <div [ngStyle]="{'background-color':changeColor(pokemon.value.color)}" class="box"
+                     title="Click for more info">
+                    <div id="nameAndID" style="display:inline-flex;">
+                        <h3 *ngIf="pokemon.value.id;"
+                            id="name"
+                        >{{ pokemon.value.name | titlecase }}</h3>
+                        <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <h3 id="idOfPokemon">ID: {{ pokemon.value.id }}</h3>
+                    </div>
+                    <div *ngFor="let sprites of getPokemonSprites(pokemon.value) | keyvalue;"
+                         id="image">
+                        <ng-template [ngIfElse]="officialImage" [ngIf]="defaultImagePresent">
+                            <img (mouseout)="sprites.value = showFrontImage(pokemon.value);"
+                                 (mouseover)="sprites.value = showOfficialArtwork(pokemon.value)" *ngIf="sprites.key == 'front' && !showGifs"
+                                 [src]="sprites.value"
+                                 alt="{{pokemon.value.name}}-default"
+                            >
+                            <img *ngIf="sprites.key == 'gif' && showGifs && gifImagePresent;"
+                                 [src]="sprites.value" alt="{{pokemon.value.name}}-gif"
+                            >
+                            <img *ngIf="sprites.key == 'official' && showGifs && !gifImagePresent;"
+                                 [src]="sprites.value" alt="{{pokemon.value.name}}-official"
+                            >
+                        </ng-template>
+                        <ng-template #officialImage>
+                            <img *ngIf="sprites.key == 'official' && sprites.value != null;"
+                                 [src]="sprites.value" alt="{{pokemon.value.name}}-official"
+                            >
+                            <img *ngIf="sprites.key == 'official' && sprites.value == null;"
+                                 alt="pokeball" src="assets/images/pokeball1.jpg">
+                        </ng-template>
+                    </div>
+                    <div id="info" style="display:inline-block;">
+                        <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} m</h3>
+                        <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} kg</h3>
+                        <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
+                        <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
+                    </div>
+                </div>
+            </a>
+        </nav>
+    </div>
 </div>
 <pagination-controls
-  style="justify-content: space-evenly;"
-  [maxSize]="this.itemsPerPage"
-  (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"></pagination-controls>
+        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
+        [maxSize]="this.itemsPerPage"
+        style="justify-content: space-evenly;"></pagination-controls>

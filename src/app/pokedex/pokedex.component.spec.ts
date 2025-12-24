@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PokedexComponent } from './pokedex.component';
+import {PokedexComponent} from './pokedex.component';
 
 describe('PokedexComponent', () => {
-  let component: PokedexComponent;
-  let fixture: ComponentFixture<PokedexComponent>;
+    let component: PokedexComponent;
+    let fixture: ComponentFixture<PokedexComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PokedexComponent ]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            declarations: [PokedexComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(PokedexComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(PokedexComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

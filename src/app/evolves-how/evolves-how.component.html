@@ -1,104 +1,104 @@
-<ng-template [ngIf]="!emptyChain" [ngIfElse]="isEmptyChain">
-  <ng-template [ngIf]="doesPokemonEvolve" [ngIfElse]="doesNotEvolve">
-    <div *ngIf="hasMinimumLevel != false">
-      <h3 id="levelOfPokemon1"><b>Evolves At Lvl: </b>{{minimumLevel}}</h3>
-    </div> <!-- with level -->
-    <div *ngIf="hasUseItem;">
-      <h3 id="itemToEvolveTitle"
-          class="listStyle"><b>Evolves with: </b></h3>
-      <div *ngFor="let item of useItem; let i=index;">
-        <h3 id="useItem{{i+1}}"
-            class="listStyle"
-        >{{item | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with use_item -->
-    <div *ngIf="hasHeldItem">
-      <h3 id="heldItemToEvolveTitle"
-          class="listStyle"><b>Evolves by holding: </b></h3>
-      <div *ngFor="let holdItem of heldItem; let i=index;">
-        <h3 id="holdItem{{i+1}}"
-            class="listStyle"
-        >{{holdItem | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with held_item -->
-    <div *ngIf="hasMinimumHappiness">
-      <h3 id="happiness"><b>Evolves w/ Happiness: </b>{{minimumHappiness}}</h3>
-    </div> <!-- with happiness -->
-    <div *ngIf="hasMinimumAffection">
-      <h3 id="affection"><b>Evolves w/ Affection: </b>{{minimumAffection}}</h3>
-    </div> <!-- with affection -->
-    <div *ngIf="hasBeauty">
-      <h3 id="beauty"><b>Evolves w/ Beauty: </b>{{minimumBeauty}}</h3>
-    </div> <!-- with beauty -->
-    <div *ngIf="hasDayNight">
-      <h3 id="dayNightTitle"
-          class="listStyle"><b>Evolves during: </b></h3>
-      <div *ngFor="let time of dayNight; let i=index;">
-        <h3 id="dayNight{{i+1}}"
-            class="listStyle"
-        >{{time | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with time of day -->
-    <div *ngIf="hasLocations">
-      <h3 id="locationsTitle"
-          class="listStyle"><b>Evolves at location: </b></h3>
-      <div *ngFor="let location of locations; let i=index;">
-        <h3 id="location{{i+1}}"
-            class="listStyle"
-        >{{location | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with locations -->
-    <div *ngIf="hasKnownMoves">
-      <h3 id="knownMovesTitle"
-          class="listStyle"><b>Evolves with move: </b></h3>
-      <div *ngFor="let move of knownMoves; let i=index;">
-        <h3 id="location{{i+1}}"
-            class="listStyle"
-        >{{move | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with known moves -->
-    <div *ngIf="hasKnownMoveType">
-      <h3 id="knownMovesTypesTitle"
-          class="listStyle"><b>Evolves with move type: </b></h3>
-      <div *ngFor="let moveType of knownMoveTypes; let i=index;">
-        <h3 id="knownMoveType{{i+1}}"
-            class="listStyle"
-        >{{moveType | titlecase}}</h3>
-      </div>
-      <br>
-    </div> <!-- with known moves types -->
-    <div *ngIf="hasNeedsRain">
-      <h3 id="needsRainTitle"
-          class="listStyle"><b>Evolves with rain: </b></h3>
-      <h3 id="rain"
-          class="listStyle"
-      >{{needsRain | titlecase}}</h3>
-      <br>
-    </div> <!-- with needs rain -->
-    <!-- other attributes -->
-    <div *ngIf="hasTurnUpsideDown">
-      <h3 id="turnUpsideDownTitle"
-          class="listStyle"><b>Evolves by turning Upside Down: </b></h3>
-      <h3 id="upsideDown"
-          class="listStyle"
-      >{{turnUpsideDown | titlecase}}</h3>
-      <br>
-    </div> <!-- with turn upside down -->
-    <div *ngIf="hasTradeSpecies">
-      <h3 id="tradeSpeciesTitle"
-          class="listStyle"><b>Evolves by Trading</b></h3>
-      <br>
-    </div> <!-- with trade species -->
-  </ng-template>
-  <ng-template #doesNotEvolve>
-    <h3 id="levelOfPokemon">Final Form</h3>
-  </ng-template>
+<ng-template [ngIfElse]="isEmptyChain" [ngIf]="!emptyChain">
+    <ng-template [ngIfElse]="doesNotEvolve" [ngIf]="doesPokemonEvolve">
+        <div *ngIf="hasMinimumLevel != false">
+            <h3 id="levelOfPokemon1"><b>Evolves At Lvl: </b>{{ minimumLevel }}</h3>
+        </div> <!-- with level -->
+        <div *ngIf="hasUseItem;">
+            <h3 class="listStyle"
+                id="itemToEvolveTitle"><b>Evolves with: </b></h3>
+            <div *ngFor="let item of useItem; let i=index;">
+                <h3 class="listStyle"
+                    id="useItem{{i+1}}"
+                >{{ item | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with use_item -->
+        <div *ngIf="hasHeldItem">
+            <h3 class="listStyle"
+                id="heldItemToEvolveTitle"><b>Evolves by holding: </b></h3>
+            <div *ngFor="let holdItem of heldItem; let i=index;">
+                <h3 class="listStyle"
+                    id="holdItem{{i+1}}"
+                >{{ holdItem | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with held_item -->
+        <div *ngIf="hasMinimumHappiness">
+            <h3 id="happiness"><b>Evolves w/ Happiness: </b>{{ minimumHappiness }}</h3>
+        </div> <!-- with happiness -->
+        <div *ngIf="hasMinimumAffection">
+            <h3 id="affection"><b>Evolves w/ Affection: </b>{{ minimumAffection }}</h3>
+        </div> <!-- with affection -->
+        <div *ngIf="hasBeauty">
+            <h3 id="beauty"><b>Evolves w/ Beauty: </b>{{ minimumBeauty }}</h3>
+        </div> <!-- with beauty -->
+        <div *ngIf="hasDayNight">
+            <h3 class="listStyle"
+                id="dayNightTitle"><b>Evolves during: </b></h3>
+            <div *ngFor="let time of dayNight; let i=index;">
+                <h3 class="listStyle"
+                    id="dayNight{{i+1}}"
+                >{{ time | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with time of day -->
+        <div *ngIf="hasLocations">
+            <h3 class="listStyle"
+                id="locationsTitle"><b>Evolves at location: </b></h3>
+            <div *ngFor="let location of locations; let i=index;">
+                <h3 class="listStyle"
+                    id="location{{i+1}}"
+                >{{ location | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with locations -->
+        <div *ngIf="hasKnownMoves">
+            <h3 class="listStyle"
+                id="knownMovesTitle"><b>Evolves with move: </b></h3>
+            <div *ngFor="let move of knownMoves; let i=index;">
+                <h3 class="listStyle"
+                    id="location{{i+1}}"
+                >{{ move | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with known moves -->
+        <div *ngIf="hasKnownMoveType">
+            <h3 class="listStyle"
+                id="knownMovesTypesTitle"><b>Evolves with move type: </b></h3>
+            <div *ngFor="let moveType of knownMoveTypes; let i=index;">
+                <h3 class="listStyle"
+                    id="knownMoveType{{i+1}}"
+                >{{ moveType | titlecase }}</h3>
+            </div>
+            <br>
+        </div> <!-- with known moves types -->
+        <div *ngIf="hasNeedsRain">
+            <h3 class="listStyle"
+                id="needsRainTitle"><b>Evolves with rain: </b></h3>
+            <h3 class="listStyle"
+                id="rain"
+            >{{ needsRain | titlecase }}</h3>
+            <br>
+        </div> <!-- with needs rain -->
+        <!-- other attributes -->
+        <div *ngIf="hasTurnUpsideDown">
+            <h3 class="listStyle"
+                id="turnUpsideDownTitle"><b>Evolves by turning Upside Down: </b></h3>
+            <h3 class="listStyle"
+                id="upsideDown"
+            >{{ turnUpsideDown | titlecase }}</h3>
+            <br>
+        </div> <!-- with turn upside down -->
+        <div *ngIf="hasTradeSpecies">
+            <h3 class="listStyle"
+                id="tradeSpeciesTitle"><b>Evolves by Trading</b></h3>
+            <br>
+        </div> <!-- with trade species -->
+    </ng-template>
+    <ng-template #doesNotEvolve>
+        <h3 id="levelOfPokemon">Final Form</h3>
+    </ng-template>
 </ng-template>
 <ng-template #isEmptyChain>
-  <h3>No Pokemon chain info found: Chain ID: {{pokemonChainID}}</h3>
+    <h3>No Pokemon chain info found: Chain ID: {{ pokemonChainID }}</h3>
 </ng-template>
