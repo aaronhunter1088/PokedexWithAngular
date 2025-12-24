@@ -8,7 +8,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {HttpClientModule} from "@angular/common/http";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
-import {OrderModule} from "ngx-order-pipe";
+//import {OrderModule} from "ngx-order-pipe";
 import {ArraySortPipe} from './array-sort.pipe';
 import {EvolvesHowComponent} from './evolves-how/evolves-how.component';
 import {PokemonService} from './services/pokemon.service';
@@ -29,7 +29,7 @@ import {PokemonService} from './services/pokemon.service';
         NgxPaginationModule,
         MatSlideToggleModule,
         BrowserAnimationsModule,
-        OrderModule
+        //OrderModule
     ],
     providers: [PokemonService],
     bootstrap: [AppComponent]

@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "types": [],
+    "types": ["jasmine"],
     "skipLibCheck": true,
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
