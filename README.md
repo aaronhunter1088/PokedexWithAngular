@@ -1,6 +1,12 @@
 # PokédexWithAngular
-
-- Version 1.0.0
+#### Versions
+- Angular Pokédex App v1.0.0
+- Angular CLI: 15.0.5
+- Angular: 15.2.10
+- TypeScript: 4.8.4 (version check: npx tsc -v)
+- Node: 18.19.1
+- Package Manager: npm 9.2.0
+- App Version 1.0.0
 
 The application starts at index.html. It defines the head, then the app-root component.
 
@@ -26,9 +32,23 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
-Run `ng serve` or `npm run start` for a dev server. Navigate to `http://localhost:4200/`.
-The application should automatically reload if you change any of the source files.
-Run `ng serve --host <IP Address>` to deploy to your local IP address to access on other devices.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application 
+will automatically reload if you change any of the source files.
+
+## Debugging the UI
+
+To debug the Angular application, we can create a run configuration which will also launch a JavaScript
+debugger for us. First, create a new Run Configuration for npm. Set the command to "run" and the
+script to "start". Start calls `ng serve` under the hood. Add the following arguments as well:
+- --source-map
+- --open
+
+Next, click on `Browser/Live Edit` tab and enable opening the browser after launch. Set the browser to
+any that is allowed. Set the URL to `http://localhost:4200/`. Apply and save the configuration.
+Last, create a JavaScript Debug configuration. Give it a name, set the browser the the URL to the same
+one as before: `http://localhost:4200/`. Apply and save the configuration.
+When you start the npm run configuration, it will launch the browser, follwed by the JavaScript
+debug configuration, which attaches itself to the browser session.
 
 ## Code scaffolding
 
