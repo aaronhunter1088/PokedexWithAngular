@@ -5,7 +5,8 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
     selector: 'app-pokedex',
     templateUrl: './pokedex.component.html',
-    styleUrls: ['./pokedex.component.css']
+    styleUrls: ['./pokedex.component.css'],
+    standalone: false
 })
 export class PokedexComponent implements OnInit, OnChanges {
     @Input() pokemonSprites = {}

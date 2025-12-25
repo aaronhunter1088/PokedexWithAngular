@@ -19,4 +19,5 @@ export class AppRoutingModule {
 }
 
 // Is EvolutionsComponent really a routingComponent??
-export const routingComponents = [PokemonListComponent, SearchComponent, PokedexComponent, EvolutionsComponent]
+export const routingComponents = [
+    PokemonListComponent, SearchComponent, PokedexComponent, EvolutionsComponent]

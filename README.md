@@ -2,11 +2,11 @@
 
 #### Versions
 
-- Angular Pokédex App v1.1.0
+- Angular Pokédex App v1.1.19
 - Inception Year: 2022
-- Angular CLI: 18.2.21
-- Angular: 18.2.14
-- TypeScript: 5.5.4 (version check: npx tsc -v)
+- Angular CLI: 19.2.19
+- Angular: 19.2.17
+- TypeScript: 5.8.3 (version check: npx tsc -v)
 - Node: 18.19.1
 - Package Manager: npm 9.2.0
 

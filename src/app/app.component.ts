@@ -6,7 +6,8 @@ import {Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@a
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent implements OnInit, OnChanges {
 

@@ -5,7 +5,8 @@ import {PokemonService} from "../services/pokemon.service";
 @Component({
     selector: 'app-evolutions',
     templateUrl: './evolutions.component.html',
-    styleUrls: ['./evolutions.component.css']
+    styleUrls: ['./evolutions.component.css'],
+    standalone: false
 })
 export class EvolutionsComponent implements OnInit, OnChanges {
 
