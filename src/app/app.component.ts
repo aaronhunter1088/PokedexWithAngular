@@ -15,7 +15,7 @@ export class AppComponent implements OnInit, OnChanges {
     previousRoute: string;
     title = 'PokedexHome'
 
-    constructor(private router: Router, private pokemonService: PokemonService, private http: HttpClient) {
+    constructor(private router: Router) {
         this.currentRoute = "";
         this.previousRoute = "";
         this.router.events.subscribe((event: Event) => {
@@ -42,11 +42,9 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-
     }
 
     ngOnChanges() {
-
     }
 
     getPreviousRoute() {

@@ -66,10 +66,10 @@ export class PokemonListComponent implements OnInit {
                             pokemon.type = pokemonType;
                             let frontImg = sprites['front_default'];
                             pokemon.showDefaultImage = frontImg != null;
-                            this.pokemonService.getPokemonSpeciesData(pokemon['species'].url)
+                            this.pokemonService.getPokemonSpeciesData(pokemon)
                                 .then((speciesData: any) => { // .subscribe
                                     //console.log("speciesData: ", speciesData)
-                                    pokemon.color = speciesData.color.name;
+                                    pokemon.color = speciesData?.color?.name;
                                     // edit weight
                                     let weight = pokemon.weight.toString()
                                     //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
@@ -109,7 +109,6 @@ export class PokemonListComponent implements OnInit {
         let gifImg = pokemon['sprites']['versions']['generation-v']['black-white']['animated'].front_default;
         this.gifImagePresent = gifImg != null;
         return {'front': frontImg, 'shiny': shinyImg, 'official': officialImg, 'gif': gifImg};
-        //return [frontImg, shinyImg, officialArtwork];
     }
 
     showOfficialArtwork(pokemon: any) {

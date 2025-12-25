@@ -207,9 +207,6 @@ export class EvolvesHowComponent implements OnInit {
                 } else {
                     this.updateAttributesMap(evolutionDetails, <Map<string, any>>this.pokemonIdAndAttributesMap.get(Number.parseInt(pkmnId)))
                 }
-                //this.pokemonIdAndAttributesMap.set(pkmnId, this.specificAttributesMap);
-                //this.specificAttributesMap = this.generateDefaultAttributesMap()
-                //console.log("evolution_details for:", name, " id: ", pkmnId, " ", evolutionDetails)
                 this.getEvolutionDetails(evolvesTo) //, attributesMap, pokemonMap)
             }
             if (evolvesTo['evolves_to'].length >= 0) {
@@ -409,7 +406,6 @@ export class EvolvesHowComponent implements OnInit {
             }
         }
         this.pokemonIdAndAttributesMap.set(Number.parseInt(details.id), attributesMap)
-        //return this.specificAttributesMap;
     }
 
     setAttributesMap(details: any) {
@@ -468,10 +464,7 @@ export class EvolvesHowComponent implements OnInit {
 
         let triggerUrl = triggerMap != null ? triggerMap.get("url").toString() : "";
         if (triggerUrl !== "" && triggerUrl.endsWith("/2")) {
-            //let names = this.pokemonService.getPokemonNamesThatEvolveFromTrading();
-            //if (!names.isEmpty()) {
             this.specificAttributesMap.set("trade_species", true);
-            //}
         }
         console.log("evolution_details for:", details.name, " ", details)
 
@@ -500,15 +493,6 @@ export class EvolvesHowComponent implements OnInit {
                 this.pokemonIdAndAttributesMap.set(innerMap[0], innerMap[1])
             }
             // clean up time_of_day: Currently works fine; no cleanup needed
-            // let timeOfDayValues = innerMap[1].get("time_of_day")
-            // if (timeOfDayValues != null) {
-            //   let dayNightSet = new Set()
-            //   timeOfDayValues.forEach((time: any) => {
-            //     if (!dayNightSet.has(time)) dayNightSet.add(time)
-            //   })
-            //   innerMap[1].set("time_of_day", Array.of(dayNightSet).join(' '))
-            //   this.pokemonIdAndAttributesMap.set(innerMap[0], innerMap[1])
-            // }
             // clean up minimum affection
             let minAffectionValues = innerMap[1]?.get("min_affection")
             if (minAffectionValues != null) {
@@ -573,7 +557,8 @@ export class EvolvesHowComponent implements OnInit {
     determineIfPokemonEvolves(level: boolean, isBabyPokemon: boolean, evolvesWithItem: boolean,
                               evolvesWithHeldItem: boolean, evolvesByHappinessAttribute: boolean,
                               hasBeauty: boolean, hasMinAffection: boolean, hasDayNight: boolean,
-                              hasKnownMove: boolean, hasNeedsRain: boolean, hasTradeSpecies: boolean) {
+                              hasKnownMove: boolean, hasNeedsRain: boolean, hasTradeSpecies: boolean)
+    {
         //console.log(level, " ", isBabyPokemon, " ", evolvesWithItem, " ", evolvesWithHeldItem, " ", evolvesByHappinessAttribute)
         return level ||
             isBabyPokemon ||
@@ -643,51 +628,4 @@ export class EvolvesHowComponent implements OnInit {
         // @ts-ignore
         this.pokemonIdAndAttributesMap.set(id, attrMap)
     }
-
-    /*
-    //@ts-ignore
-      idsInChainCheck.every(listOfIDs => {
-        let found = false;
-        if (listOfIDs.includes(pokemonResponse.id)) {
-          found = true;
-          let idToUse = listOfIDs[0];
-          // @ts-ignore
-          level = this.pokemonIdAndAttributesMap.get(idToUse).get("min_level")
-          // if is a gmax pokemon, set to 0
-          if (pokemonResponse.name.split("-")[1] === "gmax") {
-            level = null;
-          }
-          return;
-        }
-        if (found) return false; // to break out of every
-        else listCount += 1;
-      })
-      listCount = 0;
-      //item. item can be different. not always the same
-      // @ts-ignore
-      //let evolvesWithItem = <any>specifics.get("use_item")
-      //console.log("evolvesWithItem: ", evolvesWithItem)
-      // @ts-ignore
-      idsInChainCheck.every(listOfIDs => {
-        let found = false;
-        if (pokemonResponse.name.split("-")[1] === "gmax") {
-          evolvesWithItem = null;
-          return false;
-        }
-        if (listOfIDs.includes(pokemonResponse.id)) {
-          found = true;
-          let idToUse = listOfIDs[0];
-          // @ts-ignore
-          evolvesWithItem = this.pokemonIdAndAttributesMap.get(idToUse).get("use_item")
-          if (evolvesWithItem != null && !(evolvesWithItem instanceof Array)) {
-            evolvesWithItem = this.checkTypeAndUpdateIfNecessary(pokemonResponse.id, evolvesWithItem, pokemonResponse.types)
-          } else {
-            // @ts-ignore
-            evolvesWithItem = this.pokemonIdAndAttributesMap.get(idToUse).get("use_item")
-          }
-        }
-        if (found) return false; // to break out of every
-        else listCount += 1;
-      })
-     */
 }

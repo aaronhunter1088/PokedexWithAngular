@@ -9,7 +9,7 @@ import {PokemonService} from "../services/pokemon.service";
 })
 export class SearchComponent implements OnInit {
 
-    // variables passed into team component
+    // variables passed into search component
     pokemonIDName = '';
     //pokemon = '';
     pokemonName = '';
@@ -26,17 +26,8 @@ export class SearchComponent implements OnInit {
     pokemonLocations: any[] = [];
     pokemonMoves: any[] = [];
     statusCode: number = 0;
-    descriptionDiv = true;
-    locationsDiv = false;
-    movesDiv = false;
-    normal = 'normal';
-    bold = 'bold';
-    screenWidth: number = 0;
-    screenHeight: number = 0;
-    styleFlag: boolean = false;
 
     constructor(private pokemonService: PokemonService) {
-
     }
 
     ngOnInit(): void {
@@ -95,7 +86,7 @@ export class SearchComponent implements OnInit {
                 this.pokemonHeight = pokemon.height;
                 this.pokemonWeight = pokemon.weight;
                 // get and set color, and pokemon description
-                this.pokemonService.getPokemonSpeciesData(pokemon['species'].url)
+                this.pokemonService.getPokemonSpeciesData(pokemon)
                     .then((speciesData: any) => {
                         //console.log("pokemon species: ", speciesData);
                         this.pokemonColor = speciesData['color']['name'];

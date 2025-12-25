@@ -1,14 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Pokedex} from "pokeapi-js-wrapper";
+import {Pokedex, PokemonSpecies} from "pokeapi-js-wrapper";
 
 @Injectable({
     providedIn: 'root'
 })
 export class PokemonService {
 
-    //PokeAPI = require("pokeapi-js-wrapper")
-    Pokedex = new Pokedex();
+    Pokedex = new Pokedex({
+        cache: true
+    });
     savedPageNumber: number = 1;
     pokemonID: number = 0;
     itemsPerPage: number = 10
@@ -32,10 +33,29 @@ export class PokemonService {
         return this.Pokedex.getPokemonByName(pokemonName);
     }
 
-    getPokemonSpeciesData(speciesURL: string) { // speciesURL: string
-        //console.log("service: ", this.Pokedex.getPokemonSpecies(pokemonIDName).then((res: any) => res.body))
-        //return this.Pokedex.getPokemonSpecies(pokemonIDName);
-        return this.callURL(speciesURL).toPromise();
+    /**
+     * Get species data for a given Pokémon.
+     *
+     * @param pokemon The Pokémon object containing species URL.
+     * @returns A promise that resolves to the species data.
+     * Note: This function should function with the Pokedex library,
+     * but I see issues with the response it returns so as a fallback,
+     * I use the callURL function to get the data directly from the URL.
+     */
+    async getPokemonSpeciesData(pokemon: any): Promise<object | undefined> { // speciesURL: string
+        //return this.callURL(pokemon.species.url);
+        return await this.Pokedex.getPokemonSpeciesByName(pokemon.name)
+            // @ts-ignore
+            .then((res => {
+                if (res !== undefined && res.id != 0) {
+                    console.log('Name: \'', res.name, '\' ID: \'', res.id, '\'');
+                    return res;
+                }
+            }))
+            .catch(err => {
+                console.error('Error fetching species data', err);
+                return this.callURL(pokemon.species.url);
+            });
     }
 
     getPokemonLocationEncounters(pokemonID: string) {
@@ -44,12 +64,21 @@ export class PokemonService {
     }
 
     async getPokemonChainData(pokemonChainID: string): Promise<object> {
-        let response = await this.Pokedex.getEvolutionChainById(Number.parseInt(pokemonChainID))
-        return response
+        return await this.Pokedex.getEvolutionChainById(Number.parseInt(pokemonChainID))
     }
 
-    callURL(url: any) {
-        return this.http.get(url);
+    getPokemonNamesThatEvolveFromTrading(): any {
+        console.log("Getting Pokemon names that evolve from trading...");
+        let triggerUrl = "https://pokeapi.co/api/v2/evolution-trigger/2/";
+        this.callURL(triggerUrl)
+            .then((triggerResponse: any) => {
+                let triggerMap = JSON.parse(triggerResponse.body);
+                return triggerMap.pokemon_species.map((m: any) => m.name);
+            });
+    }
+
+    callURL(url: any): Promise<object | undefined> {
+        return this.http.get(url).toPromise();
     }
 
     saveCurrentPage(page: number) {
@@ -568,15 +597,5 @@ export class PokemonService {
             /* End of generation 8 */
             [480, [[906], [907], [908]]]
         ]);
-    }
-
-    getPokemonNamesThatEvolveFromTrading(): any {
-        console.log("Getting Pokemon names that evolve from trading...");
-        let triggerUrl = "https://pokeapi.co/api/v2/evolution-trigger/2/";
-        this.callURL(triggerUrl).toPromise().then((triggerResponse: any) => {
-            let triggerMap = JSON.parse(triggerResponse.body);
-            let pkmnNames = triggerMap.pokemon_species.map((m: any) => m.name);
-            return pkmnNames;
-        });
     }
 }

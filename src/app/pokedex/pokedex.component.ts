@@ -30,7 +30,6 @@ export class PokedexComponent implements OnInit, OnChanges {
     screenWidth: number = 0
     screenHeight: number = 0
     styleFlag: boolean = false
-    showGifs: boolean = false
     gifImage: string = ''
     officialImage: string = ''
 
@@ -66,7 +65,6 @@ export class PokedexComponent implements OnInit, OnChanges {
                         this.pokemonName = pokemon.name
                         //console.log("name: " + pokemon.name)
                         let sprites = pokemon['sprites']//<object>pokemon['sprites']
-                        //sprites.official = sprites.official;
                         pokemon['sprites'] = sprites;
                         this.pokemonSprites = sprites;
                         let species = pokemon['species']
@@ -74,7 +72,6 @@ export class PokedexComponent implements OnInit, OnChanges {
                         this.pokemonImage = this.pokemonImage != null ? this.pokemonImage : "./assets/images/pokeball1.jpg"
                         this.gifImage = pokemon['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
                         this.officialImage = pokemon['sprites']['other']['official-artwork']['front_default']
-                        //this.pokemonName = pokemon.name
                         this.pokemonID = pokemon.id
                         // edit weight
                         let weight = pokemon.weight.toString()
@@ -87,7 +84,7 @@ export class PokedexComponent implements OnInit, OnChanges {
                         else height = height.slice(0, -1) + '.' + height.slice(-1)
                         this.pokemonHeight = height
                         // get and set color, and pokemon description
-                        this.pokemonService.getPokemonSpeciesData(species.url)
+                        this.pokemonService.getPokemonSpeciesData(pokemon)
                             .then((speciesData: any) => {
                                 //console.log("pokemon species: ", speciesData);
                                 this.pokemonColor = speciesData['color']['name'];
@@ -158,7 +155,7 @@ export class PokedexComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges() {
-        //console.log("changes")
+        //console.log("ngOnChanges")
         this.setDivsToNotShow()
         this.descriptionDiv = true
         document.body.style.backgroundColor = "#ffffff"
