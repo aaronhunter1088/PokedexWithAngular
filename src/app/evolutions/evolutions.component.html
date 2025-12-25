@@ -1,41 +1,48 @@
 <h2>Evolutions</h2>
-<div *ngFor="let stage of stages;"
-     class="pokemon-grid box"
-     id="stagesHeader"
-     style="display:inline-flex;justify-content:center;text-align-all:center;width:300px;height:10px;">
+@for (stage of stages; track stage) {
+  <div
+    class="pokemon-grid box"
+    id="stagesHeader"
+    style="display:inline-flex;justify-content:center;text-align-all:center;width:300px;height:10px;">
     <h2>Stage {{ stage }}</h2>
-</div>
+  </div>
+}
 <div id="evolutions" style="display:inline-flex; justify-content: center; width:100%; height:45%;">
-    <div *ngFor="let list of pokemonFamily; let i=index; let isLastPokemon = last; let size = index;"
-         style="overflow-y:scroll; height:460px;">
-        <div *ngFor="let pokemon of list | sort:'{{pokemon.id}}'; let isNotLast = last;"
-             class="pokemon-grid">
-            <nav>
-                <a routerLink="/pokedex/?pokemonID={{pokemon.id}}" style="text-decoration: none; color: black;">
-                    <div [ngStyle]="{'background-color':changeColor(pokemon.color)}" class="box"
-                         style="display:inline-block;">
-                        <div id="idAndName" style="display:inline-flex;">
-                            <h3 id="name">{{ pokemon.name | titlecase }}</h3>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                            <h3 id="idOfPokemon">ID: {{ pokemon.id }}</h3>
-                        </div>
-                        <div id="image">
-                            <img alt="{{pokemon.photo}}-default"
-                                 src="{{pokemon.photo}}" style="width:100px; height:100px;">
-                        </div>
-                        <h3 id="heightOfPokemon">Height: {{ pokemon.height }} m</h3>
-                        <h3 id="weightOfPokemon">Weight: {{ pokemon.weight }} kg</h3>
-                        <h3 id="colorOfPokemon">Color: {{ pokemon.color | titlecase }}</h3>
-                        <h3 id="typeOfPokemon">Type: {{ pokemon.type }}</h3>
-                    </div>
-                </a>
-            </nav>
-            <div *ngIf="!isNotLast"
-                 style="padding-top:25px; text-align:center; justify-content:center;">
-                <img src="./assets/images/pokeball1.jpg"
-                     style="width:25px; height:25px;">
+  @for (list of pokemonFamily; track list; let i = $index; let isLastPokemon = $last; let size = $index) {
+    <div
+      style="overflow-y:scroll; height:460px;">
+      @for (pokemon of list | sort:'{{pokemon.id}}'; track pokemon; let isNotLast = $last) {
+        <div
+          class="pokemon-grid">
+          <nav>
+            <a routerLink="/pokedex/?pokemonID={{pokemon.id}}" style="text-decoration: none; color: black;">
+              <div [ngStyle]="{'background-color':changeColor(pokemon.color)}" class="box"
+                style="display:inline-block;">
+                <div id="idAndName" style="display:inline-flex;">
+                  <h3 id="name">{{ pokemon.name | titlecase }}</h3>
+                  <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                  <h3 id="idOfPokemon">ID: {{ pokemon.id }}</h3>
+                </div>
+                <div id="image">
+                  <img alt="{{pokemon.photo}}-default"
+                    src="{{pokemon.photo}}" style="width:100px; height:100px;">
+                </div>
+                <h3 id="heightOfPokemon">Height: {{ pokemon.height }} m</h3>
+                <h3 id="weightOfPokemon">Weight: {{ pokemon.weight }} kg</h3>
+                <h3 id="colorOfPokemon">Color: {{ pokemon.color | titlecase }}</h3>
+                <h3 id="typeOfPokemon">Type: {{ pokemon.type }}</h3>
+              </div>
+            </a>
+          </nav>
+          @if (!isNotLast) {
+            <div
+              style="padding-top:25px; text-align:center; justify-content:center;">
+              <img src="./assets/images/pokeball1.jpg"
+                style="width:25px; height:25px;">
             </div>
+          }
         </div>
-
+      }
     </div>
+  }
 </div>
