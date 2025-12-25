@@ -149,9 +149,10 @@ export class PokedexComponent implements OnInit, OnChanges {
     }
 
     @HostListener('window:resize', ['$event'])
-    onResize() {
-        this.screenWidth = window.innerWidth;
-        this.screenHeight = window.innerHeight;
+    onResize(event?: UIEvent) {
+        const winConst = (event?.currentTarget ?? window) as Window;
+        this.screenWidth = winConst.innerWidth;
+        this.screenHeight = winConst.innerHeight;
         //console.log("w: " + this.screenWidth + " h: " + this.screenHeight);
         this.styleFlag = this.screenWidth > 400 && this.screenHeight > 400;
     }
