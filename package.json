@@ -7,7 +7,7 @@
     "start": "ng serve",
     "startX": "npx ng serve",
     "build": "ng build",
-    "build-server": "ng build --base-href=/pokedex-with-angular/",
+    "build-server": "ng build --base-href /angular/ --deploy-url /angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
