@@ -19,11 +19,19 @@
 }
 
 html, body {
-    background-color: white;
+    /*background-color: white;*/
+    height: 100%;
+    margin: 0;
 }
 
-html, body {
-    height: 100%;
+.dark {
+    background-color: #121212;
+    color: white;
+}
+
+.light {
+    background-color: white;
+    color: black;
 }
 
 body {
