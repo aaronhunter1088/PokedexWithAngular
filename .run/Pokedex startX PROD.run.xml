@@ -1,18 +1,19 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Pokedex startX PROD" type="js.build_tools.npm">
-    <package-json value="$PROJECT_DIR$/package.json" />
-    <command value="run" />
-    <scripts>
-      <script value="startX" />
-    </scripts>
-    <arguments value="--source-map --open" />
-    <node-interpreter value="project" />
-    <envs>
-      <env name="POKEDEV_PROXY" value="prod" />
-    </envs>
-    <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
-      <browser name="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" start="true" with-js-debugger="true" url="http://localhost:4200" />
-    </EXTENSION>
-    <method v="2" />
-  </configuration>
+    <configuration default="false" name="Pokedex startX PROD" type="js.build_tools.npm">
+        <package-json value="$PROJECT_DIR$/package.json"/>
+        <command value="run"/>
+        <scripts>
+            <script value="startX"/>
+        </scripts>
+        <arguments value="--source-map --open"/>
+        <node-interpreter value="project"/>
+        <envs>
+            <env name="POKEDEV_PROXY" value="prod"/>
+        </envs>
+        <EXTENSION ID="com.intellij.javascript.debugger.execution.StartBrowserRunConfigurationExtension">
+            <browser name="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" start="true" with-js-debugger="true"
+                     url="http://localhost:4200"/>
+        </EXTENSION>
+        <method v="2"/>
+    </configuration>
 </component>

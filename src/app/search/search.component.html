@@ -1,42 +1,42 @@
 <div>
-  <a routerLink="/">
-    <img alt="Go to Home"
-      src="./assets/images/arrow-back.jpg"
-      style="vertical-align:middle; width:50px; height:50px;"
-      title="Click here to return to Homepage">
-  </a>
-  <input
-    #pokemonNameIDInput
-    (input)="onInput(pokemonNameIDInput.value)"
-    (keydown.enter)="getPokemonInfo(); pokemonNameIDInput.value = '';"
-    [value]="pokemonIDName"
-    autofocus
-    placeholder="Pokemon Name/ID"
-    style="vertical-align: middle; justify-content: center; height:50px; width:150px; font-size: 15px;"
-    tabindex="0"
-    type="text"/>
-  <img (click)="getPokemonInfo()"
-    alt="Get Info"
-    src="./assets/images/pokeball1.jpg"
-    style="position: absolute; width:50px; height:50px;"
-    title="Click to Search">
+    <a routerLink="/">
+        <img alt="Go to Home"
+             src="./assets/images/arrow-back.jpg"
+             style="vertical-align:middle; width:50px; height:50px;"
+             title="Click here to return to Homepage">
+    </a>
+    <input
+        #pokemonNameIDInput
+        (input)="onInput(pokemonNameIDInput.value)"
+        (keydown.enter)="getPokemonInfo(); pokemonNameIDInput.value = '';"
+        [value]="pokemonIDName"
+        autofocus
+        placeholder="Pokemon Name/ID"
+        style="vertical-align: middle; justify-content: center; height:50px; width:150px; font-size: 15px;"
+        tabindex="0"
+        type="text"/>
+    <img (click)="getPokemonInfo()"
+         alt="Get Info"
+         src="./assets/images/pokeball1.jpg"
+         style="position: absolute; width:50px; height:50px;"
+         title="Click to Search">
 </div>
 @if (pokemonName.length != 0) {
-  <div>
-    <app-pokedex
-      [pokemonColor]="pokemonColor"
-      [pokemonDescription]="pokemonDescription"
-      [pokemonDescriptions]="pokemonDescriptions"
-      [pokemonHeight]="pokemonHeight"
-      [pokemonID]="pokemonID"
-      [pokemonImage]="pokemonImage"
-      [pokemonLocations]="pokemonLocations"
-      [pokemonMoves]="pokemonMoves"
-      [pokemonName]="pokemonName"
-      [pokemonSprites]="sprites"
-      [pokemonType]="pokemonType"
-      [pokemonWeight]="pokemonWeight"
-      >
-    </app-pokedex>
-  </div>
+    <div>
+        <app-pokedex
+                [pokemonColor]="pokemonColor"
+                [pokemonDescription]="pokemonDescription"
+                [pokemonDescriptions]="pokemonDescriptions"
+                [pokemonHeight]="pokemonHeight"
+                [pokemonID]="pokemonID"
+                [pokemonImage]="pokemonImage"
+                [pokemonLocations]="pokemonLocations"
+                [pokemonMoves]="pokemonMoves"
+                [pokemonName]="pokemonName"
+                [pokemonSprites]="sprites"
+                [pokemonType]="pokemonType"
+                [pokemonWeight]="pokemonWeight"
+        >
+        </app-pokedex>
+    </div>
 }

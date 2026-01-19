@@ -1,4 +1,4 @@
 export const environment = {
-  production: true,
-  landingPageUrl: 'https://your-production-landing-page.com'
+    production: true,
+    landingPageUrl: 'https://mypokedex.us'
 };

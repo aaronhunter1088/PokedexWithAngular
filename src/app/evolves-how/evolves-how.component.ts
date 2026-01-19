@@ -557,8 +557,7 @@ export class EvolvesHowComponent implements OnInit {
     determineIfPokemonEvolves(level: boolean, isBabyPokemon: boolean, evolvesWithItem: boolean,
                               evolvesWithHeldItem: boolean, evolvesByHappinessAttribute: boolean,
                               hasBeauty: boolean, hasMinAffection: boolean, hasDayNight: boolean,
-                              hasKnownMove: boolean, hasNeedsRain: boolean, hasTradeSpecies: boolean)
-    {
+                              hasKnownMove: boolean, hasNeedsRain: boolean, hasTradeSpecies: boolean) {
         //console.log(level, " ", isBabyPokemon, " ", evolvesWithItem, " ", evolvesWithHeldItem, " ", evolvesByHappinessAttribute)
         return level ||
             isBabyPokemon ||

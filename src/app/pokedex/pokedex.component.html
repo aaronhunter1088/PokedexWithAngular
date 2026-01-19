@@ -1,107 +1,107 @@
 <div id="pokedex">
-  <div class="pokemon-grid">
-    <div [ngStyle]="{'background-color':changeColor(pokemonColor)}" class="box" id="imageAndImageBtns"
-      style="padding-top: 10px;">
-      <div id="backAndName">
-        <div id="backArrow" style="float:left;">
-          <a routerLink="/">
-            <img alt="Go to Home"
-              src="./assets/images/arrow-back.jpg"
+    <div class="pokemon-grid">
+        <div [ngStyle]="{'background-color':changeColor(pokemonColor)}" class="box" id="imageAndImageBtns"
+             style="padding-top: 10px;">
+            <div id="backAndName">
+                <div id="backArrow" style="float:left;">
+                    <a routerLink="/">
+                        <img alt="Go to Home"
+                             src="./assets/images/arrow-back.jpg"
                              style="width:50px; height:50px;
                         mix-blend-mode:darken;"
-              title="Click here to return to Homepage">
-          </a>
+                             title="Click here to return to Homepage">
+                    </a>
+                </div>
+                <div id="mainName" style="justify-content:center;padding-top:2%;padding-right:10%;">
+                    <h1 id="infoTitle">{{ pokemonName | titlecase }}</h1>
+                </div>
+            </div>
+            <div id="imageOfPokemon" style="justify-content:center;display:block;">
+                <img alt="pokemon" height="250" id="imageB" src="{{pokemonImage}}" width="250"/>
+            </div>
+            <div id="photoButtonsDiv" style="justify-content:center;text-align:center;display:inline-flex;">
+                <div style="">
+                    <button (click)="showImage('default')" class="tab" id="defaultImgBtn">Show Default</button>
+                </div>
+                <div style="">
+                    <button (click)="showImage('official')" class="tab" id="officialImgBtn">Show Official</button>
+                </div>
+                <div style="">
+                    <button (click)="showImage('shiny')" class="tab" id="shinyImgBtn">Show Shiny</button>
+                </div>
+                <div style="">
+                    <button (click)="showImage('gif')" class="tab" id="gifImgBtn">Show Gif</button>
+                </div>
+            </div>
         </div>
-        <div id="mainName" style="justify-content:center;padding-top:2%;padding-right:10%;">
-          <h1 id="infoTitle">{{ pokemonName | titlecase }}</h1>
-        </div>
-      </div>
-      <div id="imageOfPokemon" style="justify-content:center;display:block;">
-        <img alt="pokemon" height="250" id="imageB" src="{{pokemonImage}}" width="250"/>
-      </div>
-      <div id="photoButtonsDiv" style="justify-content:center;text-align:center;display:inline-flex;">
-        <div style="">
-          <button (click)="showImage('default')" class="tab" id="defaultImgBtn">Show Default</button>
-        </div>
-        <div style="">
-          <button (click)="showImage('official')" class="tab" id="officialImgBtn">Show Official</button>
-        </div>
-        <div style="">
-          <button (click)="showImage('shiny')" class="tab" id="shinyImgBtn">Show Shiny</button>
-        </div>
-        <div style="">
-          <button (click)="showImage('gif')" class="tab" id="gifImgBtn">Show Gif</button>
-        </div>
-      </div>
-    </div>
-    <div [ngStyle]="{'background-color':changeColor(pokemonColor)}" class="box" id="info"
-      style="padding-top: 10px;">
-      <div id="nameAndID" style="display:inline-flex">
-        <h3 id="name">Name: {{ pokemonName | titlecase }}</h3> &nbsp;&nbsp;&nbsp;&nbsp;
-        <h3 id="idOfPokemon">ID: {{ pokemonID }}</h3>
-      </div>
-      <br>
-        <div id="hAndW" style="display:inline-flex;">
-          <h3 id="heightOfPokemon">Height: {{ pokemonHeight }} m</h3> &nbsp;&nbsp;&nbsp;&nbsp;
-          <h3 id="weightOfPokemon">Weight: {{ pokemonWeight }} kg</h3>
-        </div>
-        <br>
-          <div id="colorAndType" style="display:inline-flex;">
-            <h3 id="colorOfPokemon">Color: {{ pokemonColor | titlecase }}</h3> &nbsp;&nbsp;&nbsp;&nbsp;
-            <h3 id="typeOfPokemon">Type: {{ pokemonType }}</h3>
-          </div>
-          <div style="display: flow;">
-            <button (click)="showDescription()" class="tab" id="descriptionBtn">Description</button>
-            <button (click)="showLocations()" class="tab" id="locationsBtn">Locations</button>
-            <button (click)="showMoves()" class="tab" id="movesBtn">Moves</button>
-            <button (click)="showEvolutions()" class="tab" id="evolutionsBtn">How {{ pokemonName | titlecase }}
-              Evolves
-            </button>
-          </div>
-          <br>
+        <div [ngStyle]="{'background-color':changeColor(pokemonColor)}" class="box" id="info"
+             style="padding-top: 10px;">
+            <div id="nameAndID" style="display:inline-flex">
+                <h3 id="name">Name: {{ pokemonName | titlecase }}</h3> &nbsp;&nbsp;&nbsp;&nbsp;
+                <h3 id="idOfPokemon">ID: {{ pokemonID }}</h3>
+            </div>
+            <br>
+            <div id="hAndW" style="display:inline-flex;">
+                <h3 id="heightOfPokemon">Height: {{ pokemonHeight }} m</h3> &nbsp;&nbsp;&nbsp;&nbsp;
+                <h3 id="weightOfPokemon">Weight: {{ pokemonWeight }} kg</h3>
+            </div>
+            <br>
+            <div id="colorAndType" style="display:inline-flex;">
+                <h3 id="colorOfPokemon">Color: {{ pokemonColor | titlecase }}</h3> &nbsp;&nbsp;&nbsp;&nbsp;
+                <h3 id="typeOfPokemon">Type: {{ pokemonType }}</h3>
+            </div>
+            <div style="display: flow;">
+                <button (click)="showDescription()" class="tab" id="descriptionBtn">Description</button>
+                <button (click)="showLocations()" class="tab" id="locationsBtn">Locations</button>
+                <button (click)="showMoves()" class="tab" id="movesBtn">Moves</button>
+                <button (click)="showEvolutions()" class="tab" id="evolutionsBtn">How {{ pokemonName | titlecase }}
+                    Evolves
+                </button>
+            </div>
+            <br>
             @if (descriptionDiv) {
-              <div
-                id="descriptionDiv" style="display:inline-flex; width:300px; justify-content:center;">
-                <h3 id="description">{{ pokemonDescription }}</h3>
-              </div>
+                <div
+                        id="descriptionDiv" style="display:inline-flex; width:300px; justify-content:center;">
+                    <h3 id="description">{{ pokemonDescription }}</h3>
+                </div>
             }
             @if (locationsDiv) {
-              <div
-                id="locationsDiv"
-                style="overflow-y: scroll; overflow-x: hidden; height:200px;">
-                @for (location of pokemonLocations; track location) {
-                  <h3
-                    class="listStyle"
-                    id="locations"
-                  >{{ location }}</h3>
-                }
-              </div>
+                <div
+                        id="locationsDiv"
+                        style="overflow-y: scroll; overflow-x: hidden; height:200px;">
+                    @for (location of pokemonLocations; track location) {
+                        <h3
+                                class="listStyle"
+                                id="locations"
+                        >{{ location }}</h3>
+                    }
+                </div>
             }
             @if (movesDiv) {
-              <div
-                id="movesDiv"
-                style="overflow-y: scroll; overflow-x: hidden; height:200px;">
-                @for (move of pokemonMoves; track move) {
-                  <h3
-                    class="listStyle"
-                    id="moves"
-                  >{{ move }}</h3>
-                }
-              </div>
+                <div
+                        id="movesDiv"
+                        style="overflow-y: scroll; overflow-x: hidden; height:200px;">
+                    @for (move of pokemonMoves; track move) {
+                        <h3
+                                class="listStyle"
+                                id="moves"
+                        >{{ move }}</h3>
+                    }
+                </div>
             }
             @if (evolutionsDiv) {
-              <div
-                id="evolutionsDiv"
-                style="overflow-y: scroll; overflow-x: hidden; height:200px;">
-                <app-evolves-how
-                  [pokemonID]="pokemonID"
-                ></app-evolves-how>
-              </div>
+                <div
+                        id="evolutionsDiv"
+                        style="overflow-y: scroll; overflow-x: hidden; height:200px;">
+                    <app-evolves-how
+                            [pokemonID]="pokemonID"
+                    ></app-evolves-how>
+                </div>
             }
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
-      <app-evolutions
+<app-evolutions
         [pokemonID]="pokemonID"
-      ></app-evolutions>
+></app-evolutions>

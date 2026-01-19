@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Pokedex, PokemonSpecies} from "pokeapi-js-wrapper";
+import {Pokedex} from "pokeapi-js-wrapper";
 
 @Injectable({
     providedIn: 'root'

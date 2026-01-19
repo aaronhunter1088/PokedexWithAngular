@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  landingPageUrl: 'http://localhost:4202'
+    production: false,
+    landingPageUrl: 'http://localhost:4200'
 };

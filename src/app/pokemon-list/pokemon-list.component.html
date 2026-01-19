@@ -1,95 +1,99 @@
 <pagination-controls
-  (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
-  [maxSize]="this.itemsPerPage"
-  style="justify-content: space-evenly;">
+        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
+        [maxSize]="this.itemsPerPage"
+        style="justify-content: space-evenly;">
 </pagination-controls>
 <div style="display:inline-flex;">
-  <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
-    Show GIFs
-  </mat-slide-toggle>
-  <p style="padding-right: 10px;"></p>
-  <div id="jumpToPage" style="display:flex;width: 100%;">
-    <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"
-      placeholder="Page #"
-      style="width:50px;"
-      type="text"/>
-    <button (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" class="icon">Jump to Page</button>
-  </div>
-  <div id="show#Pokemon" style="display:flex;width: 100%;">
-    <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
-      placeholder="# of PkMn"
-      style="width:65px;"
-      type="text"/>
-    <button (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" class="icon">Show
-      Pokemon
-    </button>
-  </div>
+    <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
+        Show GIFs
+    </mat-slide-toggle>
+    <p style="padding-right: 10px;"></p>
+    <div id="jumpToPage" style="display:flex;width: 100%;">
+        <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"
+               placeholder="Page #"
+               style="width:50px;"
+               type="text"/>
+        <button (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" class="icon">Jump to Page</button>
+    </div>
+    <div id="show#Pokemon" style="display:flex;width: 100%;">
+        <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
+               placeholder="# of PkMn"
+               style="width:65px;"
+               type="text"/>
+        <button (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" class="icon">Show
+            Pokemon
+        </button>
+    </div>
 </div>
 
 <div class="pokemon-grid">
-  @for (pokemon of pokemonMap | keyvalue | paginate: {itemsPerPage: this.itemsPerPage, currentPage: this.page, totalItems: this.numberOfPokemon}; track pokemon) {
-    <div
-      >
-      <nav>
-        <a routerLink="/pokedex/?pokemonID={{pokemon.value.id}}" style="text-decoration: none; color: black;">
-          <div [ngStyle]="{'background-color':changeColor(pokemon.value.color)}" class="box"
-            title="Click for more info">
-            <div id="nameAndID" style="display:inline-flex;">
-              @if (pokemon.value.id;) {
-                <h3
-                  id="name"
-                >{{ pokemon.value.name | titlecase }}</h3>
-              }
-              <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-              <h3 id="idOfPokemon">ID: {{ pokemon.value.id }}</h3>
-            </div>
-            @for (sprites of getPokemonSprites(pokemon.value) | keyvalue; track sprites) {
-              <div
-                id="image">
-                @if (defaultImagePresent) {
-                  @if (sprites.key == 'front' && !showGifs) {
-                    <img (mouseout)="sprites.value = showFrontImage(pokemon.value);"
-                      (mouseover)="sprites.value = showOfficialArtwork(pokemon.value)"
-                      [src]="sprites.value"
-                      alt="{{pokemon.value.name}}-default"
-                      >
-                  }
-                  @if (sprites.key == 'gif' && showGifs && gifImagePresent;) {
-                    <img
-                      [src]="sprites.value" alt="{{pokemon.value.name}}-gif"
-                      >
-                  }
-                  @if (sprites.key == 'official' && showGifs && !gifImagePresent;) {
-                    <img
-                      [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-                      >
-                  }
-                } @else {
-                  @if (sprites.key == 'official' && sprites.value != null;) {
-                    <img
-                      [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-                      >
-                  }
-                  @if (sprites.key == 'official' && sprites.value == null;) {
-                    <img
-                      alt="pokeball" src="assets/images/pokeball1.jpg">
-                    }
-                  }
-                </div>
-              }
-              <div id="info" style="display:inline-block;">
-                <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} m</h3>
-                <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} kg</h3>
-                <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
-                <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
-              </div>
-            </div>
-          </a>
-        </nav>
-      </div>
+    @for (pokemon of pokemonMap | keyvalue | paginate: {
+        itemsPerPage: this.itemsPerPage,
+        currentPage: this.page,
+        totalItems: this.numberOfPokemon
+    }; track pokemon) {
+        <div
+        >
+            <nav>
+                <a routerLink="/pokedex/?pokemonID={{pokemon.value.id}}" style="text-decoration: none; color: black;">
+                    <div [ngStyle]="{'background-color':changeColor(pokemon.value.color)}" class="box"
+                         title="Click for more info">
+                        <div id="nameAndID" style="display:inline-flex;">
+                            @if (pokemon.value.id; ) {
+                                <h3
+                                        id="name"
+                                >{{ pokemon.value.name | titlecase }}</h3>
+                            }
+                            <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <h3 id="idOfPokemon">ID: {{ pokemon.value.id }}</h3>
+                        </div>
+                        @for (sprites of getPokemonSprites(pokemon.value) | keyvalue; track sprites) {
+                            <div
+                                    id="image">
+                                @if (defaultImagePresent) {
+                                    @if (sprites.key == 'front' && !showGifs) {
+                                        <img (mouseout)="sprites.value = showFrontImage(pokemon.value);"
+                                             (mouseover)="sprites.value = showOfficialArtwork(pokemon.value)"
+                                             [src]="sprites.value"
+                                             alt="{{pokemon.value.name}}-default"
+                                        >
+                                    }
+                                    @if (sprites.key == 'gif' && showGifs && gifImagePresent; ) {
+                                        <img
+                                                [src]="sprites.value" alt="{{pokemon.value.name}}-gif"
+                                        >
+                                    }
+                                    @if (sprites.key == 'official' && showGifs && !gifImagePresent; ) {
+                                        <img
+                                                [src]="sprites.value" alt="{{pokemon.value.name}}-official"
+                                        >
+                                    }
+                                } @else {
+                                    @if (sprites.key == 'official' && sprites.value != null; ) {
+                                        <img
+                                                [src]="sprites.value" alt="{{pokemon.value.name}}-official"
+                                        >
+                                    }
+                                    @if (sprites.key == 'official' && sprites.value == null; ) {
+                                        <img
+                                                alt="pokeball" src="assets/images/pokeball1.jpg">
+                                    }
+                                }
+                            </div>
+                        }
+                        <div id="info" style="display:inline-block;">
+                            <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} m</h3>
+                            <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} kg</h3>
+                            <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
+                            <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
+                        </div>
+                    </div>
+                </a>
+            </nav>
+        </div>
     }
-  </div>
-  <pagination-controls
-    (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
-    [maxSize]="this.itemsPerPage"
-  style="justify-content: space-evenly;"></pagination-controls>
+</div>
+<pagination-controls
+        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
+        [maxSize]="this.itemsPerPage"
+        style="justify-content: space-evenly;"></pagination-controls>
