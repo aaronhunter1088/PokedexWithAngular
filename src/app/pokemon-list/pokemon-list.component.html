@@ -1,8 +1,3 @@
-<pagination-controls
-        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
-        [maxSize]="this.itemsPerPage"
-        style="justify-content: space-evenly;">
-</pagination-controls>
 <div style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
     <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
         Show GIFs
@@ -25,10 +20,15 @@
     </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
             title="Return to Landing Page">
-        ← Back to Landing Page
+        Back to Landing Page
     </button>
 </div>
 
+<pagination-controls
+        (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
+        [maxSize]="this.itemsPerPage"
+        style="justify-content: space-evenly;">
+</pagination-controls>
 <div class="pokemon-grid">
     @for (pokemon of pokemonMap | keyvalue | paginate: {
         itemsPerPage: this.itemsPerPage,
