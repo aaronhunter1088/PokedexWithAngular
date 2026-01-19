@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
+import {DarkModeService} from "../services/dark-mode.service";
 
 @Component({
     selector: 'app-search',
@@ -27,7 +28,10 @@ export class SearchComponent implements OnInit {
     pokemonMoves: any[] = [];
     statusCode: number = 0;
 
-    constructor(private pokemonService: PokemonService) {
+    constructor(
+        private pokemonService: PokemonService,
+        private darkModeService: DarkModeService
+    ) {
     }
 
     ngOnInit(): void {
@@ -144,27 +148,9 @@ export class SearchComponent implements OnInit {
     }
 
     setBackgroundColor() {
-        if (this.pokemonColor === "red") {
-            document.body.style.backgroundColor = "#FA8072";
-        } else if (this.pokemonColor === "yellow") {
-            document.body.style.backgroundColor = "#FFC300";
-        } else if (this.pokemonColor === "green") {
-            document.body.style.backgroundColor = "#AFE1AF";
-        } else if (this.pokemonColor === "blue") {
-            document.body.style.backgroundColor = "#ADD8E6";
-        } else if (this.pokemonColor === "purple") {
-            document.body.style.backgroundColor = "#CBC3E3";
-        } else if (this.pokemonColor === "brown") {
-            document.body.style.backgroundColor = "#D27D2D";
-        } else if (this.pokemonColor === "white") {
-            document.body.style.backgroundColor = "#d3cbcb";
-        } else if (this.pokemonColor === "pink") {
-            document.body.style.backgroundColor = this.pokemonColor;
-        } else if (this.pokemonColor === "black") {
-            document.body.style.backgroundColor = "#8f8b8b"
-        } else if (this.pokemonColor === "gray" || this.pokemonColor === "grey") {
-            document.body.style.backgroundColor = "#8f8b8b"
-        }
+        // Don't override body background in dark mode
+        // Instead, we'll just store the color for potential use
+        // The dark mode service handles the body background
     }
 
     getEnglishDescriptions() {

@@ -158,7 +158,7 @@ export class PokedexComponent implements OnInit, OnChanges {
         //console.log("ngOnChanges")
         this.setDivsToNotShow()
         this.descriptionDiv = true
-        document.body.style.backgroundColor = "#ffffff"
+        // Don't override body background - let dark mode service handle it
         this.setImageButtonsToNormalFont()
         // @ts-ignore
         document.getElementById('defaultImgBtn').style.fontWeight = this.bold
