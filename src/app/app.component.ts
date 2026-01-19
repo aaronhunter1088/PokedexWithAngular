@@ -1,6 +1,4 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {PokemonService} from "./services/pokemon.service";
-import {HttpClient} from "@angular/common/http";
 import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import {DarkModeService} from "./services/dark-mode.service";
 import {environment} from "../environments/environment";
