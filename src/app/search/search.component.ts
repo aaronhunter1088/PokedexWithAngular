@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
-import {DarkModeService} from "../services/dark-mode.service";
 
 @Component({
     selector: 'app-search',
@@ -28,10 +27,7 @@ export class SearchComponent implements OnInit {
     pokemonMoves: any[] = [];
     statusCode: number = 0;
 
-    constructor(
-        private pokemonService: PokemonService,
-        private darkModeService: DarkModeService
-    ) {
+    constructor(private pokemonService: PokemonService) {
     }
 
     ngOnInit(): void {
@@ -94,7 +90,6 @@ export class SearchComponent implements OnInit {
                     .then((speciesData: any) => {
                         //console.log("pokemon species: ", speciesData);
                         this.pokemonColor = speciesData['color']['name'];
-                        this.setBackgroundColor();
                         this.pokemonDescriptions = speciesData.flavor_text_entries;
                         this.pokemonDescription = this.getEnglishDescriptions();
                     }); //.subscribe
@@ -145,12 +140,6 @@ export class SearchComponent implements OnInit {
                 console.log(error);
             });
         this.pokemonIDName = '';
-    }
-
-    setBackgroundColor() {
-        // Don't override body background in dark mode
-        // Instead, we'll just store the color for potential use
-        // The dark mode service handles the body background
     }
 
     getEnglishDescriptions() {
