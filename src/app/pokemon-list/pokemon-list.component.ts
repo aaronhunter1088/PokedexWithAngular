@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
+import {DarkModeService} from "../services/dark-mode.service";
+import {environment} from "../../environments/environment";
 
 @Component({
     selector: 'app-pokemon-list',
@@ -18,8 +20,10 @@ export class PokemonListComponent implements OnInit {
     defaultImagePresent: boolean = false;
     showGifs: boolean = false;
     gifImagePresent: boolean = false;
+    landingPageUrl: string = environment.landingPageUrl;
 
-    constructor(private pokemonService: PokemonService, private http: HttpClient) {
+    constructor(private pokemonService: PokemonService, private http: HttpClient,
+                private darkModeService: DarkModeService) {
         this.itemsPerPage = 10
     }
 
@@ -178,5 +182,14 @@ export class PokemonListComponent implements OnInit {
             this.itemsPerPage = chosenNumber
             this.getThePokemon();
         }
+    }
+
+    /**
+     * Navigate back to the landing page with the current dark mode setting
+     */
+    navigateToLandingPage(): void {
+        const currentDarkMode = this.darkModeService.getDarkMode();
+        const url = `${this.landingPageUrl}?darkmode=${currentDarkMode}`;
+        window.location.href = url;
     }
 }

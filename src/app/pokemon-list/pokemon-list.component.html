@@ -3,7 +3,7 @@
         [maxSize]="this.itemsPerPage"
         style="justify-content: space-evenly;">
 </pagination-controls>
-<div style="display:inline-flex;">
+<div style="display:inline-flex; width:100%; justify-content: center; align-items: center; padding-bottom:10px;">
     <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
         Show GIFs
     </mat-slide-toggle>
@@ -24,6 +24,11 @@
             Pokemon
         </button>
     </div>
+    <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
+            style="min-width:220px;"
+            title="Return to Landing Page">
+        ← Back to Landing Page
+    </button>
 </div>
 
 <div class="pokemon-grid">

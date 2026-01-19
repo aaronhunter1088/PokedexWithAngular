@@ -1,7 +1,6 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import {DarkModeService} from "./services/dark-mode.service";
-import {environment} from "../environments/environment";
 
 @Component({
     selector: 'app-root',
@@ -14,7 +13,6 @@ export class AppComponent implements OnInit, OnChanges {
     currentRoute: string;
     previousRoute: string;
     title = 'PokedexHome'
-    landingPageUrl: string = environment.landingPageUrl;
 
     constructor(
         private router: Router,
@@ -62,15 +60,6 @@ export class AppComponent implements OnInit, OnChanges {
 
     getPreviousRoute() {
         return this.previousRoute;
-    }
-
-    /**
-     * Navigate back to the landing page with the current dark mode setting
-     */
-    navigateToLandingPage(): void {
-        const currentDarkMode = this.darkModeService.getDarkMode();
-        const url = `${this.landingPageUrl}?darkmode=${currentDarkMode}`;
-        window.location.href = url;
     }
 
 }
