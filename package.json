@@ -5,6 +5,7 @@
     "ng": "ng",
     "npx": "npx",
     "start": "ng serve",
+    "startPort": "ng serve --host 0.0.0.0",
     "startX": "npx ng serve",
     "build": "ng build",
     "build-server": "ng build --base-href /angular/ --deploy-url /angular/",

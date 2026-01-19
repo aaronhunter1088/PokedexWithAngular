@@ -67,7 +67,10 @@
               "buildTarget": "PokedexAngular:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "port": 4202
+          }
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",

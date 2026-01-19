@@ -24,14 +24,13 @@ html, body {
     margin: 0;
 }
 
-.dark {
-    background-color: #121212;
-    color: white;
-}
-
-.light {
+.lightmode {
     background-color: white;
     color: black;
+}
+.darkmode {
+    background-color: black;
+    color: white;
 }
 
 body {

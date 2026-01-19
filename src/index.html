@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Pokédex Angular</title>
+        <title>Pok&#233;dex Angular</title>
         <base href="/">
         <meta content="width=device-width, initial-scale=1" name="viewport">
         <link href="./assets/images/pokeball.jpg" rel="icon" type="image/x-icon">
@@ -22,35 +22,35 @@
           class="mat-typography"
           style="justify-content:space-evenly;text-align:center;">
 
-    <app-root></app-root><!-- see app-routing.module.ts -->
+        <app-root></app-root><!-- see app-routing.module.ts -->
     </body>
-    <script>
-        $(function() {
-            const body = $("body");
-            //const body = $('body')[0]; // unwrap jQuery → DOM element
-            const now = new Date();
-            const hour = now.getHours();
-            const nightStart = 19; // 7 PM
-            const nightEnd = 7;    // 7 AM
-            let dark = (hour >= nightStart || hour < nightEnd);
-            let clientSetDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
-            console.debug('Client prefers ' +
-                clientSetDarkMode === true ? 'dark' : 'light'
-                + ' mode.');
-            dark = clientSetDarkMode === true;
-            if (dark) {
-                body.removeClass('light');
-                body.addClass('dark');
-                // with dom element
-                //body.classList.remove('light');
-                //body.classList.add('dark');
-            } else {
-                body.style.backgroundColor = 'white';
-                body.style.color = '';
-                // with dom element
-                //body.classList.remove('dark');
-                //body.classList.add('light');
-            }
-        });
-    </script>
+<!--    <script>-->
+<!--        $(function() {-->
+<!--            const body = $("body");-->
+<!--            //const body = $('body')[0]; // unwrap jQuery → DOM element-->
+<!--            const now = new Date();-->
+<!--            const hour = now.getHours();-->
+<!--            const nightStart = 19; // 7 PM-->
+<!--            const nightEnd = 7;    // 7 AM-->
+<!--            let dark = (hour >= nightStart || hour < nightEnd);-->
+<!--            let clientSetDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;-->
+<!--            // console.debug('Client prefers ' +-->
+<!--            //     clientSetDarkMode === true ? 'dark' : 'light'-->
+<!--            //     + ' mode.');-->
+<!--            dark = clientSetDarkMode === true;-->
+<!--            if (dark) {-->
+<!--                body.removeClass('light');-->
+<!--                body.addClass('dark');-->
+<!--                // with dom element-->
+<!--                //body.classList.remove('light');-->
+<!--                //body.classList.add('dark');-->
+<!--            } else {-->
+<!--                body.style.backgroundColor = 'white';-->
+<!--                body.style.color = '';-->
+<!--                // with dom element-->
+<!--                //body.classList.remove('dark');-->
+<!--                //body.classList.add('light');-->
+<!--            }-->
+<!--        });-->
+<!--    </script>-->
 </html>
