@@ -3,29 +3,27 @@
         [maxSize]="this.itemsPerPage"
         style="justify-content: space-evenly;">
 </pagination-controls>
-<div style="display:inline-flex; width:100%; justify-content: center; align-items: center; padding-bottom:10px;">
+<div style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
     <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
         Show GIFs
     </mat-slide-toggle>
-    <p style="padding-right: 10px;"></p>
-    <div id="jumpToPage" style="display:flex;width: 100%;">
+    <div style="display:flex; align-items: center; gap: 5px;">
         <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"
                placeholder="Page #"
-               style="width:50px;"
+               style="width:60px;"
                type="text"/>
         <button (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" class="icon">Jump to Page</button>
     </div>
-    <div id="show#Pokemon" style="display:flex;width: 100%;">
+    <div style="display:flex; align-items: center; gap: 5px;">
         <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
                placeholder="# of PkMn"
-               style="width:65px;"
+               style="width:70px;"
                type="text"/>
         <button (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" class="icon">Show
             Pokemon
         </button>
     </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
-            style="min-width:220px;"
             title="Return to Landing Page">
         ← Back to Landing Page
     </button>

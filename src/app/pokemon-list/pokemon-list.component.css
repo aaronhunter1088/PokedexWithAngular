@@ -18,11 +18,15 @@ img {
 }
 
 .icon {
-    padding: 10px;
+    padding: 10px 15px;
     background: dodgerblue;
     color: white;
-    min-width: 50px;
+    min-width: fit-content;
     text-align: center;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 #name {
@@ -46,13 +50,11 @@ img {
     background-color: #4CAF50;
     color: white;
     border: none;
-    padding: 10px 20px;
-    /*text-align: center;*/
+    padding: 10px 15px;
     text-decoration: none;
-    /*display: inline-block;*/
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    white-space: nowrap;
 }

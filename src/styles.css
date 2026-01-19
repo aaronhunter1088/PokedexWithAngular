@@ -40,7 +40,7 @@ body.light img[src*="arrow-back"] {
 
 /* Dark mode styles */
 body.dark {
-    background-color: #1a1a1a;
+    background-color: #000000;
     color: #e0e0e0;
 }
 
@@ -63,6 +63,13 @@ body.dark button {
 body.dark img[src*="arrow-back"] {
     background-color: transparent;
     filter: invert(1);
+}
+
+/* Description box text should be dark even in dark mode for readability */
+body.dark #description,
+body.dark #locations,
+body.dark #moves {
+    color: #000000;
 }
 
 /* Legacy class names for backwards compatibility */
