@@ -9,3 +9,24 @@ body {
 img {
     cursor: zoom-in;
 }
+
+nav {
+    display: inline-flex;
+    align-items: center;
+    /*justify-content: space-between;*/
+    padding: 10px 20px;
+}
+
+
+
+.back-to-landing-btn:hover {
+    background-color: #45a049;
+}
+
+body.dark .back-to-landing-btn {
+    background-color: #2196F3;
+}
+
+body.dark .back-to-landing-btn:hover {
+    background-color: #0b7dda;
+}

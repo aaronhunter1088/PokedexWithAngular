@@ -24,10 +24,67 @@ html, body {
     margin: 0;
 }
 
+/* Light mode styles */
+body.light {
+    background-color: white;
+    color: black;
+}
+
+body.light a {
+    color: #0066cc;
+}
+
+body.light img[src*="arrow-back"] {
+    background-color: white;
+}
+
+/* Dark mode styles */
+body.dark {
+    background-color: #000000;
+    color: #e0e0e0;
+}
+
+body.dark a {
+    color: #66b3ff;
+}
+
+body.dark input {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark button {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark img[src="arrow-back"] {
+    background-color: transparent;
+    filter: invert(1);
+}
+
+body.dark img[id="infoBackArrow"] {
+    background-color: transparent;
+    /*filter: invert(1);*/
+}
+
+/* All text in the info box should be dark for readability on colored backgrounds */
+body.dark #info,
+body.dark #infoTitle,
+body.dark #description,
+body.dark #locations,
+body.dark #moves {
+    color: #000000 !important;
+}
+
+/* Legacy class names for backwards compatibility */
 .lightmode {
     background-color: white;
     color: black;
 }
+
 .darkmode {
     background-color: black;
     color: white;
@@ -37,3 +94,4 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+

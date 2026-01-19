@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
+import {Router} from "@angular/router";
+import {DarkModeService} from "../services/dark-mode.service";
 
 @Component({
     selector: 'app-search',
@@ -26,11 +28,15 @@ export class SearchComponent implements OnInit {
     pokemonLocations: any[] = [];
     pokemonMoves: any[] = [];
     statusCode: number = 0;
+    isDarkMode: boolean = false;
 
-    constructor(private pokemonService: PokemonService) {
+    constructor(private pokemonService: PokemonService, private router: Router, public darkModeService: DarkModeService) {
     }
 
     ngOnInit(): void {
+        this.darkModeService.darkMode$.subscribe(isDark => {
+            this.isDarkMode = isDark;
+        });
     }
 
     onInput(pokemonIDName: string) {
@@ -66,6 +72,14 @@ export class SearchComponent implements OnInit {
             });
     }
 
+    navigateToPokedex(event: Event): void {
+        const pokemonId = (event.target as HTMLInputElement).value;
+        this.router.navigate(['/pokedex', pokemonId]); // path parameter
+        // this.router.navigate(['pokedex'], {
+        //     queryParams: { pokemonID: pokemonId }
+        // });
+    }
+
     getPokemonInfo() {
         this.isValidName(this.pokemonIDName);
         this.pokemonDescription = '';
@@ -90,7 +104,6 @@ export class SearchComponent implements OnInit {
                     .then((speciesData: any) => {
                         //console.log("pokemon species: ", speciesData);
                         this.pokemonColor = speciesData['color']['name'];
-                        this.setBackgroundColor();
                         this.pokemonDescriptions = speciesData.flavor_text_entries;
                         this.pokemonDescription = this.getEnglishDescriptions();
                     }); //.subscribe
@@ -141,30 +154,6 @@ export class SearchComponent implements OnInit {
                 console.log(error);
             });
         this.pokemonIDName = '';
-    }
-
-    setBackgroundColor() {
-        if (this.pokemonColor === "red") {
-            document.body.style.backgroundColor = "#FA8072";
-        } else if (this.pokemonColor === "yellow") {
-            document.body.style.backgroundColor = "#FFC300";
-        } else if (this.pokemonColor === "green") {
-            document.body.style.backgroundColor = "#AFE1AF";
-        } else if (this.pokemonColor === "blue") {
-            document.body.style.backgroundColor = "#ADD8E6";
-        } else if (this.pokemonColor === "purple") {
-            document.body.style.backgroundColor = "#CBC3E3";
-        } else if (this.pokemonColor === "brown") {
-            document.body.style.backgroundColor = "#D27D2D";
-        } else if (this.pokemonColor === "white") {
-            document.body.style.backgroundColor = "#d3cbcb";
-        } else if (this.pokemonColor === "pink") {
-            document.body.style.backgroundColor = this.pokemonColor;
-        } else if (this.pokemonColor === "black") {
-            document.body.style.backgroundColor = "#8f8b8b"
-        } else if (this.pokemonColor === "gray" || this.pokemonColor === "grey") {
-            document.body.style.backgroundColor = "#8f8b8b"
-        }
     }
 
     getEnglishDescriptions() {
