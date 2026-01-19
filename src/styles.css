@@ -24,6 +24,19 @@ html, body {
     margin: 0;
 }
 
+/* Light mode styles */
+body.light {
+    background-color: white;
+    color: black;
+}
+
+/* Dark mode styles */
+body.dark {
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+}
+
+/* Legacy class names for backwards compatibility */
 .lightmode {
     background-color: white;
     color: black;
@@ -37,3 +50,4 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
