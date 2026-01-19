@@ -38,7 +38,7 @@
         <div
         >
             <nav>
-                <a routerLink="/pokedex/?pokemonID={{pokemon.value.id}}" style="text-decoration: none; color: black;">
+                <a [routerLink]="['/pokedex', pokemon.value.id]" style="text-decoration: none; color: black;">
                     <div [ngStyle]="{'background-color':changeColor(pokemon.value.color)}" class="box"
                          title="Click for more info">
                         <div id="nameAndID" style="display:inline-flex;">

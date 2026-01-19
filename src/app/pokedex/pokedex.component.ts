@@ -51,7 +51,7 @@ export class PokedexComponent implements OnInit, OnChanges {
             //console.log("pokemonID", this.pokemonID);
             if (Object.keys(params).length !== 0) {
                 //console.log("params keys.length: ", Object.keys(params).length)
-                this.pokemonID = <number>params['pokemonID'].split("=")[1].trim()
+                this.pokemonID = Number(window.location.pathname.split('/').pop()?.trim() || 0)
             }
             if (this.pokemonID === undefined) this.pokemonID = <number>params['pokemonID']
             if (Number.parseInt(<string>this.pokemonID) > 0) {

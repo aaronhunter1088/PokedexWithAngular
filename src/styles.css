@@ -60,17 +60,23 @@ body.dark button {
     border: 1px solid #444;
 }
 
-body.dark img[src*="arrow-back"] {
+body.dark img[src="arrow-back"] {
     background-color: transparent;
     filter: invert(1);
 }
 
+body.dark img[id="infoBackArrow"] {
+    background-color: transparent;
+    /*filter: invert(1);*/
+}
+
 /* All text in the info box should be dark for readability on colored backgrounds */
-body.dark #info h3,
+body.dark #info,
+body.dark #infoTitle,
 body.dark #description,
 body.dark #locations,
 body.dark #moves {
-    color: #000000;
+    color: #000000 !important;
 }
 
 /* Legacy class names for backwards compatibility */

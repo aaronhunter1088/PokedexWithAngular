@@ -5,13 +5,19 @@
             <div id="backAndName">
                 <div id="backArrow" style="float:left;">
                     <a routerLink="/">
-                        <img alt="Go to Home"
-                             src="./assets/images/arrow-back.jpg"
-                             style="width:50px; height:50px;"
-                             title="Click here to return to Homepage">
+                        <i class="fa-solid fa-arrow-left"
+                           style="color:black;width:50px;height:50px;">
+                        </i>
+<!--                        <img id="infoBackArrow"-->
+<!--                             alt="Go to Home"-->
+<!--                             src="./assets/images/arrow-back.jpg"-->
+<!--                             style="width:50px; height:50px;"-->
+<!--                             [style]="'color:black'"-->
+<!--                             [ngStyle]="{'background-color':changeColor(pokemonColor)}"-->
+<!--                             title="Click here to return to Homepage">-->
                     </a>
                 </div>
-                <div id="mainName" style="justify-content:center;padding-top:2%;padding-right:10%;">
+                <div id="mainName" [ngStyle]="{'background-color':changeColor(pokemonColor)}" style="justify-content:center;padding-top:2%;padding-right:10%;">
                     <h1 id="infoTitle">{{ pokemonName | titlecase }}</h1>
                 </div>
             </div>

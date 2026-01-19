@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
+import {Router} from "@angular/router";
+import {DarkModeService} from "../services/dark-mode.service";
 
 @Component({
     selector: 'app-search',
@@ -26,11 +28,15 @@ export class SearchComponent implements OnInit {
     pokemonLocations: any[] = [];
     pokemonMoves: any[] = [];
     statusCode: number = 0;
+    isDarkMode: boolean = false;
 
-    constructor(private pokemonService: PokemonService) {
+    constructor(private pokemonService: PokemonService, private router: Router, public darkModeService: DarkModeService) {
     }
 
     ngOnInit(): void {
+        this.darkModeService.darkMode$.subscribe(isDark => {
+            this.isDarkMode = isDark;
+        });
     }
 
     onInput(pokemonIDName: string) {
@@ -64,6 +70,14 @@ export class SearchComponent implements OnInit {
                 console.log('There was an ERROR: ', error);
                 alert("Not a valid name or ID: '" + this.pokemonIDName + "' and statusCode: " + this.statusCode);
             });
+    }
+
+    navigateToPokedex(event: Event): void {
+        const pokemonId = (event.target as HTMLInputElement).value;
+        this.router.navigate(['/pokedex', pokemonId]); // path parameter
+        // this.router.navigate(['pokedex'], {
+        //     queryParams: { pokemonID: pokemonId }
+        // });
     }
 
     getPokemonInfo() {
