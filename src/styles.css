@@ -65,7 +65,8 @@ body.dark img[src*="arrow-back"] {
     filter: invert(1);
 }
 
-/* Description box text should be dark even in dark mode for readability */
+/* All text in the info box should be dark for readability on colored backgrounds */
+body.dark #info h3,
 body.dark #description,
 body.dark #locations,
 body.dark #moves {
