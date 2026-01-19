@@ -30,10 +30,30 @@ body.light {
     color: black;
 }
 
+body.light a {
+    color: #0066cc;
+}
+
 /* Dark mode styles */
 body.dark {
     background-color: #1a1a1a;
     color: #e0e0e0;
+}
+
+body.dark a {
+    color: #66b3ff;
+}
+
+body.dark input {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark button {
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    border: 1px solid #444;
 }
 
 /* Legacy class names for backwards compatibility */
@@ -50,4 +70,5 @@ body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+
 
