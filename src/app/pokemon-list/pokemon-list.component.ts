@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
-import {environment} from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 
 @Component({
     selector: 'app-pokemon-list',
