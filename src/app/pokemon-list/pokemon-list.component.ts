@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
-import {environment} from "../../environments/environment";
+import {environment} from "../../environments/environment.development";
 
 @Component({
     selector: 'app-pokemon-list',
@@ -189,7 +189,7 @@ export class PokemonListComponent implements OnInit {
      */
     navigateToLandingPage(): void {
         const currentDarkMode = this.darkModeService.getDarkMode();
-        const url = `${this.landingPageUrl}?darkmode=${currentDarkMode}`;
+        const url = `${this.landingPageUrl}?tileNumber=2&darkmode=${currentDarkMode}`;
         window.location.href = url;
     }
 }
