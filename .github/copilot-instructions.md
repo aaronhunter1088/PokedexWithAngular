@@ -106,7 +106,7 @@ npm test                 # Run unit tests via Karma
 ## Important Notes
 
 1. **Pagination**: The app uses `ngx-pagination` for list pagination
-2. **Sorting**: Custom `ArraySortPipe` for sorting Pokémon data
+2. **Sorting**: Uses both a custom `ArraySortPipe` (for ID-based sorting) and `ngx-order-pipe` library
 3. **Material Design**: Uses Angular Material (`@angular/material`) for UI components
 4. **Theme**: Supports dark mode toggle via DarkModeService
 5. **Evolution Display**: Complex evolution chains are handled by EvolutionsComponent and EvolvesHowComponent
