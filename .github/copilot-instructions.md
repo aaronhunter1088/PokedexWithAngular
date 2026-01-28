@@ -16,12 +16,12 @@ This is an Angular-based Pokédex application that displays information about Po
 - **Main Component:** `app.component.html` defines the navigable header and `router-outlet`
 - **Routing:** Defined in `app-routing.module.ts`
   - `/` → `PokemonListComponent` (homepage with Pokémon list)
-  - `/search` → `SearchComponent` (search for Pokémon by ID/name)
+  - `/search` → `SearchComponent` (search for Pokémon by ID/name, assessible by clicking on the Pokédex logo)
   - `/pokedex/:pokemonID` → `PokedexComponent` (detailed Pokémon view)
 
 ### Key Components
-- **PokemonListComponent** (`src/app/pokemon-list/`): Displays paginated list of Pokémon
-- **PokedexComponent** (`src/app/pokedex/`): Shows detailed Pokémon information with stats, descriptions, locations, and moves
+- **PokemonListComponent** (`src/app/pokemon-list/`): Displays paginated list of Pokémon, 10 by default
+- **PokedexComponent** (`src/app/pokedex/`): Shows specific Pokémon information with stats, descriptions, locations, moves and evolutions, if any
 - **SearchComponent** (`src/app/search/`): Allows searching for specific Pokémon
 - **EvolutionsComponent** (`src/app/evolutions/`): Displays Pokémon evolution chain
 - **EvolvesHowComponent** (`src/app/evolves-how/`): Shows evolution methods and conditions
