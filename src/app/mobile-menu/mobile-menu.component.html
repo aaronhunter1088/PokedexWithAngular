@@ -20,15 +20,17 @@
     </button>
 
     <div class="mobile-menu-item mobile-gif-item">
-        <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
-            Show GIFs
-        </mat-slide-toggle>
+        <label>Show GIFs</label>
+        <label class="switch" title="If GIF is not present, official artwork will show!">
+            <input type="checkbox" [checked]="showGifs" (change)="showGifs = !showGifs; showGifsChange.emit(showGifs); closeMobileMenu();">
+            <span class="slider round"></span>
+        </label>
     </div>
 
     <div class="mobile-menu-item mobile-gif-item">
         <label>{{currentDarkMode ? 'Turn on Light Mode' : 'Turn on Dark Mode'}}</label>
         <label class="switch" title="Toggle darkmode">
-            <input id="gifSwitchDarkmode" type="checkbox" onclick="toggleDarkmode(currentDarkMode);">
+            <input id="gifSwitchDarkmode" type="checkbox" [checked]="currentDarkMode" (change)="toggleDarkmode(); closeMobileMenu();">
             <span class="slider round"></span>
         </label>
     </div>
@@ -97,8 +99,8 @@ Angular's event binding instead.
     function toggleDarkmode(isDarkMode) {
         let updatedDarkmode = isDarkMode === 'true' ? 'false' : 'true';
         setTimeout(() => {
-            window.location.href = '${pageContext.request.contextPath}/?darkmode=' + updatedDarkmode;
-        }, 500);
+            window.location.href = window.location.origin + '/?darkmode=' + updatedDarkmode;
+        }, 100);
     }
 
     function searchForPkmn(isDarkMode) {

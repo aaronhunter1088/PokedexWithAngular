@@ -218,10 +218,9 @@ export class PokemonListComponent implements OnInit {
 
     toggleDarkMode(): void {
         this.darkModeService.toggleDarkMode();
-        let currentLocation = window.location.href;
-        currentLocation = currentLocation.split("darkmode=")[0];
-        currentLocation += "darkmode=" + this.darkModeService.isDarkMode();
-        setTimeout(() => window.location.href = currentLocation, 100);
+        const url = new URL(window.location.href);
+        url.searchParams.set('darkmode', this.darkModeService.isDarkMode().toString());
+        setTimeout(() => window.location.href = url.toString(), 100);
     }
 
     getCurrentDarkMode(): boolean {
