@@ -113,12 +113,12 @@ export class MobileMenuComponent implements OnInit {
             return;
         }
         if (Number(pkmnPerPage) < 1) {
-            this.pkmnPerPage = 1;
+            this.pkmnPerPage = this.pokemonService.pkmnPerPage;
         }
         else {
             this.pkmnPerPage = Number(pkmnPerPage);
             this.pkmnPerPageChange.emit(this.pkmnPerPage);
-        }
+        }// reset input field after submission
     }
 
     toggleShowGifs() {

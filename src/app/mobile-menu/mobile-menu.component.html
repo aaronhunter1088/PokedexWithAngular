@@ -55,16 +55,16 @@
                name="pageNumberMobile" type="text" placeholder="Page #"
                (input)="onPageInput(pageNumberMobile.value)"
         />
-        <button class="icon" (click)="setPageToView();" title="Jump to Page">Go</button>
+        <button class="icon" (click)="setPageToView(); pageNumberMobile.value = '';" title="Jump to Page">Go</button>
     </div>
 
     <div class="mobile-menu-item">
         <label for="showPkmnNumberMobile">Pok&#233;mon Per Page</label>
         <input #showPkmnNumberMobile
                name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"
-               (input)="onPkmnPerPageInput(showPkmnNumberMobile.value)"
+               (input)="onPkmnPerPageInput(showPkmnNumberMobile.value);"
         />
-        <button class="icon" onclick="setPkmnPerPage();" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
+        <button class="icon" (click)="setPkmnPerPage(); showPkmnNumberMobile.value = '';" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
     </div>
 
     <div class="mobile-menu-item">

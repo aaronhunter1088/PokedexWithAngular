@@ -185,7 +185,6 @@ export class PokemonListComponent implements OnInit {
 
     setNewPageNumberMobile(newPage: number) {
         this.setNewPageNumber(String(newPage));
-
     }
     setNewPageNumber(newPage: string) {
         let chosenPage = Number.parseInt(newPage)
@@ -202,6 +201,10 @@ export class PokemonListComponent implements OnInit {
         this.blankPageNumber = '';
     }
 
+    setPkmnPerPageMobile(newPkmnPerPage: number) {
+        this.setNumberOfPokemonToDisplay(String(newPkmnPerPage));
+    }
+
     setNumberOfPokemonToDisplay(numberOfPokemon: string) {
         let chosenNumber = Number.parseInt(numberOfPokemon)
         if (chosenNumber < 0) {
@@ -210,7 +213,8 @@ export class PokemonListComponent implements OnInit {
         } else {
             if (chosenNumber > 50) alert(chosenNumber + " is too high. Defaulting to 50")
             this.pkmnPerPage = chosenNumber
-            this.getThePokemon();
+            this.getThePokemon().then(r => {});
+            return;
         }
     }
 
