@@ -20,14 +20,14 @@ export class DarkModeService {
      */
     setDarkMode(isDarkMode: boolean): void {
         this.darkModeSubject.next(isDarkMode);
-        this.applyDarkModeToBody(isDarkMode);
+        this.applyDarkModeToBody();
     }
 
     /**
      * Get the current dark mode state
      * @returns current dark mode state
      */
-    getDarkMode(): boolean {
+    isDarkMode(): boolean {
         return this.darkModeSubject.value;
     }
 
@@ -41,11 +41,10 @@ export class DarkModeService {
 
     /**
      * Apply dark mode class to body element
-     * @param isDarkMode - true for dark mode, false for light mode
      */
-    private applyDarkModeToBody(isDarkMode: boolean): void {
+    private applyDarkModeToBody(): void {
         const body = document.body;
-        if (isDarkMode) {
+        if (this.darkModeSubject.value) {
             body.classList.remove('light');
             body.classList.add('dark');
         } else {

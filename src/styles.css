@@ -89,9 +89,213 @@ body.dark #moves {
     background-color: black;
     color: white;
 }
+.darkmode input {
+    color: white !important;
+}
+/*
+Select the label element that is a child of a div,
+which is a child of a mat-slide-toggle
+element that has the darkmode class.
+ */
+mat-slide-toggle.darkmode > div > label  {
+    color: white !important;
+    background-color: black !important;
+}
+/*
+Select the label element that is a child of a div,
+which is a child of a mat-slide-toggle
+element that has the lightmode class.
+ */
+mat-slide-toggle.lightmode > div > label {
+    color: black !important;
+    background-color: white !important;
+}
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Mobile Menu Styles */
+app-mobile-menu .mobile-header {
+    display: none;
+}
+
+app-mobile-menu .mobile-menu {
+    display: none;
+}
+
+app-mobile-menu .mobile-menu-overlay {
+    display: none;
+}
+
+/* Mobile Media Query - Show mobile menu on screens <= 650px */
+@media screen and (max-width: 650px) {
+    /* Show mobile header */
+    app-mobile-menu .mobile-header {
+        display: flex !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: white;
+        z-index: 1000;
+        padding: 10px 15px;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-height: 70px;
+    }
+
+    app-mobile-menu .mobile-header.darkmode {
+        background-color: black;
+        color: white;
+    }
+
+    app-mobile-menu .mobile-header.darkmode a i {
+        color: #1e90ff !important;
+    }
+
+    /* Pokemon logo in header */
+    app-mobile-menu .mobile-header .pokemon-logo {
+        flex: 1;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    app-mobile-menu .mobile-header .pokemon-logo img {
+        max-width: 200px;
+        width: 60%;
+        height: auto;
+    }
+
+    /* Menu button */
+    app-mobile-menu .mobile-menu-button {
+        background: dodgerblue;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 24px;
+        cursor: pointer;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    app-mobile-menu .mobile-menu-button:hover {
+        background: #1e90ff;
+    }
+
+    /* Mobile Menu Overlay */
+    app-mobile-menu .mobile-menu-overlay.active {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+    }
+
+    /* Mobile Menu */
+    app-mobile-menu .mobile-menu {
+        display: block !important;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100%;
+        background-color: white;
+        z-index: 1002;
+        padding: 60px 20px 40px 20px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    app-mobile-menu .mobile-menu.darkmode {
+        background-color: #1a1a1a;
+        color: white;
+    }
+
+    app-mobile-menu .mobile-menu.active {
+        right: 0 !important;
+    }
+
+    /* Close button for menu */
+    app-mobile-menu .mobile-menu-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: #333;
+    }
+
+    app-mobile-menu .mobile-menu.darkmode .mobile-menu-close {
+        color: white;
+    }
+
+    /* Mobile menu items */
+    app-mobile-menu .mobile-menu-item {
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    app-mobile-menu .mobile-menu.darkmode .mobile-menu-item {
+        border-bottom-color: #333;
+    }
+
+    app-mobile-menu .mobile-menu-item:last-child {
+        border-bottom: none;
+    }
+
+    app-mobile-menu .mobile-menu-item label:not(.switch) {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+        width: 100%;
+        text-align: left;
+        padding: 0;
+    }
+
+    app-mobile-menu .mobile-menu-item input[type="text"],
+    app-mobile-menu .mobile-menu-item select,
+    app-mobile-menu .mobile-menu-item button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        box-sizing: border-box;
+    }
+
+    app-mobile-menu .mobile-gif-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    app-mobile-menu .mobile-gif-item label:first-child {
+        margin-bottom: 0;
+    }
+
+    /* Adjust body padding for fixed header */
+    body {
+        padding-top: 80px;
+    }
+
+    /* Hide desktop header logo on mobile */
+    #indexSearchImgSearchLink,
+    #pokedexSearchImgSearchLink {
+        display: none !important;
+    }
 }
 

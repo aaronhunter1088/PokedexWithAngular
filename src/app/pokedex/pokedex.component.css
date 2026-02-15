@@ -35,3 +35,11 @@ label {
     justify-content: center;
     padding-top: 1.2em;
 }
+
+/* Mobile Media Query - Show mobile menu on screens <= 650px */
+@media screen and (max-width: 650px) {
+    /* Hide desktop header logo on mobile */
+    #indexSearchImg {
+        display: none !important;
+    }
+}

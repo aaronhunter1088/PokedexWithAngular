@@ -1,0 +1,186 @@
+<!-- Mobile Header -->
+<div class="mobile-header {{currentDarkMode?'darkmode':'lightmode'}}">
+    <div class="pokemon-logo">
+        <a routerLink="/search">
+            <img alt="pokedex" src="./assets/images/pokedexImage.jpg">
+        </a>
+    </div>
+    <button class="mobile-menu-button" (click)="toggleMobileMenu();" aria-label="Menu">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+    </button>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" (click)="closeMobileMenu();"></div>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu {{currentDarkMode?'darkmode':'lightmode'}}" id="mobileMenu">
+    <button class="mobile-menu-close" (click)="closeMobileMenu();" aria-label="Close menu">
+        <i class="fa-solid fa-times"></i>
+    </button>
+
+    <div class="mobile-menu-item mobile-gif-item">
+        <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
+            Show GIFs
+        </mat-slide-toggle>
+    </div>
+
+    <div class="mobile-menu-item mobile-gif-item">
+        <label>{{currentDarkMode ? 'Turn on Light Mode' : 'Turn on Dark Mode'}}</label>
+        <label class="switch" title="Toggle darkmode">
+            <input id="gifSwitchDarkmode" type="checkbox" onclick="toggleDarkmode(currentDarkMode);">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
+    <div class="mobile-menu-item mobile-gif-item">
+        <label for="searchMobile">Search for Pkmn</label>
+        <input #searchMobile
+               name="searchMobile" type="text" placeholder="Name or ID"
+               (input)="onInput(searchMobile.value)"
+        />
+        <button (click)="navigateToPokedex($event)">
+            <img alt="Get Pokémon"
+                 src="./assets/images/pokeball1.jpg"
+                 style="width:50px; height:50px; cursor: pointer;"
+                 title="Search for Pkmn">
+        </button>
+    </div>
+
+    <div class="mobile-menu-item">
+        <label for="pageNumberMobile">Jump to Page</label>
+        <input id="pageNumberMobile" name="pageNumberMobile" type="text" placeholder="Page #"/>
+        <button class="icon" onclick="setPageToView($('#pageNumberMobile').val());" title="Jump to Page">Go</button>
+    </div>
+
+    <div class="mobile-menu-item">
+        <label for="showPkmnNumberMobile">Pok&#233;mon Per Page</label>
+        <input id="showPkmnNumberMobile" name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"/>
+        <button class="icon" onclick="setPkmnPerPageMobile();" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
+    </div>
+
+    <div class="mobile-menu-item">
+        <label for="typeDropdownMobile">Filter by Type</label>
+<!--        <select id="typeDropdownMobile" title="Type" class="icon" onchange="getByPkmnType(this);">-->
+<!--            <option value="none" selected>Type (All)</option>-->
+<!--            <c:forEach items="${uniqueTypes}" var="type" varStatus="status">-->
+<!--                <c:if test="${chosenType.equals(type)}">-->
+<!--                    <option value="${type}" selected>${type}</option>-->
+<!--                </c:if>-->
+<!--                <c:if test="${!chosenType.equals(type)}">-->
+<!--                    <option value="${type}">${type}</option>-->
+<!--                </c:if>-->
+<!--            </c:forEach>-->
+<!--        </select>-->
+    </div>
+
+    <div class="mobile-menu-item">
+        <button class="back-to-landing-btn icon" onclick="navigateToLandingPage()"
+                title="Return to Landing Page">
+            Back to Landing Page
+        </button>
+    </div>
+</div>
+
+
+<!--
+The issue is that you're using inline onclick handlers in an Angular template,
+but the JavaScript functions are defined in a <script> tag. In Angular, these
+functions aren't accessible to the template's inline event handlers because
+Angular components are isolated from global scope.
+
+You need to move these functions to your component's TypeScript file and use
+Angular's event binding instead.
+-->
+<script>
+
+    function toggleDarkmode(isDarkMode) {
+        let updatedDarkmode = isDarkMode === 'true' ? 'false' : 'true';
+        setTimeout(() => {
+            window.location.href = '${pageContext.request.contextPath}/?darkmode=' + updatedDarkmode;
+        }, 500);
+    }
+
+    function searchForPkmn(isDarkMode) {
+        let nameOrId = $("#searchMobile").val().trim();
+        //validateNameOrId(nameOrId, isDarkMode);
+        console.log('nameOrId: ' + nameOrId);
+
+        // need to validate nameorid before redirecting
+
+    }
+
+    function setPkmnPerPageMobile() {
+        let value = $("#showPkmnNumberMobile").val();
+        setPkmnPerPageImpl(value, true);
+    }
+
+    function setPkmnPerPageImpl(value, isMobile) {
+        console.log("showPkmnNumber: " + value);
+        $.ajax({
+            type: "GET",
+            url: "pkmnPerPage",
+            data: {
+                pkmnPerPage: value
+            },
+            async: false,
+            dataType: "application/json",
+            crossDomain: true,
+            statusCode: {
+                200: function(data) {
+                    console.log(JSON.parse(JSON.stringify(data.responseText)));
+                    if (isMobile) closeMobileMenu();
+                    location.reload();
+                },
+                400: function(data) {
+                    console.log(JSON.parse(JSON.stringify(data.responseText)));
+                },
+                404: function() {
+                    console.log('Resource not found');
+                },
+                500: function() {
+                    console.log('Server Error');
+                }
+            }
+        });
+    }
+
+    function setPageToView(pageNumber) {
+        let value = $("#pageNumber").val();
+        if (pageNumber !== undefined) value = pageNumber;
+        console.log("page to view: " + value);
+        $.ajax({
+            type: "GET",
+            url: "page",
+            data: {
+                pageNumber: value
+            },
+            async: false,
+            dataType: "application/json",
+            crossDomain: true,
+            statusCode: {
+                200: function(data) {
+                    console.log('200 setPageToView');
+                    console.log(JSON.parse(JSON.stringify(data.responseText)));
+                    location.reload();
+
+                    let ids = ${pokemonIds};
+                    for(let i=0; i<ids.length; i++) {
+                        let pokemonBox = document.getElementById("pokemon"+(ids[0])+"Box");
+                        let currentColor = pokemonBox.style.backgroundColor;
+                        pokemonBox.style.backgroundColor = changeColor(currentColor);
+                    }
+                },
+                400: function(data) {
+                    console.log(JSON.parse(JSON.stringify(data.responseText)));
+                },
+                404: function() {
+                    console.log('Resource not found');
+                },
+                500: function() {
+                    console.log('Server Error');
+                }
+            }
+        });
+    }
+</script>

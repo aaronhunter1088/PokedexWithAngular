@@ -14,19 +14,19 @@ describe('DarkModeService', () => {
     });
 
     it('should initialize with light mode (false)', () => {
-        expect(service.getDarkMode()).toBeFalse();
+        expect(service.isDarkMode()).toBeFalse();
     });
 
     it('should set dark mode to true', () => {
         service.setDarkMode(true);
-        expect(service.getDarkMode()).toBeTrue();
+        expect(service.isDarkMode()).toBeTrue();
     });
 
     it('should toggle dark mode', () => {
         service.setDarkMode(false);
         service.toggleDarkMode();
-        expect(service.getDarkMode()).toBeTrue();
+        expect(service.isDarkMode()).toBeTrue();
         service.toggleDarkMode();
-        expect(service.getDarkMode()).toBeFalse();
+        expect(service.isDarkMode()).toBeFalse();
     });
 });

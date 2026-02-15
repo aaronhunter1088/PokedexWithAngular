@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Pokedex} from "pokeapi-js-wrapper";
+import {Pokedex, Pokemon, PokemonSpecies} from "pokeapi-js-wrapper";
 
 @Injectable({
     providedIn: 'root'
@@ -13,6 +13,7 @@ export class PokemonService {
     savedPageNumber: number = 1;
     pokemonID: number = 0;
     itemsPerPage: number = 10
+    allPokemon: any[] = [];
 
     constructor(private http: HttpClient) {
     }
@@ -29,8 +30,57 @@ export class PokemonService {
         return this.Pokedex.getPokemonByName(pokemonIDName);
     }
 
-    getPokemonSpecificData(pokemonName: string) {
-        return this.Pokedex.getPokemonByName(pokemonName);
+    async getPokemonByType(type: string) {
+        return this.Pokedex.getTypeByName(type);
+    }
+
+    async getPokemonSpecificData(pokemonName: string) {
+        return await this.Pokedex.getPokemonByName(pokemonName);
+    }
+
+    getPokemonData(pokemon: any) {
+        return this.Pokedex.getPokemonByName(pokemon.name);
+    }
+
+    /**
+     * Fetches all Pokemon of a specific type
+     */
+    async fetchPokemonByType(chosenType: string) {
+        const pokemonList: any[] = [];
+
+        try {
+            this.allPokemon?.forEach((pokemon: any) => {
+                if (chosenType === 'none' ||
+                    pokemon.type.split('&').some((type: string) =>
+                        type.trim().toLowerCase() === chosenType)) {
+                    pokemonList.push(pokemon);
+                }
+            });
+        }
+        catch (error) {
+            //console.error(`Error fetching Pokemon list at offset ${offset}`, error);
+        }
+
+        pokemonList.sort((a, b) => a.id - b.id);
+        return pokemonList;
+    }
+
+    setThePokemonTypes(pokemon: any): string {
+        let allTypes: string[] = [];
+        let types = pokemon['types']; // list of objects
+        if (types.length > 1) {
+            //console.log("more than 1 type");
+            let type1 = types[0].type.name[0].toUpperCase() + types[0].type.name.substring(1);
+            let type2 = types[1].type.name[0].toUpperCase() + types[1].type.name.substring(1);
+            allTypes.push(type1)
+            allTypes.push(type2)
+            return type1 + " & " + type2;
+        } else {
+            //console.log("only 1 type");
+            let type1 = types[0].type.name[0].toUpperCase() + types[0].type.name.substring(1);
+            allTypes.push(type1);
+            return type1;
+        }
     }
 
     /**
@@ -42,20 +92,78 @@ export class PokemonService {
      * but I see issues with the response it returns so as a fallback,
      * I use the callURL function to get the data directly from the URL.
      */
-    async getPokemonSpeciesData(pokemon: any): Promise<object | undefined> { // speciesURL: string
+    getPokemonSpeciesData(pokemon: any): Promise<object | undefined> { // speciesURL: string
         //return this.callURL(pokemon.species.url);
-        return await this.Pokedex.getPokemonSpeciesByName(pokemon.name)
+        //console.debug("Fetching species data for " + pokemon.name + " using Pokedex library...");
+        return this.Pokedex.getPokemonSpeciesByName(pokemon.name)
             // @ts-ignore
             .then((res => {
                 if (res !== undefined && res.id != 0) {
-                    console.log('Name: \'', res.name, '\' ID: \'', res.id, '\'');
+                    //console.log('Species data found for \'', res.name, '\' id: \'', res.id, '\'');
                     return res;
                 }
             }))
             .catch(err => {
-                console.error('Error fetching species data', err);
-                return this.callURL(pokemon.species.url);
+                console.error('Error fetching species data for ' + pokemon.name);
+                //console.log('Pokemon species URL: ' + pokemon?.species?.url);
+                if (pokemon?.species?.url) {
+                    let backup = this.callURL(pokemon.species.url)
+                    if (backup !== undefined) {
+                        console.log("Successfully fetched species data for " + pokemon.name + " using provided species URL");
+                        return backup;
+                    } else {
+                        return undefined;
+                    }
+                } else {
+                    //console.error('No species URL found for ' + pokemon.name);
+                    return undefined;
+                }
             });
+    }
+
+    async collectPokemonData() {
+        console.log("Collecting Pokemon data...");
+        let offset = 0;
+        const limit = 1350;
+        if (this.allPokemon.length === 0) {
+            let pokemonList = await this.getPokemonList(limit, offset);
+            let pokemon: Pokemon;
+            let species: PokemonSpecies;
+            for (const p of pokemonList.results) {
+                pokemon = await this.getPokemonData(p).then((pokemonData => {
+                    return pokemonData
+                }));
+                species = <PokemonSpecies>await this.getPokemonSpeciesData(pokemon).then((speciesData => {
+                    return speciesData
+                }));
+
+                if (pokemon !== undefined && species !== undefined) {
+                    let sprites = pokemon['sprites'];
+                    pokemon['type'] = this.setThePokemonTypes(pokemon);
+                    let frontImg = sprites['front_default'];
+                    pokemon['showDefaultImage'] = frontImg != null;
+
+                    pokemon['color'] = species['color']['name'] ?? 'white';
+                    // edit weight
+                    let weight = pokemon.weight.toString()
+                    //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
+                    weight = weight.slice(0, -1) + '.' + weight.slice(-1)
+                    weight = weight != null ? String(10 * (Number.parseInt(weight) * 0.220462)) : "0";
+                    pokemon['weight'] = Number(weight)
+                    // edit height
+                    let height = pokemon.height.toString();
+                    height =  height != null ? String(Number.parseInt(height) * 3.93701) : "0";
+                    //if (height.length == 1) height = "0." + height
+                    //else height = height.slice(0, -1) + '.' + height.slice(-1)
+                    pokemon['height'] = Number(height);
+                    this.allPokemon = [...this.allPokemon, pokemon];
+                } else {
+                    console.error("Error fetching data for " + p.name + ": Pokemon or species data is undefined");
+                }
+            }
+        } else {
+            console.log("Using cached Pokemon list");
+        }
     }
 
     getPokemonLocationEncounters(pokemonID: string) {

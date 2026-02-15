@@ -1,7 +1,50 @@
-<div style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
-    <mat-slide-toggle (click)="showGifs = !showGifs;" title="If GIF is not present, official artwork will show!">
+<!-- Loading Overlay -->
+<div id="loadingOverlay">
+    <div id="loadingContent">
+        <h2 id="loadingHeader"></h2>
+        <p>One moment please...</p>
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<app-mobile-menu
+    [currentDarkMode]="currentDarkMode"
+    [showGifs]="showGifs"
+></app-mobile-menu>
+
+<!-- Desktop Controls -->
+<div class="desktop-controls"
+     [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
+     style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
+    <mat-slide-toggle (click)="showGifs = !showGifs;"
+                      title="If GIF is not present, official artwork will show!"
+                      [class]="currentDarkMode?'darkmode':'lightmode'">
         Show GIFs
     </mat-slide-toggle>
+    <mat-slide-toggle [checked]="getCurrentDarkMode()"
+                      (click)="toggleDarkMode()"
+                      title="Toggle darkmode"
+                      [class]="currentDarkMode?'darkmode':'lightmode'">
+        {{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}
+    </mat-slide-toggle>
+    <div style="display:flex; align-items: center; gap: 5px;">
+        <input
+            #pokemonNameIDInput
+            (input)="onInput(pokemonNameIDInput.value)"
+            (keydown.enter)="navigateToPokedex($event); pokemonNameIDInput.value = '';"
+            [value]="pokemonIDName"
+            autofocus
+            placeholder="Pokemon Name/ID"
+            style="height:50px; width:150px; font-size: 15px;"
+            tabindex="0"
+            type="text"/>
+        <a routerLink="/pokedex/?pokemonID={{pokemonNameIDInput.value}}" style="display: flex; align-items: center; justify-content: center;">
+            <img alt="Get Pokémon"
+                 src="./assets/images/pokeball1.jpg"
+                 style="width:50px; height:50px; cursor: pointer;"
+                 title="Click to Search">
+        </a>
+    </div>
     <div style="display:flex; align-items: center; gap: 5px;">
         <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"
                placeholder="Page #"
@@ -18,6 +61,19 @@
             Pokemon
         </button>
     </div>
+    <div id="typeList" style="display:flex; align-items: center; gap: 5px;">
+        <label for="typeDropdown"></label>
+        <select id="typeDropdown" title="Type" class="icon" (change)="showLoadingOverlay(); getByPkmnType($event)">
+            <option value="none" selected>Type (All)</option>
+            @for (type of uniqueTypes; track type) {
+                @if (chosenType === type) {
+                    <option [value]="type" selected>{{ type }}</option>
+                } @else {
+                    <option [value]="type">{{ type }}</option>
+                }
+            }
+        </select>
+    </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
             title="Return to Landing Page">
         Back to Landing Page
@@ -26,12 +82,12 @@
 
 <pagination-controls
         (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
-        [maxSize]="this.itemsPerPage"
+        [maxSize]="this.pkmnPerPage"
         style="justify-content: space-evenly;">
 </pagination-controls>
 <div class="pokemon-grid">
     @for (pokemon of pokemonMap | keyvalue | paginate: {
-        itemsPerPage: this.itemsPerPage,
+        itemsPerPage: this.pkmnPerPage,
         currentPage: this.page,
         totalItems: this.numberOfPokemon
     }; track pokemon) {
@@ -85,10 +141,10 @@
                             </div>
                         }
                         <div id="info" style="display:inline-block;">
-                            <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} m</h3>
-                            <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} kg</h3>
-                            <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
-                            <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
+                            <h5 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h5>
+                            <h5 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lbs</h5>
+                            <h5 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h5>
+                            <h5 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h5>
                         </div>
                     </div>
                 </a>
@@ -98,5 +154,5 @@
 </div>
 <pagination-controls
         (pageChange)="this.page=$event; pokemonMap = newMap(); getThePokemon();"
-        [maxSize]="this.itemsPerPage"
+        [maxSize]="this.pkmnPerPage"
         style="justify-content: space-evenly;"></pagination-controls>

@@ -19,7 +19,6 @@
             integrity="sha384-7qAoOXltbVP82dhxHAUje59V5r2YsVfBafyUDxEdApLPmcdhBPg1DKg1ERo0BZlK"
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"></script>
     <!-- These must be jquery min, jquery modal-min in this order -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script crossorigin="anonymous"
             integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
             referrerpolicy="no-referrer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -34,33 +33,4 @@
 
 <app-root></app-root><!-- see app-routing.module.ts -->
 </body>
-<!--    <script>-->
-<!--        $(function() {-->
-<!--            const body = $("body");-->
-<!--            //const body = $('body')[0]; // unwrap jQuery → DOM element-->
-<!--            const now = new Date();-->
-<!--            const hour = now.getHours();-->
-<!--            const nightStart = 19; // 7 PM-->
-<!--            const nightEnd = 7;    // 7 AM-->
-<!--            let dark = (hour >= nightStart || hour < nightEnd);-->
-<!--            let clientSetDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;-->
-<!--            // console.debug('Client prefers ' +-->
-<!--            //     clientSetDarkMode === true ? 'dark' : 'light'-->
-<!--            //     + ' mode.');-->
-<!--            dark = clientSetDarkMode === true;-->
-<!--            if (dark) {-->
-<!--                body.removeClass('light');-->
-<!--                body.addClass('dark');-->
-<!--                // with dom element-->
-<!--                //body.classList.remove('light');-->
-<!--                //body.classList.add('dark');-->
-<!--            } else {-->
-<!--                body.style.backgroundColor = 'white';-->
-<!--                body.style.color = '';-->
-<!--                // with dom element-->
-<!--                //body.classList.remove('dark');-->
-<!--                //body.classList.add('light');-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
 </html>

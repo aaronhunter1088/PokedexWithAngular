@@ -1,3 +1,52 @@
+
+#loadingOverlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+#loadingContent {
+    background-color: white;
+    padding: 40px 60px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+#loadingContent h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 24px;
+}
+
+#loadingContent p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+}
+
+.spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .pokemon-grid {
     display: grid;
     grid-gap: 15px;
@@ -57,4 +106,48 @@ img {
     border-radius: 4px;
     transition: background-color 0.3s ease;
     white-space: nowrap;
+}
+
+/* Mobile Media Query */
+@media screen and (max-width: 650px) {
+    /* Hide desktop controls */
+    .desktop-controls {
+        display: none !important;
+    }
+
+    /* Pokemon Grid - Change to single column */
+    .pokemon-grid {
+        grid-template-columns: 1fr !important;
+        padding: 10px;
+        grid-gap: 10px;
+    }
+
+    .pokemon-grid .box {
+        width: 100%;
+        max-width: 100%;
+        height: auto !important;
+        min-height: 400px;
+        padding: 15px;
+    }
+
+    /* Adjust Pokemon card content for mobile */
+    .pokemon-grid .box #info h3 {
+        font-size: 14px;
+        margin: 5px 0;
+        line-height: 1.4;
+    }
+
+    .pokemon-grid .box #nameAndId h3 {
+        font-size: 16px;
+    }
+
+    .pokemon-grid .box #image img {
+        height: 150px !important;
+        width: 150px !important;
+    }
+
+    #indexSearchImgSearchLink,
+    #pokedexSearchImgSearchLink {
+        display: none !important;
+    }
 }
