@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-mobile-menu',
@@ -33,6 +34,7 @@ export class MobileMenuComponent implements OnInit {
     uniqueTypes: string[] = ["bug", "dark", "dragon", "electric", "fairy", "fighting",
         "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic",
         "rock", "shadow", "steel", "stellar", "unknown", "water"];
+    landingPageUrl: string = environment.landingPageUrl;
 
     constructor(private pokemonService: PokemonService,
                 private router: Router,
@@ -149,6 +151,15 @@ export class MobileMenuComponent implements OnInit {
         if (overlay) {
             overlay.style.display = 'none';
         }
+    }
+
+    /**
+     * Navigate back to the landing page with the current dark mode setting
+     */
+    navigateToLandingPage(): void {
+        const currentDarkMode = this.darkModeService.isDarkMode();
+        const url = this.landingPageUrl + "?tileNumber=2&darkmode="+currentDarkMode;
+        window.location.href = url;
     }
 
     getByPkmnType(event: Event) {
