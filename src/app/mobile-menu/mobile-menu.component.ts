@@ -22,7 +22,8 @@ export class MobileMenuComponent implements OnInit {
     @Output() currentDarkModeChange = new EventEmitter<boolean>();
     @Output() pokemonMapChange = new EventEmitter<Map<number, any>>();
     pokemonNameID: string = '';
-    chosenType: string = 'none';
+    @Input() chosenType: string = 'none';
+    @Output() chosenTypeChange = new EventEmitter<string>();
     @Input() pkmnPerPage: number = 10; // default
     @Output() pkmnPerPageChange = new EventEmitter<number>();
     @Input() totalPokemon: number = 0;
@@ -120,24 +121,11 @@ export class MobileMenuComponent implements OnInit {
         }
     }
 
-    async getByPkmnType(event: Event) {
+    getByPkmnType(event: Event) {
         let selectedType = (event.target as HTMLInputElement).value;
-        console.log("getByPkmnType: " + selectedType);
-        let previousType = this.chosenType;
+        console.log("getByPkmnType (mobile): " + selectedType);
         this.chosenType = selectedType;
-
-        let updatedMap = new Map<number, any>();
-        if (selectedType !== 'none') {
-            this.pokemonService.allPokemon.forEach((pokemon) => {
-                if (pokemon.types.some((type: any) => type.type.name === selectedType)) {
-                    updatedMap.set(pokemon.id, pokemon);
-                }
-            })
-        }
-        this.pkmnPerPageChange.emit(this.pokemonService.pkmnPerPage);
-        this.totalPokemonChange.emit(updatedMap.size);
-        this.pokemonMapChange.emit(updatedMap);
-        this.hideLoadingOverlay();
+        this.chosenTypeChange.emit(selectedType);
         this.closeMobileMenu();
     }
 }
