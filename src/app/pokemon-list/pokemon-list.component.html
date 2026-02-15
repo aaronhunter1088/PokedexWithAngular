@@ -13,6 +13,10 @@
     [(pokemonMap)]="pokemonMap"
     [(pkmnPerPage)]="pkmnPerPage"
     [(totalPokemon)]="numberOfPokemon"
+    [pageNumber]="page"
+    (chosenPageNumber)="setNewPageNumberMobile($event)"
+    [chosenType]="chosenType"
+    (chosenTypeChange)="onMobileTypeSelected($event)"
 ></app-mobile-menu>
 
 <!-- Desktop Controls -->

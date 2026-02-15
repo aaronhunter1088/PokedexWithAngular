@@ -22,7 +22,10 @@ export class MobileMenuComponent implements OnInit {
     @Output() currentDarkModeChange = new EventEmitter<boolean>();
     @Output() pokemonMapChange = new EventEmitter<Map<number, any>>();
     pokemonNameID: string = '';
-    chosenType: string = 'none';
+    @Input() chosenType: string = 'none';
+    @Input() pageNumber: number = 1;
+    @Output() chosenTypeChange = new EventEmitter<string>();
+    @Output() chosenPageNumber = new EventEmitter<number>();
     @Input() pkmnPerPage: number = 10; // default
     @Output() pkmnPerPageChange = new EventEmitter<number>();
     @Input() totalPokemon: number = 0;
@@ -90,6 +93,34 @@ export class MobileMenuComponent implements OnInit {
         this.pokemonNameID = pokemonNameID;
     }
 
+    onPageInput(page: string) {
+        if (isNaN(Number(page))) {
+            alert("Please enter a valid page number");
+            return;
+        }
+        if (Number(page) < 1) {
+            this.pageNumber = 1;
+        }
+        else {
+            this.pageNumber = Number(page);
+            this.chosenPageNumber.emit(this.pageNumber);
+        }
+    }
+
+    onPkmnPerPageInput(pkmnPerPage: string) {
+        if (isNaN(Number(pkmnPerPage))) {
+            alert("Please enter a valid number of Pokemon per page");
+            return;
+        }
+        if (Number(pkmnPerPage) < 1) {
+            this.pkmnPerPage = 1;
+        }
+        else {
+            this.pkmnPerPage = Number(pkmnPerPage);
+            this.pkmnPerPageChange.emit(this.pkmnPerPage);
+        }
+    }
+
     toggleShowGifs() {
         this.showGifs = !this.showGifs;
         this.showGifsChange.emit(this.showGifs);
@@ -120,24 +151,21 @@ export class MobileMenuComponent implements OnInit {
         }
     }
 
-    async getByPkmnType(event: Event) {
+    getByPkmnType(event: Event) {
         let selectedType = (event.target as HTMLInputElement).value;
-        console.log("getByPkmnType: " + selectedType);
-        let previousType = this.chosenType;
+        console.log("getByPkmnType (mobile): " + selectedType);
         this.chosenType = selectedType;
+        this.chosenTypeChange.emit(selectedType);
+        this.closeMobileMenu();
+    }
 
-        let updatedMap = new Map<number, any>();
-        if (selectedType !== 'none') {
-            this.pokemonService.allPokemon.forEach((pokemon) => {
-                if (pokemon.types.some((type: any) => type.type.name === selectedType)) {
-                    updatedMap.set(pokemon.id, pokemon);
-                }
-            })
-        }
-        this.pkmnPerPageChange.emit(this.pokemonService.pkmnPerPage);
-        this.totalPokemonChange.emit(updatedMap.size);
-        this.pokemonMapChange.emit(updatedMap);
-        this.hideLoadingOverlay();
+    setPageToView() {
+        this.chosenPageNumber.emit(this.pageNumber);
+        this.closeMobileMenu();
+    }
+
+    setPkmnPerPage() {
+        this.pkmnPerPageChange.emit(this.pkmnPerPage);
         this.closeMobileMenu();
     }
 }
