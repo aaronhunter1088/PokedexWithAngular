@@ -122,9 +122,20 @@ label {
 }
 
 /* Mobile Media Query - Show mobile menu on screens <= 650px */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 350px) {
     /* Hide desktop header logo on mobile */
     #indexSearchImg {
         display: none !important;
+    }
+
+    /* Pokedex Page Specific Mobile Styles */
+    .pokedex-grid {
+        padding: 10px;
+        max-width: 100%;
+    }
+
+    .pokedex-grid .box {
+        min-height: auto;
+        padding: 15px;
     }
 }

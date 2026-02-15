@@ -1,48 +1,50 @@
-<h2>Evolutions</h2>
-@for (stage of stages; track stage) {
-    <div
-            class="pokemon-grid box"
-            id="stagesHeader"
-            style="display:inline-flex;justify-content:center;text-align-all:center;width:300px;height:10px;">
-        <h2>Stage {{ stage }}</h2>
-    </div>
-}
-<div id="evolutions" style="display:inline-flex; justify-content: center; width:100%; height:45%;">
-    @for (list of pokemonFamily; track list; let i = $index; let isLastPokemon = $last; let size = $index) {
-        <div
-                style="overflow-y:scroll; height:460px;">
-            @for (pokemon of list | sort:'{{pokemon.id}}'; track pokemon; let isNotLast = $last) {
-                <div
-                        class="pokemon-grid">
-                    <nav>
-                        <a routerLink="/pokedex/?pokemonID={{pokemon.id}}" style="text-decoration: none; color: black;">
-                            <div [ngStyle]="{'background-color':changeColor(pokemon.color)}" class="box"
-                                 style="display:inline-block;">
-                                <div id="idAndName" style="display:inline-flex;">
-                                    <h3 id="name">{{ pokemon.name | titlecase }}</h3>
-                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                                    <h3 id="idOfPokemon">ID: {{ pokemon.id }}</h3>
+@if (pokemonFamily.length === 0) {
+    <h2>No Evolutions</h2>
+} @else {
+    <h2>{{ pokemonName | titlecase }}'s Family</h2>
+    <div id="evolutions" style="display:inline-flex; justify-content: center; width:100%; height:45%;">
+        @for (list of pokemonFamily; track list; let i = $index) {
+            <div style="display:block;">
+                <div id="stagesHeader"
+                     class=""
+                     style="display:inline-flex;justify-content:center;text-align-all:center;width:300px;height:10px;">
+                    <h2>Stage {{ i + 1 }}</h2>
+                </div>
+                <div style="overflow-y:scroll;overflow-x:hidden;max-height:500px;width:auto;">
+                    @for (pokemon of list | sort:'{{pokemon.id}}'; track pokemon; let isLast = $last) {
+                        <div class="evolution-grid" style="">
+                            <a routerLink="/pokedex/{{pokemon.id}}" style="text-decoration:none;color:black;">
+                                <div id="pokemon{{pokemon.id}}"
+                                     [ngStyle]="{'background-color':changeColor(pokemon.color)}"
+                                     class="box"
+                                     style="display:inline-block;">
+                                    <div id="idAndName" style="display:inline-flex;">
+                                        <h3 id="{{pokemon.name}}-name">{{ pokemon.name | titlecase }}</h3>
+                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                                        <h3 id="{{pokemon.id}}-id">ID: {{ pokemon.id }}</h3>
+                                    </div>
+                                    <div id="{{pokemon.id}}-img">
+                                        <img alt="{{pokemon.name}}-default"
+                                             src="{{pokemon.photo}}"
+                                             style="width:200px;height:200px;">
+                                    </div>
+                                    <h3 id="{{pokemon.id}}-height">Height: {{ pokemon.height }} m</h3>
+                                    <h3 id="{{pokemon.id}}-weight">Weight: {{ pokemon.weight }} kg</h3>
+                                    <h3 id="{{pokemon.id}}-color">Color: {{ pokemon.color | titlecase }}</h3>
+                                    <h3 id="{{pokemon.id}}-type">Type: {{ pokemon.type }}</h3>
                                 </div>
-                                <div id="image">
-                                    <img alt="{{pokemon.photo}}-default"
-                                         src="{{pokemon.photo}}" style="width:100px; height:100px;">
+                            </a>
+                            @if (!isLast) {
+                                <div style="padding-top:25px; text-align:center; justify-content:center;">
+                                    <img style="width:25px;height:25px;"
+                                         alt="pokeball"
+                                         src="./assets/images/pokeball1.jpg">
                                 </div>
-                                <h3 id="heightOfPokemon">Height: {{ pokemon.height }} m</h3>
-                                <h3 id="weightOfPokemon">Weight: {{ pokemon.weight }} kg</h3>
-                                <h3 id="colorOfPokemon">Color: {{ pokemon.color | titlecase }}</h3>
-                                <h3 id="typeOfPokemon">Type: {{ pokemon.type }}</h3>
-                            </div>
-                        </a>
-                    </nav>
-                    @if (!isNotLast) {
-                        <div
-                                style="padding-top:25px; text-align:center; justify-content:center;">
-                            <img src="./assets/images/pokeball1.jpg"
-                                 style="width:25px; height:25px;">
+                            }
                         </div>
                     }
                 </div>
-            }
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}

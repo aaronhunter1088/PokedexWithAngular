@@ -12,6 +12,24 @@
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
+.evolution-grid {
+    display: grid;
+    grid-gap: 15px;
+    padding: 20px;
+    /*grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));*/
+    grid-template-columns: 300px;
+}
+
+.evolution-grid .box {
+    width: 300px;
+    height: 100%;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#evolutions {
+    flex-wrap: wrap;
+}
+
 ::-webkit-scrollbar {
     -webkit-appearance: none;
     width: 7px;
@@ -22,3 +40,49 @@
     background-color: rgba(0, 0, 0, .5);
     box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
+
+/* Mobile Media Query - Better layout on screens <= 768px */
+@media screen and (max-width: 350px) {
+    /* Evolutions Section - Stack vertically on mobile */
+    #evolutions {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    #evolutions > div {
+        display: block !important;
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+
+    /* Scroll container for evolution tiles - height increased to fit single tile content without scrolling */
+    #evolutions > div > div[style*="overflow-y:scroll"] {
+        width: 100% !important;
+        height: 520px !important; /* Fits: name/ID (~40px) + image (200px) + 4 stat lines (~160px) + padding (~120px) */
+    }
+
+    #evolutions #stagesHeader {
+        width: 100% !important;
+        text-align: center;
+    }
+
+    #evolutions .evolution-grid {
+        width: 100%;
+        grid-template-columns: 1fr !important;
+        justify-items: stretch;
+        padding: 10px;
+    }
+
+    #evolutions .evolution-grid .box {
+        width: 100% !important;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .stacked {
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+    }
+}
+

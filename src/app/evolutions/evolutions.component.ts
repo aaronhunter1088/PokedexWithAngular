@@ -11,6 +11,7 @@ import {PokemonService} from "../services/pokemon.service";
 export class EvolutionsComponent implements OnInit, OnChanges {
 
     @Input() pokemonID: string | number = ''
+    @Input() pokemonName: string = ''
     pokemonIDToEvolutionChainMap = new Map<number, number[][]>()
     pokemonChainID: number
     pokemonFamilyIDs: number[][] = []
