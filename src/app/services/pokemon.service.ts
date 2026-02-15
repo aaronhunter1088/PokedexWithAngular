@@ -12,7 +12,7 @@ export class PokemonService {
     });
     savedPageNumber: number = 1;
     pokemonID: number = 0;
-    itemsPerPage: number = 10
+    pkmnPerPage: number = 10
     allPokemon: any[] = [];
     showGifs: boolean = false;
 
@@ -206,11 +206,11 @@ export class PokemonService {
 
     saveNumberOfPokemonPerPage(itemsPerPage: number) {
         console.log("saving number of pokemon viewable")
-        this.itemsPerPage = itemsPerPage
+        this.pkmnPerPage = itemsPerPage
     }
 
     getNumberOfPokemonPerPage(): number {
-        return this.itemsPerPage
+        return this.pkmnPerPage
     }
 
     // Show GIFs toggle functions

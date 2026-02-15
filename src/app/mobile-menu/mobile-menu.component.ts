@@ -17,9 +17,19 @@ import {FormsModule} from "@angular/forms";
 export class MobileMenuComponent implements OnInit {
     @Input() showGifs: boolean = false;
     @Input() currentDarkMode: boolean = false;
+    @Input() pokemonMap: Map<number, any> = new Map<number, any>();
     @Output() showGifsChange = new EventEmitter<boolean>();
     @Output() currentDarkModeChange = new EventEmitter<boolean>();
+    @Output() pokemonMapChange = new EventEmitter<Map<number, any>>();
     pokemonNameID: string = '';
+    chosenType: string = 'none';
+    @Input() pkmnPerPage: number = 10; // default
+    @Output() pkmnPerPageChange = new EventEmitter<number>();
+    @Input() totalPokemon: number = 0;
+    @Output() totalPokemonChange = new EventEmitter<number>();
+    uniqueTypes: string[] = ["bug", "dark", "dragon", "electric", "fairy", "fighting",
+        "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic",
+        "rock", "shadow", "steel", "stellar", "unknown", "water"];
 
     constructor(private pokemonService: PokemonService,
                 private router: Router,
@@ -87,11 +97,47 @@ export class MobileMenuComponent implements OnInit {
         setTimeout(() => {
         }, 100);
     }
+
     toggleDarkmode() {
         let updatedDarkmode = !this.darkModeService.isDarkMode();
         this.currentDarkModeChange.emit(updatedDarkmode);
         setTimeout(() => {
             window.location.href = window.location.origin + '/?darkmode=' + updatedDarkmode;
         }, 100);
+    }
+
+    showLoadingOverlay(): void {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) {
+            overlay.style.display = 'flex';
+        }
+    }
+
+    hideLoadingOverlay(): void {
+        const overlay = document.getElementById('loadingOverlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+    }
+
+    async getByPkmnType(event: Event) {
+        let selectedType = (event.target as HTMLInputElement).value;
+        console.log("getByPkmnType: " + selectedType);
+        let previousType = this.chosenType;
+        this.chosenType = selectedType;
+
+        let updatedMap = new Map<number, any>();
+        if (selectedType !== 'none') {
+            this.pokemonService.allPokemon.forEach((pokemon) => {
+                if (pokemon.types.some((type: any) => type.type.name === selectedType)) {
+                    updatedMap.set(pokemon.id, pokemon);
+                }
+            })
+        }
+        this.pkmnPerPageChange.emit(this.pokemonService.pkmnPerPage);
+        this.totalPokemonChange.emit(updatedMap.size);
+        this.pokemonMapChange.emit(updatedMap);
+        this.hideLoadingOverlay();
+        this.closeMobileMenu();
     }
 }

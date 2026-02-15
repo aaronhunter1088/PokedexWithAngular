@@ -10,6 +10,9 @@
 <app-mobile-menu
     [(showGifs)]="showGifs"
     [(currentDarkMode)]="currentDarkMode"
+    [(pokemonMap)]="pokemonMap"
+    [(pkmnPerPage)]="pkmnPerPage"
+    [(totalPokemon)]="numberOfPokemon"
 ></app-mobile-menu>
 
 <!-- Desktop Controls -->
@@ -31,7 +34,7 @@
         <input
             #pokemonNameIDInput
             (input)="onInput(pokemonNameIDInput.value)"
-            (keydown.enter)="navigateToPokedex($event); pokemonNameIDInput.value = '';"
+            (keydown.enter)="navigateToPokedex(); pokemonNameIDInput.value = '';"
             [value]="pokemonIDName"
             autofocus
             placeholder="Pokemon Name/ID"

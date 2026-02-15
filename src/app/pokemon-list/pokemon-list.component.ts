@@ -16,7 +16,7 @@ export class PokemonListComponent implements OnInit {
     pokemonMap = new Map<number, any>();
     page: number = 1;
     blankPageNumber: string = ''
-    pkmnPerPage: number = 0;
+    pkmnPerPage: number = 10;
     numberOfPokemon: number = 0;
     defaultImagePresent: boolean = false;
     showGifs: boolean = false;

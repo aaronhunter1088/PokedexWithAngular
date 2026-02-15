@@ -63,17 +63,19 @@
 
     <div class="mobile-menu-item">
         <label for="typeDropdownMobile">Filter by Type</label>
-<!--        <select id="typeDropdownMobile" title="Type" class="icon" onchange="getByPkmnType(this);">-->
-<!--            <option value="none" selected>Type (All)</option>-->
-<!--            <c:forEach items="${uniqueTypes}" var="type" varStatus="status">-->
-<!--                <c:if test="${chosenType.equals(type)}">-->
-<!--                    <option value="${type}" selected>${type}</option>-->
-<!--                </c:if>-->
-<!--                <c:if test="${!chosenType.equals(type)}">-->
-<!--                    <option value="${type}">${type}</option>-->
-<!--                </c:if>-->
-<!--            </c:forEach>-->
-<!--        </select>-->
+        <div id="typeList" style="display:flex; align-items: center; gap: 5px;">
+            <label for="typeDropdown"></label>
+            <select id="typeDropdown" title="Type" class="icon" (change)="showLoadingOverlay(); getByPkmnType($event)">
+                <option value="none" selected>Type (All)</option>
+                @for (type of uniqueTypes; track type) {
+                    @if (chosenType === type) {
+                        <option [value]="type" selected>{{ type }}</option>
+                    } @else {
+                        <option [value]="type">{{ type }}</option>
+                    }
+                }
+            </select>
+        </div>
     </div>
 
     <div class="mobile-menu-item">
@@ -95,22 +97,6 @@ You need to move these functions to your component's TypeScript file and use
 Angular's event binding instead.
 -->
 <script>
-
-    function toggleDarkmode(isDarkMode) {
-        let updatedDarkmode = isDarkMode === 'true' ? 'false' : 'true';
-        setTimeout(() => {
-            window.location.href = window.location.origin + '/?darkmode=' + updatedDarkmode;
-        }, 100);
-    }
-
-    function searchForPkmn(isDarkMode) {
-        let nameOrId = $("#searchMobile").val().trim();
-        //validateNameOrId(nameOrId, isDarkMode);
-        console.log('nameOrId: ' + nameOrId);
-
-        // need to validate nameorid before redirecting
-
-    }
 
     function setPkmnPerPageMobile() {
         let value = $("#showPkmnNumberMobile").val();
