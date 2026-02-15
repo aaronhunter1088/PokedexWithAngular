@@ -183,6 +183,10 @@ export class PokemonListComponent implements OnInit {
         } else return "#ffffff";
     }
 
+    setNewPageNumberMobile(newPage: number) {
+        this.setNewPageNumber(String(newPage));
+
+    }
     setNewPageNumber(newPage: string) {
         let chosenPage = Number.parseInt(newPage)
         if (chosenPage < 0) {
@@ -285,9 +289,10 @@ export class PokemonListComponent implements OnInit {
      * Handles type selection from the mobile menu by delegating to the existing
      * filtering logic, ensuring pagination retains the type filter.
      */
-    async onMobileTypeSelected(selectedType: string): Promise<void> {
+    async onMobileTypeSelected(selectedType: string) {
         this.showLoadingOverlay();
         await this.filterByType(selectedType);
+        return selectedType;
     }
 
     async filterByType(selectedType: string) {

@@ -23,7 +23,9 @@ export class MobileMenuComponent implements OnInit {
     @Output() pokemonMapChange = new EventEmitter<Map<number, any>>();
     pokemonNameID: string = '';
     @Input() chosenType: string = 'none';
+    @Input() pageNumber: number = 1;
     @Output() chosenTypeChange = new EventEmitter<string>();
+    @Output() chosenPageNumber = new EventEmitter<number>();
     @Input() pkmnPerPage: number = 10; // default
     @Output() pkmnPerPageChange = new EventEmitter<number>();
     @Input() totalPokemon: number = 0;
@@ -91,6 +93,34 @@ export class MobileMenuComponent implements OnInit {
         this.pokemonNameID = pokemonNameID;
     }
 
+    onPageInput(page: string) {
+        if (isNaN(Number(page))) {
+            alert("Please enter a valid page number");
+            return;
+        }
+        if (Number(page) < 1) {
+            this.pageNumber = 1;
+        }
+        else {
+            this.pageNumber = Number(page);
+            this.chosenPageNumber.emit(this.pageNumber);
+        }
+    }
+
+    onPkmnPerPageInput(pkmnPerPage: string) {
+        if (isNaN(Number(pkmnPerPage))) {
+            alert("Please enter a valid number of Pokemon per page");
+            return;
+        }
+        if (Number(pkmnPerPage) < 1) {
+            this.pkmnPerPage = 1;
+        }
+        else {
+            this.pkmnPerPage = Number(pkmnPerPage);
+            this.pkmnPerPageChange.emit(this.pkmnPerPage);
+        }
+    }
+
     toggleShowGifs() {
         this.showGifs = !this.showGifs;
         this.showGifsChange.emit(this.showGifs);
@@ -126,6 +156,16 @@ export class MobileMenuComponent implements OnInit {
         console.log("getByPkmnType (mobile): " + selectedType);
         this.chosenType = selectedType;
         this.chosenTypeChange.emit(selectedType);
+        this.closeMobileMenu();
+    }
+
+    setPageToView() {
+        this.chosenPageNumber.emit(this.pageNumber);
+        this.closeMobileMenu();
+    }
+
+    setPkmnPerPage() {
+        this.pkmnPerPageChange.emit(this.pkmnPerPage);
         this.closeMobileMenu();
     }
 }

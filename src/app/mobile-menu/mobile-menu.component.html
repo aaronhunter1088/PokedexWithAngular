@@ -51,14 +51,20 @@
 
     <div class="mobile-menu-item">
         <label for="pageNumberMobile">Jump to Page</label>
-        <input id="pageNumberMobile" name="pageNumberMobile" type="text" placeholder="Page #"/>
-        <button class="icon" onclick="setPageToView($('#pageNumberMobile').val());" title="Jump to Page">Go</button>
+        <input #pageNumberMobile
+               name="pageNumberMobile" type="text" placeholder="Page #"
+               (input)="onPageInput(pageNumberMobile.value)"
+        />
+        <button class="icon" (click)="setPageToView();" title="Jump to Page">Go</button>
     </div>
 
     <div class="mobile-menu-item">
         <label for="showPkmnNumberMobile">Pok&#233;mon Per Page</label>
-        <input id="showPkmnNumberMobile" name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"/>
-        <button class="icon" onclick="setPkmnPerPageMobile();" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
+        <input #showPkmnNumberMobile
+               name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"
+               (input)="onPkmnPerPageInput(showPkmnNumberMobile.value)"
+        />
+        <button class="icon" onclick="setPkmnPerPage();" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
     </div>
 
     <div class="mobile-menu-item">
@@ -133,42 +139,4 @@ Angular's event binding instead.
         });
     }
 
-    function setPageToView(pageNumber) {
-        let value = $("#pageNumber").val();
-        if (pageNumber !== undefined) value = pageNumber;
-        console.log("page to view: " + value);
-        $.ajax({
-            type: "GET",
-            url: "page",
-            data: {
-                pageNumber: value
-            },
-            async: false,
-            dataType: "application/json",
-            crossDomain: true,
-            statusCode: {
-                200: function(data) {
-                    console.log('200 setPageToView');
-                    console.log(JSON.parse(JSON.stringify(data.responseText)));
-                    location.reload();
-
-                    let ids = ${pokemonIds};
-                    for(let i=0; i<ids.length; i++) {
-                        let pokemonBox = document.getElementById("pokemon"+(ids[0])+"Box");
-                        let currentColor = pokemonBox.style.backgroundColor;
-                        pokemonBox.style.backgroundColor = changeColor(currentColor);
-                    }
-                },
-                400: function(data) {
-                    console.log(JSON.parse(JSON.stringify(data.responseText)));
-                },
-                404: function() {
-                    console.log('Resource not found');
-                },
-                500: function() {
-                    console.log('Server Error');
-                }
-            }
-        });
-    }
 </script>
