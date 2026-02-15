@@ -51,8 +51,29 @@ export class MobileMenuComponent implements OnInit {
         document.body.style.overflow = '';
     }
 
-    navigateToPokedex(event: Event): void {
-        this.router.navigate(['/pokedex', this.pokemonNameID]); // path parameter
+    async navigateToPokedex() {
+        let pokemonId = this.pokemonNameID;
+        const idPattern = /^[1-9][0-9]{0,3}$/; // Matches numbers from 1 to 9999
+        const isNumeric = /^\d+$/.test(pokemonId);
+
+        if (isNumeric) {
+            if (!idPattern.test(pokemonId)) {
+                alert("Please enter a valid Pokemon ID (1-9999)");
+                return;
+            }
+        }
+        // if a name is entered, validate it and get the id
+        if (pokemonId !== undefined) {
+            let pokemon = this.pokemonService.getPokemonByName(pokemonId);
+            if (pokemon) {
+                pokemonId = await pokemon.then(pkmn => {
+                    return pkmn.id.toString();
+                });
+            }
+        }
+        console.log("searched for pokemonId: " + pokemonId);
+        this.router.navigate(['/pokedex', pokemonId])
+            .then(() => this.closeMobileMenu());
     }
 
     onInput(pokemonNameID: string) {

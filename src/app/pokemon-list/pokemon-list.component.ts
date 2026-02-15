@@ -234,14 +234,16 @@ export class PokemonListComponent implements OnInit {
         this.pokemonIDName = pokemonIDName;
     }
 
-    async navigateToPokedex(event: Event): Promise<void> {
-        let pokemonId = (event.target as HTMLInputElement).value;
+    async navigateToPokedex(): Promise<void> {
+        let pokemonId = this.pokemonIDName;
         const idPattern = /^[1-9][0-9]{0,3}$/; // Matches numbers from 1 to 9999
-        const namePattern = /^[a-zA-Z0-9\- ]+$/; // Matches valid Pokemon names
+        const isNumeric = /^\d+$/.test(pokemonId);
 
-        if (!idPattern.test(pokemonId) && !namePattern.test(pokemonId)) {
-            alert("Please enter a valid Pokemon ID (1-1350) or name (letters, numbers, hyphens, spaces)");
-            return;
+        if (isNumeric) {
+            if (!idPattern.test(pokemonId)) {
+                alert("Please enter a valid Pokemon ID (1-9999)");
+                return;
+            }
         }
         // if a name is entered, validate it and get the id
         if (pokemonId !== undefined) {
@@ -252,8 +254,12 @@ export class PokemonListComponent implements OnInit {
                 });
             }
         }
-
-        this.router.navigate(['pokedex', pokemonId]); // path parameter
+        console.log("searched for pokemonId: " + pokemonId);
+        this.router.navigate(['pokedex', pokemonId])
+                .then(() => {
+                    // Clear the search input after navigation
+                    this.pokemonIDName = '';
+                });
     }
 
     showLoadingOverlay(): void {
