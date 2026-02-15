@@ -22,7 +22,7 @@
     <div class="mobile-menu-item mobile-gif-item">
         <label>Show GIFs</label>
         <label class="switch" title="If GIF is not present, official artwork will show!">
-            <input type="checkbox" [checked]="showGifs" (change)="showGifs = !showGifs; showGifsChange.emit(showGifs); closeMobileMenu();">
+            <input type="checkbox" [checked]="showGifs" (change)="toggleShowGifs(); closeMobileMenu();">
             <span class="slider round"></span>
         </label>
     </div>

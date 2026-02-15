@@ -3,31 +3,28 @@ import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
 import {Router, RouterLink} from "@angular/router";
-import {MatSlideToggle} from "@angular/material/slide-toggle";
 import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-mobile-menu',
     imports: [
         RouterLink,
-        MatSlideToggle,
         FormsModule
     ],
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.css',
 })
 export class MobileMenuComponent implements OnInit {
-
-    @Input() currentDarkMode: boolean = false;
     @Input() showGifs: boolean = false;
+    @Input() currentDarkMode: boolean = false;
     @Output() showGifsChange = new EventEmitter<boolean>();
+    @Output() currentDarkModeChange = new EventEmitter<boolean>();
     pokemonNameID: string = '';
 
     constructor(private pokemonService: PokemonService,
                 private router: Router,
                 private http: HttpClient,
-                private darkModeService: DarkModeService)
-    {
+                private darkModeService: DarkModeService) {
     }
 
     ngOnInit(): void {
@@ -62,8 +59,16 @@ export class MobileMenuComponent implements OnInit {
         this.pokemonNameID = pokemonNameID;
     }
 
+    toggleShowGifs() {
+        this.showGifs = !this.showGifs;
+        this.showGifsChange.emit(this.showGifs);
+        this.pokemonService.saveShowGifs(this.showGifs);
+        setTimeout(() => {
+        }, 100);
+    }
     toggleDarkmode() {
         let updatedDarkmode = !this.darkModeService.isDarkMode();
+        this.currentDarkModeChange.emit(updatedDarkmode);
         setTimeout(() => {
             window.location.href = window.location.origin + '/?darkmode=' + updatedDarkmode;
         }, 100);

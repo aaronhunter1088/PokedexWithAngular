@@ -1,6 +1,7 @@
-import {Component, HostListener, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnChanges, OnInit, OnDestroy} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {ActivatedRoute} from "@angular/router";
+import {DarkModeService} from "../services/dark-mode.service";
 
 @Component({
     selector: 'app-pokedex',
@@ -8,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
     styleUrls: ['./pokedex.component.css'],
     standalone: false
 })
-export class PokedexComponent implements OnInit, OnChanges {
+export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
     @Input() pokemonSprites = {}
     @Input() pokemonImage = ''
     @Input() pokemonName = ''
@@ -32,8 +33,11 @@ export class PokedexComponent implements OnInit, OnChanges {
     styleFlag: boolean = false
     gifImage: string = ''
     officialImage: string = ''
+    currentDarkMode: boolean = false
+    showGifs: boolean = false;
 
-    constructor(private route: ActivatedRoute, private pokemonService: PokemonService) {
+    constructor(private route: ActivatedRoute, private pokemonService: PokemonService,
+                private darkmodeService: DarkModeService) {
     }
 
     ngOnInit(): void {
@@ -41,6 +45,8 @@ export class PokedexComponent implements OnInit, OnChanges {
         document.getElementById('defaultImgBtn').style.fontWeight = this.bold
         // @ts-ignore
         document.getElementById('descriptionBtn').style.fontWeight = this.bold
+        this.currentDarkMode = this.darkmodeService.isDarkMode();
+        this.showGifs = this.pokemonService.getShowGifs();
 
         this.screenWidth = window.innerWidth
         this.screenHeight = window.innerHeight
@@ -167,6 +173,10 @@ export class PokedexComponent implements OnInit, OnChanges {
         document.getElementById('descriptionBtn').style.fontWeight = this.bold
     }
 
+    ngOnDestroy() {
+        this.pokemonService.saveShowGifs(this.showGifs);
+    }
+
     showImage(option: string): void {
         let pokeballImage = "./assets/images/pokeball1.jpg";
         switch (option) {
@@ -266,7 +276,7 @@ export class PokedexComponent implements OnInit, OnChanges {
         this.evolutionsDiv = true
         this.setButtonsToNormalFont()
         // @ts-ignore
-        document.getElementById('evolutionsBtn').style.fontWeight = this.bold
+        document.getElementById('evolvesHowBtn').style.fontWeight = this.bold
     }
 
     setDivsToNotShow() {
@@ -293,7 +303,7 @@ export class PokedexComponent implements OnInit, OnChanges {
         // @ts-ignore
         document.getElementById('movesBtn').style.fontWeight = this.normal
         // @ts-ignore
-        document.getElementById('evolutionsBtn').style.fontWeight = this.normal
+        document.getElementById('evolvesHowBtn').style.fontWeight = this.normal
     }
 
     changeColor(pokemonColor: string): string {

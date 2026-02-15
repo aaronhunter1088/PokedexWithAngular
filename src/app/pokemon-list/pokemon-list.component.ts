@@ -33,7 +33,7 @@ export class PokemonListComponent implements OnInit {
     filteringInProgress = new Map<string, boolean>();
     retroactiveFetchingStarted: boolean = false;
 
-    constructor(private pokemonService: PokemonService,
+    constructor(public pokemonService: PokemonService,
                 private router: Router,
                 private http: HttpClient,
                 private darkModeService: DarkModeService) {
@@ -68,7 +68,9 @@ export class PokemonListComponent implements OnInit {
             console.log("pokemonMap size: " + this.pokemonMap.size)
         );
         this.currentDarkMode = this.darkModeService.isDarkMode();
+        this.showGifs = this.pokemonService.getShowGifs();
         console.log("Dark mode is ", this.currentDarkMode);
+        console.log("Show GIFs is ", this.showGifs);
     }
 
     ngOnReload() {
@@ -76,7 +78,8 @@ export class PokemonListComponent implements OnInit {
 
     ngOnDestroy() {
         this.pokemonService.saveCurrentPage(this.page);
-        this.pokemonService.saveNumberOfPokemonPerPage(this.pkmnPerPage)
+        this.pokemonService.saveNumberOfPokemonPerPage(this.pkmnPerPage);
+        this.pokemonService.saveShowGifs(this.showGifs);
     }
 
     async getThePokemon() {

@@ -14,6 +14,7 @@ export class PokemonService {
     pokemonID: number = 0;
     itemsPerPage: number = 10
     allPokemon: any[] = [];
+    showGifs: boolean = false;
 
     constructor(private http: HttpClient) {
     }
@@ -210,6 +211,16 @@ export class PokemonService {
 
     getNumberOfPokemonPerPage(): number {
         return this.itemsPerPage
+    }
+
+    // Show GIFs toggle functions
+    saveShowGifs(showGifs: boolean) {
+        console.log("saving showGifs: ", showGifs);
+        this.showGifs = showGifs;
+    }
+
+    getShowGifs(): boolean {
+        return this.showGifs;
     }
 
     getEvolutionsMap() {

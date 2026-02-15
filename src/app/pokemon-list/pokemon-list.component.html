@@ -8,15 +8,15 @@
 </div>
 
 <app-mobile-menu
-    [currentDarkMode]="currentDarkMode"
     [(showGifs)]="showGifs"
+    [(currentDarkMode)]="currentDarkMode"
 ></app-mobile-menu>
 
 <!-- Desktop Controls -->
 <div class="desktop-controls"
      [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
      style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
-    <mat-slide-toggle (click)="showGifs = !showGifs;"
+    <mat-slide-toggle (click)="showGifs = !showGifs; pokemonService.saveShowGifs(showGifs);"
                       title="If GIF is not present, official artwork will show!"
                       [class]="currentDarkMode?'darkmode':'lightmode'">
         Show GIFs

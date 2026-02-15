@@ -11,10 +11,95 @@
     grid-template-columns: 1fr 1fr
 }
 
+.pokedex-grid {
+    display: grid;
+    grid-gap: 15px;
+    padding: 20px;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+
+.pokedex-grid .box {
+    width: 100%;
+    max-width: 800px;
+    min-height: 400px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+}
+
 .pokemon-grid .box {
     width: 100%;
     height: 400px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.parent-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+}
+
+.left-div {
+    padding-left: 15px;
+    position: absolute;
+    left: 0;
+}
+
+.center-div {
+    text-align: center;
+}
+
+.info-display-div {
+    display: inline-flex;
+    width: 300px;
+    height: 200px;
+    justify-content: center;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Force black text in pokemon info section */
+.pokedex-grid .box h3,
+.pokedex-grid .box #name,
+.pokedex-grid .box #idOfPokemon,
+.pokedex-grid .box #heightOfPokemon,
+.pokedex-grid .box #weightOfPokemon,
+.pokedex-grid .box #colorOfPokemon,
+.pokedex-grid .box #typeOfPokemon {
+    color: #000000 !important;
+}
+
+/* Force black text on buttons */
+.tab,
+.tab button {
+    color: #000000 !important;
+}
+
+#backArrow a i {
+    color: #000000;
+}
+
+.darkmode #backArrow a i {
+    color: #000000;
 }
 
 .stacked {
