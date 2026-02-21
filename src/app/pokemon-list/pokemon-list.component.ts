@@ -211,8 +211,10 @@ export class PokemonListComponent implements OnInit {
             alert("Cannot show negative number of Pokemon")
             return
         } else {
-            if (chosenNumber > 50) alert(chosenNumber + " is too high. Defaulting to 50")
-            this.pkmnPerPage = chosenNumber
+            if (chosenNumber > 50) {
+                alert(chosenNumber + " is too high. Defaulting to 50")
+            }
+            this.pkmnPerPage = chosenNumber > 50 ? 50 : chosenNumber
             this.getThePokemon().then(r => {});
             return;
         }
