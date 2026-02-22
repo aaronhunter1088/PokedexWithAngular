@@ -92,24 +92,6 @@ body.dark #moves {
 .darkmode input {
     color: white !important;
 }
-/*
-Select the label element that is a child of a div,
-which is a child of a mat-slide-toggle
-element that has the darkmode class.
- */
-mat-slide-toggle.darkmode > div > label  {
-    color: white !important;
-    background-color: black !important;
-}
-/*
-Select the label element that is a child of a div,
-which is a child of a mat-slide-toggle
-element that has the lightmode class.
- */
-mat-slide-toggle.lightmode > div > label {
-    color: black !important;
-    background-color: white !important;
-}
 
 body {
     margin: 0;
