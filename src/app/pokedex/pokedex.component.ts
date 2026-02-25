@@ -79,16 +79,18 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
                         this.gifImage = pokemon['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
                         this.officialImage = pokemon['sprites']['other']['official-artwork']['front_default']
                         this.pokemonID = pokemon.id
+
                         // edit weight
-                        let weight = pokemon.weight.toString()
-                        //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
-                        weight = weight.slice(0, -1) + '.' + weight.slice(-1)
-                        this.pokemonWeight = weight
+                        let weight = pokemon.weight.toString();
+                        weight = weight.slice(0, -1) + '.' + weight.slice(-1);
+                        weight = weight != null ? 10 * (Number.parseInt(weight) * 0.220462) : 0;
+                        this.pokemonWeight = Math.round(Number(weight)).toString();
+
                         // edit height
-                        let height = pokemon.height.toString()
-                        if (height.length == 1) height = "0." + height
-                        else height = height.slice(0, -1) + '.' + height.slice(-1)
-                        this.pokemonHeight = height
+                        let height = pokemon.height.toString();
+                        height = height != null ? (Number.parseInt(height) * 3.93701) : 0;
+                        this.pokemonHeight = Math.round(Number(height)).toString();
+
                         // get and set color, and pokemon description
                         this.pokemonService.getPokemonSpeciesData(pokemon)
                             .then((speciesData: any) => {

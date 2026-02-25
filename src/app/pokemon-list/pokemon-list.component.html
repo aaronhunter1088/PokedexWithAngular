@@ -70,19 +70,6 @@
             Pokemon
         </button>
     </div>
-    <div id="typeList" style="display:flex; align-items: center; gap: 5px;">
-        <label for="typeDropdown"></label>
-        <select id="typeDropdown" title="Type" class="icon" (change)="showLoadingOverlay(); getByPkmnType($event)">
-            <option value="none" selected>Type (All)</option>
-            @for (type of uniqueTypes; track type) {
-                @if (chosenType === type) {
-                    <option [value]="type" selected>{{ type }}</option>
-                } @else {
-                    <option [value]="type">{{ type }}</option>
-                }
-            }
-        </select>
-    </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
             title="Return to Landing Page">
         Back to Landing Page
@@ -151,7 +138,7 @@
                         }
                         <div id="info" style="display:inline-block;">
                             <h5 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h5>
-                            <h5 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lbs</h5>
+                            <h5 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lb</h5>
                             <h5 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h5>
                             <h5 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h5>
                         </div>

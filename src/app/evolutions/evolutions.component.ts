@@ -246,19 +246,23 @@ export class EvolutionsComponent implements OnInit, OnChanges {
         //let shinyImg = sprites['front_shiny'];
         let officialImg = otherSprites['official-artwork'].front_default;
         //let gifImg = pokemonResponse['sprites']['versions']['generation-v']['black-white']['animated'].front_default;
+
         // edit weight
-        let adjustedWeight = pokemonResponse.weight.toString()
-        //console.log("'"+weight.slice(0,-1)+"'" + "." + "'"+weight.slice(-1)+"'")
-        adjustedWeight = adjustedWeight.slice(0, -1) + '.' + adjustedWeight.slice(-1)
+        let weight = pokemonResponse.weight.toString()
+        weight = weight.slice(0, -1) + '.' + weight.slice(-1);
+        weight = weight != null ? 10 * (Number.parseInt(weight) * 0.220462) : 0;
+        weight = Math.round(Number(weight)).toString();
+
         // edit height
-        let adjustedHeight = pokemonResponse.height.toString();
-        if (adjustedHeight.length == 1) adjustedHeight = "0." + adjustedHeight
-        else adjustedHeight = adjustedHeight.slice(0, -1) + '.' + adjustedHeight.slice(-1)
+        let height = pokemonResponse.height.toString();
+        height = height != null ? (Number.parseInt(height) * 3.93701) : 0;
+        height = Math.round(Number(height)).toString();
+
         let pokemon = {
             id: pokemonResponse.id,
             name: pokemonResponse.name,
-            height: adjustedHeight,
-            weight: adjustedWeight,
+            height: height,
+            weight: weight,
             color: speciesData['color'].name,
             type: pokemonType,
             photo: this.defaultImagePresent ? frontImg : officialImg
