@@ -147,7 +147,97 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
                         console.log(error)
                     })
                 this.ngOnChanges()
-            } else {
+            }
+            else if (this.pokemonID !== undefined)
+            {
+                console.log("pokemon name: '" + this.pokemonID + "'")
+                this.pokemonDescription = ''
+                this.pokemonLocations = []
+                this.pokemonMoves = []
+                this.pokemonService.getPokemonByName(this.pokemonID)
+                    .then((pokemon: any) => {
+                        //console.log("pokemon: ", pokemon)
+                        this.pokemonName = pokemon.name
+                        //console.log("name: " + pokemon.name)
+                        let sprites = pokemon['sprites']//<object>pokemon['sprites']
+                        pokemon['sprites'] = sprites;
+                        this.pokemonSprites = sprites;
+                        let species = pokemon['species']
+                        this.pokemonImage = pokemon['sprites']['front_default']
+                        this.pokemonImage = this.pokemonImage != null ? this.pokemonImage : "./assets/images/pokeball1.jpg"
+                        this.gifImage = pokemon['sprites']['versions']['generation-v']['black-white']['animated']['front_default']
+                        this.officialImage = pokemon['sprites']['other']['official-artwork']['front_default']
+                        this.pokemonID = pokemon.id
+
+                        // edit weight
+                        let weight = pokemon.weight.toString();
+                        weight = weight.slice(0, -1) + '.' + weight.slice(-1);
+                        weight = weight != null ? 10 * (Number.parseInt(weight) * 0.220462) : 0;
+                        this.pokemonWeight = Math.round(Number(weight)).toString();
+
+                        // edit height
+                        let height = pokemon.height.toString();
+                        height = height != null ? (Number.parseInt(height) * 3.93701) : 0;
+                        this.pokemonHeight = Math.round(Number(height)).toString();
+
+                        // get and set color, and pokemon description
+                        this.pokemonService.getPokemonSpeciesData(pokemon)
+                            .then((speciesData: any) => {
+                                //console.log("pokemon species: ", speciesData);
+                                this.pokemonColor = speciesData['color']['name'];
+                                this.changeColor(this.pokemonColor);
+                                this.pokemonDescriptions = speciesData.flavor_text_entries;
+                                this.pokemonDescription = this.getEnglishDescriptions();
+                            }) //.subscribe
+                        // parse over the types
+                        this.pokemonType = pokemon.types
+                        //console.log("pokemonType", pokemon.types);
+                        if (this.pokemonType.length > 1) {
+                            // @ts-ignore
+                            this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1) + " and " + this.pokemonType[1].type.name[0].toUpperCase() + this.pokemonType[1].type.name.substring(1)
+                        } else {
+                            // @ts-ignore
+                            this.pokemonType = this.pokemonType[0].type.name[0].toUpperCase() + this.pokemonType[0].type.name.substring(1)
+                        }
+                        // locations
+                        this.pokemonService.getPokemonLocationEncounters(this.pokemonID.toString()).then(
+                            (locations: any) => {
+                                if (locations.length == 0) {
+                                    this.pokemonLocations.push("No known locations!")
+                                } else {
+                                    locations.forEach((location: any) => {
+                                        let names = location['location_area']['name'].split("-")
+                                        let newName = ''
+                                        names.forEach((name: string) => {
+                                            name = name[0].toUpperCase() + name.substring(1)
+                                            newName += name + " "
+                                            //console.log(newName);
+                                        })
+                                        this.pokemonLocations.push(newName)
+                                    })
+                                    this.pokemonLocations.sort()
+                                }
+                            });
+                        // moves
+                        let allMoves = pokemon['moves']
+                        //console.log("all moves: ")
+                        //console.log(allMoves)
+                        for (let i = 0; i < allMoves.length; i++) {
+                            //console.log("move: ")
+                            //console.log(allMoves[i]['move'].name)
+                            let move = allMoves[i]['move'].name
+                            move = move[0].toUpperCase() + move.substring(1)
+                            this.pokemonMoves.push(move)
+                        }
+                        this.pokemonMoves.sort()
+                    })
+                    .catch((error: any) => {
+                        console.log("Couldn't get Pokemon info with: '" + this.pokemonID + "'")
+                        console.log(error)
+                    })
+                this.ngOnChanges()
+            }
+            else {
                 console.log("searching for a new pokemon")
             }
         })
