@@ -27,6 +27,15 @@ export class PokemonService {
         return this.Pokedex.getPokemonsList(interval);
     }
 
+    // async getTotalPokemon(pokedexId: string): Promise<number> {
+    //     const url = this.hostUrl + "/pokedex/" + (pokedexId ?? "1");
+    //     //console.log("Getting total Pokemon at: ", url);
+    //     const totalPokemon = await this.callURL(url).then((response => { return response; }));
+    //     // If the API returns an object with a 'pokemon' array:
+    //     //console.log("Pokedex results: ", totalPokemon);
+    //     return totalPokemon;
+    // }
+
     getPokemonByName(pokemonIDName: string | number) {
         return this.Pokedex.getPokemonByName(pokemonIDName);
     }
@@ -125,7 +134,7 @@ export class PokemonService {
     async collectPokemonData() {
         console.log("Collecting Pokemon data...");
         let offset = 0;
-        const limit = 1350;
+        const limit = 1025; // TODO: Use 'Pokedex.getPokemonsList()' to get the total count of Pokemon and set limit accordingly, instead of hardcoding it to 1350
         if (this.allPokemon.length === 0) {
             let pokemonList = await this.getPokemonList(limit, offset);
             let pokemon: Pokemon;
@@ -157,7 +166,7 @@ export class PokemonService {
                     //if (height.length == 1) height = "0." + height
                     //else height = height.slice(0, -1) + '.' + height.slice(-1)
                     pokemon['height'] = Number(height);
-                    this.allPokemon = [...this.allPokemon, pokemon];
+                    this.allPokemon.push(pokemon);
                 } else {
                     console.error("Error fetching data for " + p.name + ": Pokemon or species data is undefined");
                 }

@@ -68,23 +68,6 @@
     </div>
 
     <div class="mobile-menu-item">
-        <label for="typeDropdownMobile">Filter by Type</label>
-        <div id="typeList" style="display:flex; align-items: center; gap: 5px;">
-            <label for="typeDropdown"></label>
-            <select id="typeDropdown" title="Type" class="icon" (change)="showLoadingOverlay(); getByPkmnType($event)">
-                <option value="none" selected>Type (All)</option>
-                @for (type of uniqueTypes; track type) {
-                    @if (chosenType === type) {
-                        <option [value]="type" selected>{{ type }}</option>
-                    } @else {
-                        <option [value]="type">{{ type }}</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="mobile-menu-item">
         <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
                 title="Return to Landing Page">
             Back to Landing Page
