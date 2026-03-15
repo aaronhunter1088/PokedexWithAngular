@@ -64,7 +64,7 @@ export class PokemonListComponent implements OnInit {
 
         this.pkmnPerPage = this.pokemonService.getNumberOfPokemonPerPage() // default is 10
         this.getThePokemon().then(r =>
-            console.log("pokemonMap size: " + this.pokemonMap.size)
+            console.log("pokemonMap size: " + this.numberOfPokemon)
         );
         this.currentDarkMode = this.darkModeService.isDarkMode();
         this.showGifs = this.pokemonService.getShowGifs();
@@ -477,7 +477,8 @@ export class PokemonListComponent implements OnInit {
 
     async gatherPokemon() {
         try {
-            const pokemonListResponse = await this.pokemonService.getPokemonList(this.pkmnPerPage, (this.page - 1) * this.pkmnPerPage);
+            const pokemonListResponse = await this.pokemonService
+                .getPokemonList(this.pkmnPerPage, (this.page - 1) * this.pkmnPerPage);
 
             this.numberOfPokemon = pokemonListResponse.count;
             console.log("numberOfPokemon: ", this.numberOfPokemon);
