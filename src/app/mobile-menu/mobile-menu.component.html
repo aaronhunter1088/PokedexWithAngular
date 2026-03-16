@@ -41,6 +41,7 @@
         <input #searchMobile
                name="searchMobile" type="text" placeholder="Name or ID"
                (input)="onInput(searchMobile.value)"
+               (keydown.enter)="navigateToPokedex(); searchMobile.value = '';"
         />
         <img alt="Get Pokémon"
              src="./assets/images/pokeball1.jpg"
@@ -54,6 +55,7 @@
         <input #pageNumberMobile
                name="pageNumberMobile" type="text" placeholder="Page #"
                (input)="onPageInput(pageNumberMobile.value)"
+                (keydown.enter)="setPageToView(); pageNumberMobile.value = '';"
         />
         <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
            (click)="setPageToView(); pageNumberMobile.value = '';"

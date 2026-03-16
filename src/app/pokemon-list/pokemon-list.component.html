@@ -65,7 +65,8 @@
         </i>
     </div>
     <div style="display:flex; align-items: center; gap: 5px;">
-        <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
+        <input #showNPokemon
+               (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
                placeholder="# of PkMn"
                style="width:70px;"
                type="text"/>

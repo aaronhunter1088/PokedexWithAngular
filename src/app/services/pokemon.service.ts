@@ -102,33 +102,31 @@ export class PokemonService {
      * but I see issues with the response it returns so as a fallback,
      * I use the callURL function to get the data directly from the URL.
      */
-    getPokemonSpeciesData(pokemon: any): Promise<object | undefined> { // speciesURL: string
-        //return this.callURL(pokemon.species.url);
-        //console.debug("Fetching species data for " + pokemon.name + " using Pokedex library...");
-        return this.Pokedex.getPokemonSpeciesByName(pokemon.name)
-            // @ts-ignore
-            .then((res => {
-                if (res !== undefined && res.id != 0) {
-                    //console.log('Species data found for \'', res.name, '\' id: \'', res.id, '\'');
-                    return res;
-                }
-            }))
-            .catch(err => {
-                console.error('Error fetching species data for ' + pokemon.name);
-                //console.log('Pokemon species URL: ' + pokemon?.species?.url);
-                if (pokemon?.species?.url) {
-                    let backup = this.callURL(pokemon.species.url)
-                    if (backup !== undefined) {
-                        console.log("Successfully fetched species data for " + pokemon.name + " using provided species URL");
-                        return backup;
-                    } else {
-                        return undefined;
-                    }
-                } else {
-                    //console.error('No species URL found for ' + pokemon.name);
+    async getPokemonSpeciesData(pokemon: any): Promise<object | undefined> {
+        try {
+            const res = await this.Pokedex.getPokemonSpeciesByName(pokemon.name);
+            if (res !== undefined && res.id !== 0) {
+                return res;
+            } else {
+                try {
+                    const backup = await this.http.get(pokemon.species.url).toPromise();
+                    //console.log("Successfully fetched species data for " + pokemon.name + " using provided species URL");
+                    return backup;
+                } catch (backupErr) {
+                    console.error('Backup fetch failed for ' + pokemon.name, backupErr);
                     return undefined;
                 }
-            });
+            }
+        } catch (err) {
+            try {
+                const backup = await this.http.get(pokemon.species.url).toPromise();
+                //console.log("Successfully fetched species data for " + pokemon.name + " using provided species URL");
+                return backup;
+            } catch (backupErr) {
+                console.error('Backup fetch failed for ' + pokemon.name, backupErr);
+                return undefined;
+            }
+        }
     }
 
     async collectPokemonData() {
