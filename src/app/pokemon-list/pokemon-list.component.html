@@ -14,7 +14,7 @@
     [(pkmnPerPage)]="pkmnPerPage"
     [(totalPokemon)]="numberOfPokemon"
     [pageNumber]="page"
-    (chosenPageNumber)="setNewPageNumberMobile($event)"
+    (chosenPageNumber)="setMobilePageToView($event)"
     [pkmnPerPage]="pkmnPerPage"
     (pkmnPerPageChange)="setPkmnPerPageMobile($event)"
     [chosenType]="chosenType"
@@ -43,32 +43,37 @@
             (keydown.enter)="navigateToPokedex(); pokemonNameIDInput.value = '';"
             [value]="pokemonIDName"
             autofocus
-            placeholder="Pokemon Name/ID"
+            placeholder="Name or ID"
             style="height:50px; width:150px; font-size: 15px;"
             tabindex="0"
             type="text"/>
-        <button (click)="navigateToPokedex();">
-            <img alt="Get Pokémon"
-                 src="./assets/images/pokeball1.jpg"
-                 style="width:50px; height:50px; cursor: pointer;"
-                 title="Search for Pkmn">
-        </button>
+        <img alt="Get Pokémon"
+             src="./assets/images/pokeball1.jpg"
+             style="width:30px; height:30px; cursor: pointer;"
+             title="Search for Pokémon"
+             (click)="navigateToPokedex();">
     </div>
     <div style="display:flex; align-items: center; gap: 5px;">
-        <input #pageNumber (keydown.enter)="setNewPageNumber(pageNumber.value); pageNumber.value = '';"
+        <input #pageNumber (keydown.enter)="setPageToView(pageNumber.value); pageNumber.value = '';"
                placeholder="Page #"
                style="width:60px;"
                type="text"/>
-        <button (click)="setNewPageNumber(pageNumber.value); pageNumber.value = '';" class="icon">Jump to Page</button>
+        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
+           (click)="setPageToView(pageNumber.value); pageNumber.value = '';"
+           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
+           title="Jump to Page">
+        </i>
     </div>
     <div style="display:flex; align-items: center; gap: 5px;">
         <input #showNPokemon (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
                placeholder="# of PkMn"
                style="width:70px;"
                type="text"/>
-        <button (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';" class="icon">Show
-            Pokemon
-        </button>
+        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
+           (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
+           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
+           title="Show Pokémon">
+        </i>
     </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
             title="Return to Landing Page">

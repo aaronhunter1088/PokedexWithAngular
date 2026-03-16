@@ -21,18 +21,19 @@
 
     <div class="mobile-menu-item mobile-gif-item">
         <label>Show GIFs</label>
-        <label class="switch" title="If GIF is not present, official artwork will show!">
-            <input type="checkbox" [checked]="showGifs" (change)="toggleShowGifs(); closeMobileMenu();">
-            <span class="slider round"></span>
-        </label>
+        <mat-slide-toggle (click)="showGifs = !showGifs; pokemonService.saveShowGifs(showGifs); closeMobileMenu();"
+                          title="If GIF is not present, official artwork will show!"
+                          [class]="currentDarkMode?'darkmode':'lightmode'">
+        </mat-slide-toggle>
     </div>
 
     <div class="mobile-menu-item mobile-gif-item">
         <label>{{currentDarkMode ? 'Turn on Light Mode' : 'Turn on Dark Mode'}}</label>
-        <label class="switch" title="Toggle darkmode">
-            <input id="gifSwitchDarkmode" type="checkbox" [checked]="currentDarkMode" (change)="toggleDarkmode(); closeMobileMenu();">
-            <span class="slider round"></span>
-        </label>
+        <mat-slide-toggle [checked]="currentDarkMode"
+                          (click)="toggleDarkmode(); closeMobileMenu();"
+                          title="Toggle darkmode"
+                          [class]="currentDarkMode?'darkmode':'lightmode'">
+        </mat-slide-toggle>
     </div>
 
     <div class="mobile-menu-item mobile-gif-item">
@@ -41,30 +42,37 @@
                name="searchMobile" type="text" placeholder="Name or ID"
                (input)="onInput(searchMobile.value)"
         />
-        <button (click)="navigateToPokedex();">
-            <img alt="Get Pokémon"
-                 src="./assets/images/pokeball1.jpg"
-                 style="width:50px; height:50px; cursor: pointer;"
-                 title="Search for Pkmn">
-        </button>
+        <img alt="Get Pokémon"
+             src="./assets/images/pokeball1.jpg"
+             style="width:30px; height:30px; cursor: pointer;"
+             title="Search for Pkmn"
+             (click)="navigateToPokedex();">
     </div>
 
-    <div class="mobile-menu-item">
+    <div class="mobile-menu-item mobile-gif-item">
         <label for="pageNumberMobile">Jump to Page</label>
         <input #pageNumberMobile
                name="pageNumberMobile" type="text" placeholder="Page #"
                (input)="onPageInput(pageNumberMobile.value)"
         />
-        <button class="icon" (click)="setPageToView(); pageNumberMobile.value = '';" title="Jump to Page">Go</button>
+        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
+           (click)="setPageToView(); pageNumberMobile.value = '';"
+           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
+           title="Jump to Page">
+        </i>
     </div>
 
-    <div class="mobile-menu-item">
+    <div class="mobile-menu-item mobile-gif-item">
         <label for="showPkmnNumberMobile">Pok&#233;mon Per Page</label>
         <input #showPkmnNumberMobile
                name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"
                (input)="onPkmnPerPageInput(showPkmnNumberMobile.value);"
         />
-        <button class="icon" (click)="setPkmnPerPage(); showPkmnNumberMobile.value = '';" title="Show Pok&#233;mon">Show Pok&#233;mon</button>
+        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
+           (click)="setPkmnPerPage(); showPkmnNumberMobile.value = '';"
+           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
+           title="Show Pokémon">
+        </i>
     </div>
 
     <div class="mobile-menu-item">

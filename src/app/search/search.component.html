@@ -10,33 +10,13 @@
         (keydown.enter)="navigateToPokedex(); pokemonNameIDInput.value = '';"
         [value]="pokemonIDName"
         autofocus
-        placeholder="Pokemon Name/ID"
+        placeholder="Name or ID"
         style="height:50px; width:150px; font-size: 15px;"
         tabindex="0"
         type="text"/>
-    <button (click)="navigateToPokedex();">
-        <img alt="Get Pokémon"
-             src="./assets/images/pokeball1.jpg"
-             style="width:50px; height:50px; cursor: pointer;"
-             title="Search for Pkmn">
-    </button>
+    <img alt="Get Pokémon"
+         src="./assets/images/pokeball1.jpg"
+         style="width:50px; height:50px; cursor: pointer;"
+         title="Search for Pkmn"
+         (click)="navigateToPokedex();">
 </div>
-<!--@if (pokemonName.length != 0) {-->
-<!--    <div>-->
-<!--        <app-pokedex-->
-<!--                [pokemonColor]="pokemonColor"-->
-<!--                [pokemonDescription]="pokemonDescription"-->
-<!--                [pokemonDescriptions]="pokemonDescriptions"-->
-<!--                [pokemonHeight]="pokemonHeight"-->
-<!--                [pokemonID]="pokemonID"-->
-<!--                [pokemonImage]="pokemonImage"-->
-<!--                [pokemonLocations]="pokemonLocations"-->
-<!--                [pokemonMoves]="pokemonMoves"-->
-<!--                [pokemonName]="pokemonName"-->
-<!--                [pokemonSprites]="sprites"-->
-<!--                [pokemonType]="pokemonType"-->
-<!--                [pokemonWeight]="pokemonWeight"-->
-<!--        >-->
-<!--        </app-pokedex>-->
-<!--    </div>-->
-<!--}-->

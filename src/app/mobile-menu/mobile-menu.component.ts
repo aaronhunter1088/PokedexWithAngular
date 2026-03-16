@@ -5,12 +5,14 @@ import {DarkModeService} from "../services/dark-mode.service";
 import {Router, RouterLink} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {environment} from "../../environments/environment";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @Component({
   selector: 'app-mobile-menu',
     imports: [
         RouterLink,
-        FormsModule
+        FormsModule,
+        MatSlideToggleModule
     ],
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.css',
@@ -36,7 +38,7 @@ export class MobileMenuComponent implements OnInit {
         "rock", "shadow", "steel", "stellar", "unknown", "water"];
     landingPageUrl: string = environment.landingPageUrl;
 
-    constructor(private pokemonService: PokemonService,
+    constructor(protected pokemonService: PokemonService,
                 private router: Router,
                 private http: HttpClient,
                 private darkModeService: DarkModeService) {
@@ -128,7 +130,8 @@ export class MobileMenuComponent implements OnInit {
         this.showGifsChange.emit(this.showGifs);
         this.pokemonService.saveShowGifs(this.showGifs);
         setTimeout(() => {
-        }, 100);
+            this.closeMobileMenu();
+        }, 500);
     }
 
     toggleDarkmode() {
@@ -138,7 +141,7 @@ export class MobileMenuComponent implements OnInit {
             const url = new URL(window.location.href);
             url.searchParams.set('darkmode', String(updatedDarkmode));
             window.location.href = url.toString();
-        }, 100);
+        }, 500);
     }
 
     showLoadingOverlay(): void {
