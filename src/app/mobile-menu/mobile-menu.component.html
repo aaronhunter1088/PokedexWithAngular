@@ -21,7 +21,7 @@
 
     <div class="mobile-menu-item mobile-gif-item">
         <label>Show GIFs</label>
-        <mat-slide-toggle (click)="showGifs = !showGifs; pokemonService.saveShowGifs(showGifs); closeMobileMenu();"
+        <mat-slide-toggle (click)="toggleShowGifs();"
                           title="If GIF is not present, official artwork will show!"
                           [class]="currentDarkMode?'darkmode':'lightmode'">
         </mat-slide-toggle>
