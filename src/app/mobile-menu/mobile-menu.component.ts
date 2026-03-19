@@ -17,7 +17,7 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.css',
 })
-export class MobileMenuComponent implements OnInit, OnChanges {
+export class MobileMenuComponent implements OnInit {
     @Input() showGifs: boolean = this.pokemonService.getShowGifs();
     @Input() currentDarkMode: boolean = this.darkModeService.isDarkMode();
     @Input() pokemonMap: Map<number, any> = new Map<number, any>();
