@@ -25,15 +25,15 @@
 <div class="desktop-controls"
      [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
      style="display:flex; justify-content: center; align-items: center; gap: 15px; padding-bottom:10px;">
-    <mat-slide-toggle (click)="showGifs = !showGifs; pokemonService.saveShowGifs(showGifs);"
+    <mat-slide-toggle (click)="toggleShowGifs();"
                       title="If GIF is not present, official artwork will show!"
-                      [class]="currentDarkMode?'darkmode':'lightmode'">
+                      [checked]="showGifs"
+                      [class]="currentDarkMode?'white':'black'">
         Show GIFs
     </mat-slide-toggle>
     <mat-slide-toggle [checked]="getCurrentDarkMode()"
                       (click)="toggleDarkMode()"
-                      title="Toggle darkmode"
-                      [class]="currentDarkMode?'darkmode':'lightmode'">
+                      title="Toggle darkmode">
         {{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}
     </mat-slide-toggle>
     <div style="display:flex; align-items: center; gap: 5px;">
@@ -44,7 +44,7 @@
             [value]="pokemonIDName"
             autofocus
             placeholder="Name or ID"
-            style="height:50px; width:150px; font-size: 15px;"
+            style="width:150px; font-size: 15px;"
             tabindex="0"
             type="text"/>
         <img alt="Get Pokémon"
@@ -54,7 +54,8 @@
              (click)="navigateToPokedex();">
     </div>
     <div style="display:flex; align-items: center; gap: 5px;">
-        <input #pageNumber (keydown.enter)="setPageToView(pageNumber.value); pageNumber.value = '';"
+        <input #pageNumber
+               (keydown.enter)="setPageToView(pageNumber.value); pageNumber.value = '';"
                placeholder="Page #"
                style="width:60px;"
                type="text"/>
@@ -93,17 +94,14 @@
         currentPage: this.page,
         totalItems: this.numberOfPokemon
     }; track pokemon) {
-        <div
-        >
+        <div>
             <nav>
                 <a [routerLink]="['/pokedex', pokemon.value.id]" style="text-decoration: none; color: black;">
                     <div [ngStyle]="{'background-color':changeColor(pokemon.value.color)}" class="box"
                          title="Click for more info">
                         <div id="nameAndID" style="display:inline-flex;">
                             @if (pokemon.value.id; ) {
-                                <h3
-                                        id="name"
-                                >{{ pokemon.value.name | titlecase }}</h3>
+                                <h3 id="name">{{ pokemon.value.name | titlecase }}</h3>
                             }
                             <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
                             <h3 id="idOfPokemon">ID: {{ pokemon.value.id }}</h3>
@@ -116,37 +114,29 @@
                                         <img (mouseout)="sprites.value = showFrontImage(pokemon.value);"
                                              (mouseover)="sprites.value = showOfficialArtwork(pokemon.value)"
                                              [src]="sprites.value"
-                                             alt="{{pokemon.value.name}}-default"
-                                        >
+                                             alt="{{pokemon.value.name}}-default">
                                     }
                                     @if (sprites.key == 'gif' && showGifs && gifImagePresent; ) {
-                                        <img
-                                                [src]="sprites.value" alt="{{pokemon.value.name}}-gif"
-                                        >
+                                        <img [src]="sprites.value" alt="{{pokemon.value.name}}-gif">
                                     }
                                     @if (sprites.key == 'official' && showGifs && !gifImagePresent; ) {
-                                        <img
-                                                [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-                                        >
+                                        <img [src]="sprites.value" alt="{{pokemon.value.name}}-official">
                                     }
                                 } @else {
                                     @if (sprites.key == 'official' && sprites.value != null; ) {
-                                        <img
-                                                [src]="sprites.value" alt="{{pokemon.value.name}}-official"
-                                        >
+                                        <img [src]="sprites.value" alt="{{pokemon.value.name}}-official">
                                     }
                                     @if (sprites.key == 'official' && sprites.value == null; ) {
-                                        <img
-                                                alt="pokeball" src="assets/images/pokeball1.jpg">
+                                        <img src="assets/images/pokeball1.jpg" alt="pokeball" >
                                     }
                                 }
                             </div>
                         }
                         <div id="info" style="display:inline-block;">
-                            <h5 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h5>
-                            <h5 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lb</h5>
-                            <h5 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h5>
-                            <h5 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h5>
+                            <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h3>
+                            <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lb</h3>
+                            <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
+                            <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
                         </div>
                     </div>
                 </a>

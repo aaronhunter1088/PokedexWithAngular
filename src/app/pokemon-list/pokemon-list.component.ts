@@ -19,10 +19,10 @@ export class PokemonListComponent implements OnInit {
     pkmnPerPage: number = 10;
     numberOfPokemon: number = 0;
     defaultImagePresent: boolean = false;
-    showGifs: boolean = false;
+    showGifs: boolean = this.pokemonService.getShowGifs();
     gifImagePresent: boolean = false;
     landingPageUrl: string = environment.landingPageUrl;
-    currentDarkMode: boolean = false;
+    currentDarkMode: boolean = this.darkModeService.isDarkMode();
     pokemonIDName: string = '';
     chosenType: string = 'none';
     uniqueTypes: string[] = ["bug", "dark", "dragon", "electric", "fairy", "fighting",
@@ -70,9 +70,6 @@ export class PokemonListComponent implements OnInit {
         this.showGifs = this.pokemonService.getShowGifs();
         console.log("Dark mode is ", this.currentDarkMode);
         console.log("Show GIFs is ", this.showGifs);
-    }
-
-    ngOnReload() {
     }
 
     ngOnDestroy() {
@@ -230,11 +227,13 @@ export class PokemonListComponent implements OnInit {
         window.location.href = url;
     }
 
+    toggleShowGifs() {
+        this.showGifs = !this.showGifs;
+        this.pokemonService.saveShowGifs(this.showGifs);
+    }
+
     toggleDarkMode(): void {
         this.darkModeService.toggleDarkMode();
-        const url = new URL(window.location.href);
-        url.searchParams.set('darkmode', this.darkModeService.isDarkMode().toString());
-        setTimeout(() => window.location.href = url.toString(), 100);
     }
 
     getCurrentDarkMode(): boolean {

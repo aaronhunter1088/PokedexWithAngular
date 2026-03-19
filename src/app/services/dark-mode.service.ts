@@ -45,11 +45,11 @@ export class DarkModeService {
     private applyDarkModeToBody(): void {
         const body = document.body;
         if (this.darkModeSubject.value) {
-            body.classList.remove('light');
-            body.classList.add('dark');
+            body.classList.remove('light', 'lightmode');
+            body.classList.add('dark', 'darkmode');
         } else {
-            body.classList.remove('dark');
-            body.classList.add('light');
+            body.classList.remove('dark', 'darkmode');
+            body.classList.add('light', 'lightmode');
         }
     }
 }

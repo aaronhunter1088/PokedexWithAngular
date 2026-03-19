@@ -48,7 +48,7 @@ body.dark a {
     color: #66b3ff;
 }
 
-body.dark input {
+body.dark input{
     background-color: #2d2d2d;
     color: #e0e0e0;
     border: 1px solid #444;
@@ -97,7 +97,7 @@ Select the label element that is a child of a div,
 which is a child of a mat-slide-toggle
 element that has the darkmode class.
  */
-mat-slide-toggle.darkmode > div > label  {
+.darkmode mat-slide-toggle > div > label {
     color: white !important;
 }
 /*
@@ -105,8 +105,12 @@ Select the label element that is a child of a div,
 which is a child of a mat-slide-toggle
 element that has the lightmode class.
  */
-mat-slide-toggle.lightmode > div > label {
+.lightmode mat-slide-toggle > div > label {
     color: black !important;
+}
+
+.darkmode .fa-circle-right {
+    color: white !important;
 }
 
 body {

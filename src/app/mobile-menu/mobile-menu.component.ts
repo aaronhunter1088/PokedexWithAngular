@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
@@ -17,9 +17,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   templateUrl: './mobile-menu.component.html',
   styleUrl: './mobile-menu.component.css',
 })
-export class MobileMenuComponent implements OnInit {
-    @Input() showGifs: boolean = false;
-    @Input() currentDarkMode: boolean = false;
+export class MobileMenuComponent implements OnInit, OnChanges {
+    @Input() showGifs: boolean = this.pokemonService.getShowGifs();
+    @Input() currentDarkMode: boolean = this.darkModeService.isDarkMode();
     @Input() pokemonMap: Map<number, any> = new Map<number, any>();
     @Output() showGifsChange = new EventEmitter<boolean>();
     @Output() currentDarkModeChange = new EventEmitter<boolean>();
@@ -134,13 +134,10 @@ export class MobileMenuComponent implements OnInit {
         }, 500);
     }
 
-    toggleDarkmode() {
-        let updatedDarkmode = !this.darkModeService.isDarkMode();
-        this.currentDarkModeChange.emit(updatedDarkmode);
+    toggleDarkMode() {
+        this.darkModeService.toggleDarkMode();
         setTimeout(() => {
-            const url = new URL(window.location.href);
-            url.searchParams.set('darkmode', String(updatedDarkmode));
-            window.location.href = url.toString();
+            this.closeMobileMenu();
         }, 500);
     }
 
