@@ -53,7 +53,7 @@ export class AppComponent implements OnInit, OnChanges {
                 this.darkModeService.setDarkMode(isDarkMode);
 
                 // The URL changes but keeps darkmode
-                // From http://localhost:4202?tileNumber=1&darkmode=true
+                // From http://localhost:4202?darkmode=true/false
                 // To   http://localhost:4202
                 this.router.navigate([], {
                     relativeTo: this.activatedRoute,
