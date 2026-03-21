@@ -51,6 +51,15 @@ export class AppComponent implements OnInit, OnChanges {
             if (darkModeParam !== undefined) {
                 const isDarkMode = darkModeParam === 'true' || darkModeParam === true;
                 this.darkModeService.setDarkMode(isDarkMode);
+
+                // The URL changes but keeps darkmode
+                // From http://localhost:4202?tileNumber=1&darkmode=true
+                // To   http://localhost:4202
+                this.router.navigate([], {
+                    relativeTo: this.activatedRoute,
+                    queryParams: {},
+                    replaceUrl: true
+                });
             }
         });
     }

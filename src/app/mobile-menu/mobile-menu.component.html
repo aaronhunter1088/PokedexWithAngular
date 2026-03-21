@@ -29,7 +29,7 @@
     </div>
 
     <div class="mobile-menu-item mobile-gif-item">
-        <label>{{currentDarkMode ? 'Turn on Light Mode' : 'Turn on Dark Mode'}}</label>
+        <label>{{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}</label>
         <mat-slide-toggle [checked]="currentDarkMode"
                           (click)="toggleDarkMode();"
                           title="Toggle darkmode"
