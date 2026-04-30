@@ -4,11 +4,11 @@
   "scripts": {
     "ng": "ng",
     "npx": "npx",
-    "start": "ng serve",
-    "startPort": "ng serve --host 0.0.0.0",
-    "startX": "npx ng serve",
-    "build": "ng build",
-    "build-server": "ng build --base-href /angular/ --deploy-url /angular/",
+    "startAngularApp": "ng serve",
+    "startAngularAppAndMobile": "ng serve --host 0.0.0.0",
+    "startXAngularApp": "npx ng serve",
+    "installAngularApp": "npm install",
+    "deployAngularAppForServer": "ng build --base-href /angular/ --deploy-url /angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
