@@ -73,30 +73,36 @@ export class SearchComponent implements OnInit {
     }
 
     async navigateToPokedex(): Promise<void> {
-        let idElement = document.getElementById('pokemonNameIDInput') as HTMLInputElement;
-        let pokemonId = idElement?.value?.toLowerCase()?.trim();
-        if (!pokemonId) {
-            alert('Please enter a valid pokemon name');
-            return;
-        }
+        let pokemonId = this.pokemonIDName;
+        pokemonId = pokemonId?.toLowerCase()?.trim();
+
         const idPattern = /^[1-9][0-9]{0,3}$/; // Matches numbers from 1 to 9999
         const isNumeric = /^\d+$/.test(pokemonId);
 
         if (isNumeric) {
             if (!idPattern.test(pokemonId)) {
-                alert("Please enter a valid Pokemon ID (1-9999)");
+                alert("Pok\u00e9mon not found. Please check the ID and try again.");
+                return;
+            }
+        } else {
+            if (!pokemonId) {
+                alert('Pok\u00e9mon not found. Please check the Name and try again.');
                 return;
             }
         }
-        // if a name is entered, validate it and get the id
-        let pokemon = this.pokemonService.getPokemonByName(pokemonId);
-        if (pokemon) {
-            pokemonId = await pokemon.then(pkmn => {
-                return pkmn.id.toString();
-            });
-        } else {
-            alert("Please enter a valid Pokemon ID (1-9999)");
-            return;
+        if (pokemonId === 'deoxys') {
+            pokemonId = 'deoxys-normal';
+        }
+        if (pokemonId !== undefined) {
+            let pokemon = this.pokemonService.getPokemonByName(pokemonId);
+            if (pokemon) {
+                pokemonId = await pokemon.then(pkmn => {
+                    return pkmn.id.toString();
+                });
+            } else if (!pokemon) {
+                alert('Pok\u00e9mon not found. Please check the Name and try again.');
+                return;
+            }
         }
         console.log("searched for pokemonId: " + pokemonId);
         this.router.navigate(['pokedex', pokemonId])

@@ -75,18 +75,18 @@ export class MobileMenuComponent implements OnInit {
 
         if (isNumeric) {
             if (!idPattern.test(pokemonId)) {
-                alert("Please enter a valid Pokemon ID (1-9999)");
+                alert("Pok\u00e9mon not found. Please check the ID and try again.");
                 return;
             }
         }
-        // if a name is entered, validate it and get the id
-        if (pokemonId !== undefined) {
-            let pokemon = this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon) {
-                pokemonId = await pokemon.then(pkmn => {
-                    return pkmn.id.toString();
-                });
-            }
+        if (pokemonId === 'deoxys') {
+            pokemonId = 'deoxys-normal';
+        }
+        let pokemon = this.pokemonService.getPokemonByName(pokemonId);
+        if (pokemon) {
+            pokemonId = await pokemon.then(pkmn => {
+                return pkmn.id.toString();
+            });
         }
         console.log("searched for pokemonId: " + pokemonId);
         this.router.navigate(['/pokedex', pokemonId])
