@@ -150,6 +150,9 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
             }
             else if (this.pokemonID !== undefined)
             {
+                if (this.pokemonID === 'deoxys') {
+                    this.pokemonID = 'deoxys-normal';
+                }
                 console.log("pokemon name: '" + this.pokemonID + "'")
                 this.pokemonDescription = ''
                 this.pokemonLocations = []

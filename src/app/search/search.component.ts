@@ -84,11 +84,9 @@ export class SearchComponent implements OnInit {
                 alert("Pok\u00e9mon not found. Please check the ID and try again.");
                 return;
             }
-        } else {
-            if (!pokemonId) {
-                alert('Pok\u00e9mon not found. Please check the Name and try again.');
-                return;
-            }
+        } else if (!pokemonId) {
+            alert('Pok\u00e9mon not found. Please check the Name and try again.');
+            return;
         }
         if (pokemonId === 'deoxys') {
             pokemonId = 'deoxys-normal';

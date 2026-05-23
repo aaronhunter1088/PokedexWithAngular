@@ -255,27 +255,25 @@ export class PokemonListComponent implements OnInit {
                 alert("Pok\u00e9mon not found. Please check the ID and try again.");
                 return;
             }
+        } else if (!pokemonId) {
+            alert('Pok\u00e9mon not found. Please check the Name and try again.');
+            return;
         }
         if (pokemonId === 'deoxys') {
             pokemonId = 'deoxys-normal';
         }
-        if (pokemonId !== undefined) {
-            let pokemon = this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon) {
-                pokemonId = await pokemon.then(pkmn => {
-                    return pkmn.id.toString();
-                });
-            } else if (!pokemon) {
-                alert('Pok\u00e9mon not found. Please check the Name and try again.');
-                return;
-            }
+        let pokemon = this.pokemonService.getPokemonByName(pokemonId);
+        if (pokemon) {
+            pokemonId = await pokemon.then(pkmn => {
+                return pkmn.id.toString();
+            });
         }
         console.log("searched for pokemonId: " + pokemonId);
         this.router.navigate(['pokedex', pokemonId])
-                .then(() => {
-                    // Clear the search input after navigation
-                    this.pokemonIDName = '';
-                });
+            .then(() => {
+                // Clear the search input after navigation
+                this.pokemonIDName = '';
+            });
     }
 
     showLoadingOverlay(): void {
