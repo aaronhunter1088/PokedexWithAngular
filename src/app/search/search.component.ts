@@ -76,7 +76,7 @@ export class SearchComponent implements OnInit {
         let pokemonId = this.pokemonIDName;
         pokemonId = pokemonId?.toLowerCase()?.trim();
 
-        const idPattern = /^[1-9][0-9]{0,3}$/; // Matches numbers from 1 to 9999
+        const idPattern = /^[1-9][0-9]{0,5}$/; // Matches numbers from 1 to 99,999
         const isNumeric = /^\d+$/.test(pokemonId);
 
         if (isNumeric) {
@@ -84,23 +84,22 @@ export class SearchComponent implements OnInit {
                 alert("Pok\u00e9mon not found. Please check the ID and try again.");
                 return;
             }
-        } else if (!pokemonId) {
+        } else if (pokemonId === '') {
             alert('Pok\u00e9mon not found. Please check the Name and try again.');
             return;
         }
         if (pokemonId === 'deoxys') {
             pokemonId = 'deoxys-normal';
         }
-        if (pokemonId !== undefined) {
-            let pokemon = this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon) {
-                pokemonId = await pokemon.then(pkmn => {
-                    return pkmn.id.toString();
-                });
-            } else if (!pokemon) {
-                alert('Pok\u00e9mon not found. Please check the Name and try again.');
-                return;
+        try {
+            const pokemon = await this.pokemonService.getPokemonByName(pokemonId);
+            if (pokemon && pokemon.id) {
+                pokemonId = pokemon.id.toString();
             }
+        } catch (error) {
+            console.error('Failed to fetch Pok\u00e9mon data for: ' + pokemonId, error);
+            alert('Pok\u00e9mon not found. Please check the ID or Name and try again.');
+            return;
         }
         console.log("searched for pokemonId: " + pokemonId);
         this.router.navigate(['pokedex', pokemonId])
