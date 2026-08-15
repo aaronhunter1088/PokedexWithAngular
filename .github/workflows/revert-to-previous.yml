@@ -1,0 +1,53 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will revert the war from the backup if there
+# happens to be something wrong with the deployment of the
+# latest version. 
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
+
+name: Revert To Previous Pokédex Angular Version
+
+on:
+  workflow_dispatch:
+
+jobs:
+  revert-to-previous:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test SSH Connection
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            echo 'whoami' 
+            whoami
+            echo 'hostname'
+            hostname
+
+      - name: Revert to Previous Angular Version
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            # Stop Tomcat 11 Service
+            sudo systemctl stop tomcat11
+
+            # Revert to Previous Working Version
+            cd /opt/tomcat11
+            sudo rm -rf MyPokedex/angular
+            sudo mkdir MyPokedex/angular
+            sudo cp -a MyPokedexBackup/angular/* /opt/tomcat11/MyPokedex/angular/
+
+            # Update Permissions Again
+            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedex/angular
+            sudo chmod -R 644 /opt/tomcat11/MyPokedex/angular
+
+            # Start Tomcat 11 Service
+            sudo systemctl start tomcat11
