@@ -1,5 +1,12 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will check out the code, set up Node, build the
+# Angular Pokédex app, and deploy it to the temporary directory.
+# We then make a back up of the previous working version and
+# deploy the new version.
+# For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
 name: Deploy Pokédex With Angular
 
@@ -23,10 +30,10 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Landing Page
+      - name: Build Angular Pokédex App
         run: npm run deployAngularAppForServer
 
-      - name: Upload Pokédex With Angular
+      - name: Upload Angular Pokédex App
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -35,7 +42,7 @@ jobs:
           source: "dist/pokedex-with-angular"
           target: "/tmp/deploy"
 
-      - name: Copy Previous Working Version, Deploy New Version
+      - name: Copy Previous Working Version, Deploy Angular Pokédex App
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
@@ -55,7 +62,7 @@ jobs:
             cd /opt/tomcat11
             sudo rm -rf MyPokedexBackup/angular
             sudo mkdir -p MyPokedexBackup/angular
-            sudo cp -a MyPokedex/ROOT/. MyPokedexBackup/ROOT/
+            sudo cp -a MyPokedex/angular/. MyPokedexBackup/angular/
 
             # Prepare New Version
             sudo rm -rf MyPokedex/angular
@@ -66,12 +73,12 @@ jobs:
             sudo rm -rf browser
 
             # Update Ownership
-            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedex/ROOT
-            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedexBackup/ROOT
+            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedex/angular
+            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedexBackup/angular
 
             # Update Permissions
-            sudo find /opt/tomcat11/MyPokedex/ROOT -type d -exec chmod 755 {} \;
-            sudo find /opt/tomcat11/MyPokedex/ROOT -type f -exec chmod 644 {} \;
+            sudo find /opt/tomcat11/MyPokedex/angular -type d -exec chmod 755 {} \;
+            sudo find /opt/tomcat11/MyPokedex/angular -type f -exec chmod 644 {} \;
 
             # Start Tomcat 11 Service
             sudo systemctl start tomcat11
