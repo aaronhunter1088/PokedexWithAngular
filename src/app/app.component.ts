@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import {DarkModeService} from "./services/dark-mode.service";
+import {PokemonService} from "./services/pokemon.service";
 
 @Component({
     selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit, OnChanges {
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private darkModeService: DarkModeService
+        private darkModeService: DarkModeService,
+        private pokemonService: PokemonService
     ) {
         this.currentRoute = "";
         this.previousRoute = "";
@@ -48,10 +50,18 @@ export class AppComponent implements OnInit, OnChanges {
         // Read darkmode query parameter from URL
         this.activatedRoute.queryParams.subscribe(params => {
             const darkModeParam = params['darkmode'];
+            const tileColorParam = params['tileColor'];
+
             if (darkModeParam !== undefined) {
                 const isDarkMode = darkModeParam === 'true' || darkModeParam === true;
                 this.darkModeService.setDarkMode(isDarkMode);
+            }
 
+            if (tileColorParam !== undefined && tileColorParam !== null && tileColorParam !== '') {
+                this.pokemonService.saveTileColorParam(tileColorParam);
+            }
+
+            if (darkModeParam !== undefined || tileColorParam !== undefined) {
                 // The URL changes but keeps darkmode
                 // From http://localhost:4202?darkmode=true/false
                 // To   http://localhost:4202
@@ -72,4 +82,3 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
 }
-

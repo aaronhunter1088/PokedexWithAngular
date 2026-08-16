@@ -10,6 +10,7 @@
 <app-mobile-menu
     [(showGifs)]="showGifs"
     [(currentDarkMode)]="currentDarkMode"
+    [tileColorParam]="tileColorParam"
     [(pokemonMap)]="pokemonMap"
     [(pkmnPerPage)]="pkmnPerPage"
     [(totalPokemon)]="numberOfPokemon"
@@ -78,7 +79,8 @@
         </i>
     </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
-            title="Return to Landing Page">
+            title="Return to Landing Page"
+            [style.background-color]="tileColorParam">
         Back to Landing Page
     </button>
 </div>

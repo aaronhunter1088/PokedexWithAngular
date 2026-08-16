@@ -68,7 +68,7 @@ img {
 
 .icon {
     padding: 10px 15px;
-    background: dodgerblue;
+    /*background: dodgerblue;*/
     color: white;
     min-width: fit-content;
     text-align: center;
@@ -96,8 +96,8 @@ img {
 }
  */
 .back-to-landing-btn {
-    background-color: #1976D2 !important;
-    color: white !important;
+    /*background-color: #1976D2 !important;*/
+    color: white;
     border: none;
     padding: 10px 15px;
     text-decoration: none;

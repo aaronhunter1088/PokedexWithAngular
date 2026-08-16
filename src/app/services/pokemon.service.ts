@@ -15,6 +15,7 @@ export class PokemonService {
     pkmnPerPage: number = 10
     allPokemon: any[] = [];
     showGifs: boolean = false;
+    tileColorParam: string = '';
 
     constructor(private http: HttpClient) {
     }
@@ -228,6 +229,14 @@ export class PokemonService {
 
     getShowGifs(): boolean {
         return this.showGifs;
+    }
+
+    saveTileColorParam(tileColorParam: string) {
+        this.tileColorParam = tileColorParam;
+    }
+
+    getTileColorParam(): string {
+        return this.tileColorParam;
     }
 
     getEvolutionsMap() {

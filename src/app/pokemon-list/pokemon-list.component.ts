@@ -3,7 +3,7 @@ import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
 import {environment} from "../../environments/environment";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
     selector: 'app-pokemon-list',
@@ -25,6 +25,7 @@ export class PokemonListComponent implements OnInit {
     currentDarkMode: boolean = this.darkModeService.isDarkMode();
     pokemonIDName: string = '';
     chosenType: string = 'none';
+    tileColorParam: string = '';
     uniqueTypes: string[] = ["bug", "dark", "dragon", "electric", "fairy", "fighting",
         "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic",
         "rock", "shadow", "steel", "stellar", "unknown", "water"];
@@ -35,11 +36,20 @@ export class PokemonListComponent implements OnInit {
 
     constructor(public pokemonService: PokemonService,
                 private router: Router,
+                private activatedRoute: ActivatedRoute,
                 private http: HttpClient,
                 private darkModeService: DarkModeService) {
     }
 
     async ngOnInit(): Promise<void> {
+        const tileColorFromUrl = this.activatedRoute.snapshot.queryParamMap.get('tileColor');
+        if (tileColorFromUrl) {
+            this.tileColorParam = tileColorFromUrl;
+            this.pokemonService.saveTileColorParam(tileColorFromUrl);
+        } else {
+            this.tileColorParam = this.pokemonService.getTileColorParam();
+        }
+
         this.page = this.pokemonService.getSavedPage();
         // if (this.pokemonMap.size === 0 || this.chosenType !== 'none') {
         //     // update pokemonMap by emptying it first.

@@ -26,6 +26,7 @@ export class MobileMenuComponent implements OnInit {
     @Output() pokemonMapChange = new EventEmitter<Map<number, any>>();
     pokemonNameID: string = '';
     @Input() chosenType: string = 'none';
+    @Input() tileColorParam: string = '';
     @Input() pageNumber: number = 1;
     @Output() chosenTypeChange = new EventEmitter<string>();
     @Output() chosenPageNumber = new EventEmitter<number>();
@@ -45,6 +46,9 @@ export class MobileMenuComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if (!this.tileColorParam) {
+            this.tileColorParam = this.pokemonService.getTileColorParam();
+        }
     }
 
     toggleMobileMenu() {
