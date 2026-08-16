@@ -1,4 +1,7 @@
-# PokédexWithAngular
+# Pokédex With Angular
+
+![Homepage.png](src/assets/images/angular-homepage.png)
+[![Deploy Pokédex With Angular](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml/badge.svg?branch=main)](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml)
 
 #### Versions
 
