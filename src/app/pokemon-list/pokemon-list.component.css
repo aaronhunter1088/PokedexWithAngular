@@ -96,8 +96,8 @@ img {
 }
  */
 .back-to-landing-btn {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #1976D2 !important;
+    color: white !important;
     border: none;
     padding: 10px 15px;
     text-decoration: none;
