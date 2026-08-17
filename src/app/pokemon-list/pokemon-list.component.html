@@ -37,7 +37,8 @@
                       title="Toggle darkmode">
         {{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}
     </mat-slide-toggle>
-    <div style="display:flex; align-items: center; gap: 5px;">
+    <div class="search-box" [style.--search-shadow-color]="tileColorParam"
+         [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
         <input
             #pokemonNameIDInput
             (input)="onInput(pokemonNameIDInput.value)"
@@ -45,37 +46,44 @@
             [value]="pokemonIDName"
             autofocus
             placeholder="Name or ID"
-            style="width:150px; font-size: 15px;"
             tabindex="0"
-            type="text"/>
-        <img alt="Get Pokémon"
-             src="./assets/images/pokeball1.jpg"
-             style="width:30px; height:30px; cursor: pointer;"
-             title="Search for Pokémon"
-             (click)="navigateToPokedex();">
+            type="text"
+            [style.color]="currentDarkMode ? 'whitesmoke' : 'black'"/>
+        <div class="search-icon" title="Search for Pokémon" (click)="navigateToPokedex();">
+            <img alt="Get Pokémon"
+                 src="./assets/images/pokeball1.jpg"
+                 style="width:50px;height:50px;cursor:pointer;">
+        </div>
     </div>
-    <div style="display:flex; align-items: center; gap: 5px;">
+    <div class="input-box" [style.--search-shadow-color]="tileColorParam"
+         [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
         <input #pageNumber
-               (keydown.enter)="setPageToView(pageNumber.value); pageNumber.value = '';"
-               placeholder="Page #"
-               style="width:60px;"
-               type="text"/>
-        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
+              (keydown.enter)="setPageToView(pageNumber.value); pageNumber.value = '';"
+              placeholder="Page #"
+              type="text"
+              name="pageNumber"
+              [style.color]="currentDarkMode ? 'white' : 'black'"
+              [style.--placeholder-color]="currentDarkMode ? '#aaa' : '#999'"
+        />
+        <i class="fa-brands fa-page4 input-icon" style="font-size:30px; cursor:pointer;"
            (click)="setPageToView(pageNumber.value); pageNumber.value = '';"
-           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
-           title="Jump to Page">
+          [style.color]="currentDarkMode ? 'white' : 'black'"
+          title="Jump to Page">
         </i>
     </div>
-    <div style="display:flex; align-items: center; gap: 5px;">
+    <div class="input-box" [style.--search-shadow-color]="tileColorParam"
+         [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
         <input #showNPokemon
-               (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
-               placeholder="# of PkMn"
-               style="width:70px;"
-               type="text"/>
-        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
-           (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
-           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
-           title="Show Pokémon">
+              (keydown.enter)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
+              placeholder="# of PkMn"
+              type="text"
+              [style.color]="currentDarkMode ? 'white' : 'black'"
+              [style.--placeholder-color]="currentDarkMode ? '#aaa' : '#999'"
+        />
+        <i class="fa-solid fa-list-ol input-icon" style="font-size:30px; cursor:pointer;"
+          (click)="setNumberOfPokemonToDisplay(showNPokemon.value); showNPokemon.value = '';"
+          [style.color]="currentDarkMode ? 'white' : 'black'"
+          title="Show Pokémon">
         </i>
     </div>
     <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
