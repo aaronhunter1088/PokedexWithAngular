@@ -54,31 +54,37 @@
         </div>
     </div>
 
-    <div class="mobile-menu-item mobile-gif-item">
-        <label for="pageNumberMobile">Jump to Page</label>
-        <input #pageNumberMobile
-               name="pageNumberMobile" type="text" placeholder="Page #"
-               (input)="onPageInput(pageNumberMobile.value)"
-                (keydown.enter)="setPageToView(); pageNumberMobile.value = '';"
-        />
-        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
-           (click)="setPageToView(); pageNumberMobile.value = '';"
-           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
-           title="Jump to Page">
-        </i>
+    <div class="mobile-menu-item">
+        <div class="mobile-input-box"
+             [style.--search-shadow-color]="tileColorParam"
+             [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
+            <input #pageNumberMobile
+                   name="pageNumberMobile" type="text" placeholder="Jump to Page"
+                   (input)="onPageInput(pageNumberMobile.value)"
+                   (keydown.enter)="setPageToView(); pageNumberMobile.value = '';"
+                   [style.color]="currentDarkMode ? 'white' : 'black'"/>
+            <div class="mobile-search-icon"
+                 (click)="setPageToView(); pageNumberMobile.value = '';"
+                 [style.color]="currentDarkMode ? 'white' : 'black'">
+                <i class="fa-brands fa-page4" style="font-size:28px; cursor:pointer;"></i>
+            </div>
+        </div>
     </div>
 
-    <div class="mobile-menu-item mobile-gif-item">
-        <label for="showPkmnNumberMobile">Pok&#233;mon Per Page</label>
-        <input #showPkmnNumberMobile
-               name="showPkmnNumberMobile" type="text" placeholder="# of PkMn"
-               (input)="onPkmnPerPageInput(showPkmnNumberMobile.value);"
-        />
-        <i class="fa-regular fa-circle-right" style="font-size:30px; cursor:pointer;"
-           (click)="setPkmnPerPage(); showPkmnNumberMobile.value = '';"
-           [style.color]="currentDarkMode ? '#ffffff' : '#000000'"
-           title="Show Pokémon">
-        </i>
+    <div class="mobile-menu-item">
+        <div class="mobile-input-box"
+             [style.--search-shadow-color]="tileColorParam"
+             [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
+            <input #showPkmnNumberMobile
+                   name="showPkmnNumberMobile" type="text" placeholder="Pokémon Per Page"
+                   (input)="onPkmnPerPageInput(showPkmnNumberMobile.value);"
+                   [style.color]="currentDarkMode ? 'white' : 'black'"/>
+            <div class="mobile-search-icon"
+                 (click)="setPkmnPerPage(); showPkmnNumberMobile.value = '';"
+                 [style.color]="currentDarkMode ? 'white' : 'black'">
+                <i class="fa-solid fa-list-ol" style="font-size:28px; cursor:pointer;"></i>
+            </div>
+        </div>
     </div>
 
     <div class="mobile-menu-item">

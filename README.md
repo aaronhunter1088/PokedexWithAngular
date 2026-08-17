@@ -5,7 +5,7 @@
 
 #### Versions
 
-- Angular Pokédex App v1.6.2
+- Angular Front End
 - Inception Year: 2022
 - Angular CLI: 21.0.4
 - Angular: 20.3.15
