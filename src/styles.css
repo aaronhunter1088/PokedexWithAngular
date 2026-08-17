@@ -275,7 +275,7 @@ app-mobile-menu .mobile-menu-overlay {
     app-mobile-menu .mobile-menu-item button {
         width: 100%;
         padding: 10px;
-        margin-top: 5px;
+        /*margin-top: 5px;*/
         box-sizing: border-box;
     }
 

@@ -37,7 +37,8 @@
                       title="Toggle darkmode">
         {{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}
     </mat-slide-toggle>
-    <div style="display:flex; align-items: center; gap: 5px;">
+    <div class="search-box" [style.--search-shadow-color]="tileColorParam"
+         [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
         <input
             #pokemonNameIDInput
             (input)="onInput(pokemonNameIDInput.value)"
@@ -45,14 +46,14 @@
             [value]="pokemonIDName"
             autofocus
             placeholder="Name or ID"
-            style="width:150px; font-size: 15px;"
             tabindex="0"
-            type="text"/>
-        <img alt="Get Pokémon"
-             src="./assets/images/pokeball1.jpg"
-             style="width:30px; height:30px; cursor: pointer;"
-             title="Search for Pokémon"
-             (click)="navigateToPokedex();">
+            type="text"
+            [style.color]="currentDarkMode ? 'white' : 'black'"/>
+        <div class="search-icon" title="Search for Pokémon" (click)="navigateToPokedex();">
+            <img alt="Get Pokémon"
+                 src="./assets/images/pokeball1.jpg"
+                 style="width:50px;height:50px;cursor:pointer;">
+        </div>
     </div>
     <div style="display:flex; align-items: center; gap: 5px;">
         <input #pageNumber

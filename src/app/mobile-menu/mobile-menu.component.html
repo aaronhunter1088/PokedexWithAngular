@@ -37,18 +37,21 @@
         </mat-slide-toggle>
     </div>
 
-    <div class="mobile-menu-item mobile-gif-item">
-        <label for="searchMobile">Search for Pkmn</label>
-        <input #searchMobile
-               name="searchMobile" type="text" placeholder="Name or ID"
-               (input)="onInput(searchMobile.value)"
-               (keydown.enter)="navigateToPokedex(); searchMobile.value = '';"
-        />
-        <img alt="Get Pokémon"
-             src="./assets/images/pokeball1.jpg"
-             style="width:30px; height:30px; cursor: pointer;"
-             title="Search for Pkmn"
-             (click)="navigateToPokedex();">
+    <div class="mobile-menu-item">
+        <div class="mobile-search-box"
+             [style.--search-shadow-color]="tileColorParam"
+             [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
+            <input #searchMobile
+                   name="searchMobile" type="text" placeholder="Name or ID"
+                   (input)="onInput(searchMobile.value)"
+                   (keydown.enter)="navigateToPokedex(); searchMobile.value = '';"
+                   [style.color]="currentDarkMode ? 'white' : 'black'"/>
+            <div class="mobile-search-icon" (click)="navigateToPokedex();">
+                <img alt="Get Pokémon"
+                     src="./assets/images/pokeball1.jpg"
+                     style="width:35px; height:35px; cursor: pointer;">
+            </div>
+        </div>
     </div>
 
     <div class="mobile-menu-item mobile-gif-item">
