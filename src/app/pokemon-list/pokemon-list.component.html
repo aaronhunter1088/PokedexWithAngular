@@ -35,7 +35,7 @@
     <mat-slide-toggle [checked]="getCurrentDarkMode()"
                       (click)="toggleDarkMode()"
                       title="Toggle darkmode">
-        {{currentDarkMode? 'Dark Mode On' : 'Light Mode On'}}
+        {{currentDarkMode? 'Dark Mode' : 'Light Mode'}}
     </mat-slide-toggle>
     <div class="search-box" [style.--search-shadow-color]="tileColorParam"
          [style.background-color]="currentDarkMode ? '#1a1a1a' : 'whitesmoke'">
