@@ -112,10 +112,10 @@
                          title="Click for more info">
                         <div id="nameAndID" style="display:inline-flex;">
                             @if (pokemon.value.id; ) {
-                                <h3 id="name">{{ pokemon.value.name | titlecase }}</h3>
+                                <h2 id="name">{{ pokemon.value.name | titlecase }}</h2>
                             }
                             <div style="display: block;">&nbsp;&nbsp;&nbsp;&nbsp;</div>
-                            <h3 id="idOfPokemon">ID: {{ pokemon.value.id }}</h3>
+                            <h2 id="idOfPokemon">ID: {{ pokemon.value.id }}</h2>
                         </div>
                         @for (sprites of getPokemonSprites(pokemon.value) | keyvalue; track sprites) {
                             <div
@@ -143,11 +143,11 @@
                                 }
                             </div>
                         }
-                        <div id="info" style="display:inline-block;">
-                            <h3 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h3>
-                            <h3 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lb</h3>
-                            <h3 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h3>
-                            <h3 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h3>
+                        <div id="info" class="info" style="display:inline-block;">
+                            <h2 id="heightOfPokemon">Height: {{ pokemon.value.height }} in</h2>
+                            <h2 id="weightOfPokemon">Weight: {{ pokemon.value.weight }} lb</h2>
+                            <h2 id="colorOfPokemon">Color: {{ pokemon.value.color | titlecase }}</h2>
+                            <h2 id="typeOfPokemon">Type: {{ pokemon.value.type }}</h2>
                         </div>
                     </div>
                 </a>
