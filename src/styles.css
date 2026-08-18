@@ -18,10 +18,35 @@
     cursor: pointer;
 }
 
-html, body {
-    /*background-color: white;*/
-    height: 100%;
+html * {
     margin: 0;
+}
+html {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100%;
+}
+
+body {
+    height: 100%;
+    width: auto;
+    display: flex;
+    margin: 8px;
+    justify-content: space-evenly;
+    text-align: center;
+}
+@media (max-width: 768px) {
+    body {
+        display: grid;
+    }
+}
+
+app-root {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* Light mode styles */

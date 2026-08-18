@@ -1,4 +1,10 @@
 
+:host {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 #loadingOverlay {
     display: none;
     position: fixed;
@@ -50,9 +56,11 @@
 .pokemon-grid {
     display: grid;
     grid-gap: 15px;
-    padding: 20px;
+    padding: 20px 0;
     /*grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));*/
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .pokemon-grid .box {
@@ -163,6 +171,27 @@ img {
     white-space: nowrap;
 }
 
+#desktopHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.desktop-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+}
+
 /* Mobile Media Query */
 @media screen and (max-width: 650px) {
     /* Hide desktop controls */
@@ -204,5 +233,28 @@ img {
     #indexSearchImgSearchLink,
     #pokedexSearchImgSearchLink {
         display: none !important;
+    }
+}
+
+/* Landscape rotation - show and center desktop controls */
+@media screen and (max-height: 650px) and (orientation: landscape) {
+    #desktopHeader {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100vw !important;
+        margin-left: calc(50% - 50vw) !important;
+        text-align: center !important;
+    }
+    .desktop-controls {
+        display: flex !important;
+        width: 100% !important;
+        justify-content: center !important;
+        align-items: center !important;
+        flex-wrap: wrap;
+        gap: 15px;
+        padding-bottom: 10px;
+        box-sizing: border-box;
     }
 }
