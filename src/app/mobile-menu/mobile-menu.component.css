@@ -27,8 +27,8 @@
 }
 
 .back-to-landing-btn {
-    --search-shadow-color: darkred;
-    background-color: var(--search-shadow-color, darkred);
+    --search-shadow-color: #76147D;
+    background-color: var(--search-shadow-color, #76147D);
     color: white;
     border: none;
     padding: 10px 15px;
@@ -41,7 +41,7 @@
 }
 
 .mobile-input-box {
-    --search-shadow-color: darkred;
+    --search-shadow-color: #76147D;
     position: relative;
     width: 100%;
     height: 55px;
@@ -52,7 +52,7 @@
     box-sizing: border-box;
 }
 .mobile-search-box {
-    --search-shadow-color: darkred;
+    --search-shadow-color: #76147D;
     position: relative;
     width: 100%;
     height: 55px;
