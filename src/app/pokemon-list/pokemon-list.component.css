@@ -159,7 +159,8 @@ img {
 }
  */
 .back-to-landing-btn {
-    /*background-color: #1976D2 !important;*/
+    --search-shadow-color: darkred;
+    background-color: var(--search-shadow-color, darkred);
     color: white;
     border: none;
     padding: 10px 15px;
