@@ -45,9 +45,13 @@ jobs:
             sudo mkdir MyPokedex/angular
             sudo cp -a MyPokedexBackup/angular/* /opt/tomcat11/MyPokedex/angular/
 
-            # Update Permissions Again
+            # Update Ownership
             sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedex/angular
-            sudo chmod -R 644 /opt/tomcat11/MyPokedex/angular
+            sudo chown -R tomcat:tomcat /opt/tomcat11/MyPokedexBackup/angular
+
+            # Update Permissions
+            sudo find /opt/tomcat11/MyPokedex/angular -type d -exec chmod 755 {} \;
+            sudo find /opt/tomcat11/MyPokedex/angular -type f -exec chmod 644 {} \;
 
             # Start Tomcat 11 Service
             sudo systemctl start tomcat11
