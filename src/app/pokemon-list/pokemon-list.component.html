@@ -26,12 +26,16 @@
 <div id="desktopHeader">
     <div class="desktop-controls"
          [style.color]="currentDarkMode ? '#ffffff' : '#000000'">
-        <mat-slide-toggle (click)="toggleShowGifs();"
-                          title="If GIF is not present, official artwork will show!"
-                          [checked]="showGifs"
-                          [class]="currentDarkMode?'white':'black'">
-            Show GIFs
-        </mat-slide-toggle>
+        <div id="showGifs" class="gif-preview-toggle-slot">
+            <img class="gif-preview-toggle"
+                 alt="Pikachu GIF preview"
+                 title="If GIF is not present, official artwork will show! Click to toggle GIFs."
+                 [style.transform]="showGifs ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(1.95)'"
+                 [src]="showGifs
+                    ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif'
+                    : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/25.png'"
+                 (click)="toggleShowGifs()">
+        </div>
         <div id="themeToggleDesktop" class="theme-toggle" [class.dark]="currentDarkMode">
             <img src="./assets/images/sun.png" alt="Switch to dark mode" class="sun"
                  title="Switch to dark mode" (click)="toggleDarkMode()">

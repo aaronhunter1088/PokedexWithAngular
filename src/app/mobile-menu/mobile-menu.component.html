@@ -20,12 +20,17 @@
     </button>
 
     <div class="mobile-menu-item mobile-gif-item">
-        <label>Show GIFs</label>
-        <mat-slide-toggle (click)="toggleShowGifs();"
-                          [checked]="showGifs"
-                          title="If GIF is not present, official artwork will show!"
-                          [class]="currentDarkMode?'darkmode':'lightmode'">
-        </mat-slide-toggle>
+        <label>{{showGifs ? 'Hide GIFs' : 'Show GIFs'}}</label>
+        <div id="showGifsMobile" class="gif-preview-toggle-slot">
+            <img class="gif-preview-toggle"
+                 alt="Pikachu GIF preview"
+                 title="If GIF is not present, official artwork will show! Click to toggle GIFs."
+                 [style.transform]="showGifs ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(1.95)'"
+                 [src]="showGifs
+                    ? 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/25.gif'
+                    : 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/25.png'"
+                 (click)="toggleShowGifs()">
+        </div>
     </div>
 
     <div class="mobile-menu-item mobile-theme-item">

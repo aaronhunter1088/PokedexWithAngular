@@ -183,6 +183,28 @@ img {
     box-sizing: border-box;
 }
 
+.desktop-controls .gif-preview-toggle-slot {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.desktop-controls .gif-preview-toggle {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+}
+
 .desktop-controls .theme-toggle {
     position: relative;
     width: 50px;

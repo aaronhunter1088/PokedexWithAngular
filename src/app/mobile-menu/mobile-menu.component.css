@@ -95,17 +95,41 @@
     cursor: pointer;
 }
 
+.mobile-gif-item,
 .mobile-theme-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
+.mobile-gif-item label:first-child,
 .mobile-theme-item .mobile-darkmode-label {
     margin-bottom: 0;
     width: auto;
     flex: 1;
     text-align: left;
+}
+
+.gif-preview-toggle-slot {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gif-preview-toggle {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
 }
 
 .mobile-menu .theme-toggle {
