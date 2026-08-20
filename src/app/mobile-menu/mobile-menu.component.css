@@ -94,3 +94,85 @@
     align-items: center;
     cursor: pointer;
 }
+
+.mobile-gif-item,
+.mobile-theme-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mobile-gif-item label:first-child,
+.mobile-theme-item .mobile-darkmode-label {
+    margin-bottom: 0;
+    width: auto;
+    flex: 1;
+    text-align: left;
+}
+
+.gif-preview-toggle-slot {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gif-preview-toggle {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: block;
+}
+
+.mobile-menu .theme-toggle {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.mobile-menu .theme-toggle img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.mobile-menu .theme-toggle .sun {
+    color: #f6c343;
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle .moon {
+    color: #8ec5ff;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle.dark .sun {
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(-180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle.dark .moon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
