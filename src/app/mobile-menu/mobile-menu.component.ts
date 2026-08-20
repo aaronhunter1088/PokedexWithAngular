@@ -149,6 +149,7 @@ export class MobileMenuComponent implements OnInit {
     toggleDarkMode() {
         this.darkModeService.toggleDarkMode();
         this.currentDarkMode = this.darkModeService.isDarkMode();
+        this.currentDarkModeChange.emit(this.currentDarkMode);
         setTimeout(() => {
             this.closeMobileMenu();
         }, 500);

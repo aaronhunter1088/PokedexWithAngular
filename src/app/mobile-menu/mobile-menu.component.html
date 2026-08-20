@@ -28,13 +28,14 @@
         </mat-slide-toggle>
     </div>
 
-    <div class="mobile-menu-item mobile-gif-item">
-        <label>{{currentDarkMode? 'Dark Mode' : 'Light Mode'}}</label>
-        <mat-slide-toggle [checked]="currentDarkMode"
-                          (click)="toggleDarkMode();"
-                          title="Toggle darkmode"
-                          [class]="currentDarkMode?'darkmode':'lightmode'">
-        </mat-slide-toggle>
+    <div class="mobile-menu-item mobile-theme-item">
+        <label class="mobile-darkmode-label">{{currentDarkMode? 'Dark Mode' : 'Light Mode'}}</label>
+        <div id="mobileThemeToggle" class="theme-toggle" [class.dark]="currentDarkMode">
+            <img src="./assets/images/sun.png" alt="Switch to dark mode" class="sun"
+                 title="Switch to dark mode" (click)="toggleDarkMode();">
+            <img src="./assets/images/moon.png" alt="Switch to light mode" class="moon"
+                 title="Switch to light mode" (click)="toggleDarkMode();">
+        </div>
     </div>
 
     <div class="mobile-menu-item">

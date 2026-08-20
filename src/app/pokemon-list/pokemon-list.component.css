@@ -183,6 +183,50 @@ img {
     box-sizing: border-box;
 }
 
+.desktop-controls .theme-toggle {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.desktop-controls .theme-toggle img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.desktop-controls .theme-toggle .sun {
+    color: #f6c343;
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
+
+.desktop-controls .theme-toggle .moon {
+    color: #8ec5ff;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(180deg) scale(1);
+}
+
+.desktop-controls .theme-toggle.dark .sun {
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(-180deg) scale(1);
+}
+
+.desktop-controls .theme-toggle.dark .moon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
+
 /* Mobile Media Query */
 @media screen and (max-width: 650px) {
     /* Hide desktop controls */

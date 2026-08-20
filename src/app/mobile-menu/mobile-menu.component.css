@@ -94,3 +94,61 @@
     align-items: center;
     cursor: pointer;
 }
+
+.mobile-theme-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.mobile-theme-item .mobile-darkmode-label {
+    margin-bottom: 0;
+    width: auto;
+    flex: 1;
+    text-align: left;
+}
+
+.mobile-menu .theme-toggle {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.mobile-menu .theme-toggle img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    transition: transform 0.5s ease, opacity 0.3s ease;
+}
+
+.mobile-menu .theme-toggle .sun {
+    color: #f6c343;
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle .moon {
+    color: #8ec5ff;
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle.dark .sun {
+    opacity: 0;
+    pointer-events: none;
+    transform: rotate(-180deg) scale(1);
+}
+
+.mobile-menu .theme-toggle.dark .moon {
+    opacity: 1;
+    pointer-events: auto;
+    transform: rotate(180deg) scale(1);
+}
