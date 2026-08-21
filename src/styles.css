@@ -36,6 +36,7 @@ body {
     margin: 8px;
     justify-content: space-evenly;
     text-align: center;
+    transition: background-color 5s ease, color 5s ease;
 }
 @media (max-width: 768px) {
     body {
@@ -53,10 +54,12 @@ app-root {
 body.light {
     background-color: white;
     color: black;
+    transition: background-color 5s ease, color 5s ease;
 }
 
 body.light a {
     color: #0066cc;
+    transition: color 5s ease;
 }
 
 body.light img[src*="arrow-back"] {
@@ -67,10 +70,12 @@ body.light img[src*="arrow-back"] {
 body.dark {
     background-color: #000000;
     color: #e0e0e0;
+    transition: background-color 5s ease, color 5s ease;
 }
 
 body.dark a {
     color: #66b3ff;
+    transition: color 5s ease;
 }
 
 body.dark input{
@@ -108,11 +113,13 @@ body.dark #moves {
 .lightmode {
     background-color: white;
     color: black;
+    transition: background-color 5s ease, color 5s ease;
 }
 
 .darkmode {
     background-color: black;
     color: white;
+    transition: background-color 5s ease, color 5s ease;
 }
 .darkmode input {
     color: white !important;
