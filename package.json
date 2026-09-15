@@ -26,7 +26,7 @@
     "@angular/platform-browser-dynamic": "^21.0.6",
     "@angular/router": "^21.0.6",
     "ng": "^0.0.0",
-    "ngx-order-pipe": "^2.2.0",
+    "ngx-order-pipe": "^3.0.0",
     "ngx-pagination": "^6.0.3",
     "npx": "^10.2.2",
     "pokeapi-js-wrapper": "^1.2.2",
