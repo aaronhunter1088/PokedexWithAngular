@@ -1,7 +1,7 @@
 # Pokédex With Angular
 
 ![Homepage.png](src/assets/images/angular-homepage.png)
-[![Deploy Pokédex With Angular](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml/badge.svg?branch=main)](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml)
+[![Deploy Pokédex With Angular](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml/badge.svg?branch=main)](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/pokedex-angular-deploy.yml) [![Dependabot Updates](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/aaronhunter1088/PokedexWithAngular/actions/workflows/dependabot/dependabot-updates)
 
 #### Versions
 
