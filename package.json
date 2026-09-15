@@ -29,7 +29,7 @@
     "ngx-order-pipe": "^2.2.0",
     "ngx-pagination": "^6.0.3",
     "npx": "^10.2.2",
-    "pokeapi-js-wrapper": "^1.2.2",
+    "pokeapi-js-wrapper": "^2.0.2",
     "rxjs": "~7.5.0",
     "serve": "^14.2.5",
     "tslib": "^2.3.0",
