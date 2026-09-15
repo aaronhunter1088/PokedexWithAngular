@@ -16,7 +16,7 @@
   "type": "module",
   "dependencies": {
     "@angular/animations": "^22.1.6",
-    "@angular/cdk": "^21.0.5",
+    "@angular/cdk": "^22.1.6",
     "@angular/common": "^22.1.6",
     "@angular/compiler": "^22.1.6",
     "@angular/core": "^21.0.6",
