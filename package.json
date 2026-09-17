@@ -29,7 +29,7 @@
     "ngx-order-pipe": "^3.0.0",
     "ngx-pagination": "^6.0.3",
     "npx": "^10.2.2",
-    "pokeapi-js-wrapper": "^2.0.2",
+    "pokeapi-js-wrapper": "^1.2.8",
     "rxjs": "~7.8.2",
     "serve": "^14.2.6",
     "tslib": "^2.3.0",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.1.8",
-    "@angular/cli": "^22.1.8",
+    "@angular/cli": "~22.1.8",
     "@angular/compiler-cli": "^22.1.6",
     "@types/jasmine": "~6.0.0",
     "jasmine-core": "~7.0.2",

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
@@ -14,9 +14,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class PokemonListComponent implements OnInit {
 
     pokemonMap = new Map<number, any>();
-    page: number = 1;
+    page: number = this.pokemonService.savedPageNumber;
     blankPageNumber: string = ''
-    pkmnPerPage: number = 10;
+    pkmnPerPage: number = this.pokemonService.pkmnPerPage;
     numberOfPokemon: number = 0;
     defaultImagePresent: boolean = false;
     showGifs: boolean = this.pokemonService.getShowGifs();
@@ -24,7 +24,7 @@ export class PokemonListComponent implements OnInit {
     landingPageUrl: string = environment.landingPageUrl;
     currentDarkMode: boolean = this.darkModeService.isDarkMode();
     pokemonIDName: string = '';
-    chosenType: string = 'none';
+    chosenType: string = this.pokemonService.getChosenType();
     tileColorParam: string = '';
     uniqueTypes: string[] = ["bug", "dark", "dragon", "electric", "fairy", "fighting",
         "fire", "flying", "ghost", "grass", "ground", "ice", "normal", "poison", "psychic",
@@ -38,8 +38,9 @@ export class PokemonListComponent implements OnInit {
                 private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private http: HttpClient,
-                private darkModeService: DarkModeService) {
-    }
+                private darkModeService: DarkModeService,
+                private cdr: ChangeDetectorRef)
+    {}
 
     async ngOnInit(): Promise<void> {
         const tileColorFromUrl = this.activatedRoute.snapshot.queryParamMap.get('tileColor');
@@ -51,31 +52,19 @@ export class PokemonListComponent implements OnInit {
         }
 
         this.page = this.pokemonService.getSavedPage();
-        // if (this.pokemonMap.size === 0 || this.chosenType !== 'none') {
-        //     // update pokemonMap by emptying it first.
-        //     this.pokemonMap.clear();
-        //     // @ts-ignore
-        //     // if (this.filteredPokemonByType.get(this.chosenType)?.length > 0) {
-        //     //     // @ts-ignore
-        //     //     this.filteredPokemonByType.get(this.chosenType).forEach((pkmn: any) => {
-        //     //         console.debug("adding " + pkmn.id + ": " + pkmn.name + " to pokemonMap");
-        //     //         this.pokemonMap.set(pkmn.id, pkmn);
-        //     //     })
-        //     // }
-        // }
-
-        // if (this.retroactiveFetchingStarted) {
-        //     console.log("Retroactive fetching already started, skipping");
-        // } else {
-        //     this.pokemonService.collectPokemonData().then(() => {
-        //         this.startRetroactiveFetchingByType();
-        //     });
-        // }
-
         this.pkmnPerPage = this.pokemonService.getNumberOfPokemonPerPage() // default is 10
-        this.getThePokemon().then(r =>
-            console.log("pokemonMap size: " + this.numberOfPokemon)
-        );
+        await this.getThePokemon();
+        this.cdr.detectChanges();
+
+        this.currentDarkMode = this.darkModeService.isDarkMode();
+        this.showGifs = this.pokemonService.getShowGifs();
+        console.log("Dark mode is ", this.currentDarkMode);
+        console.log("Show GIFs is ", this.showGifs);
+        this.pkmnPerPage = this.pokemonService.getNumberOfPokemonPerPage() // default is 10
+        //await this.getThePokemon();
+        this.cdr.detectChanges();
+
+        console.log("pokemonMap size: " + this.numberOfPokemon)
         this.currentDarkMode = this.darkModeService.isDarkMode();
         this.showGifs = this.pokemonService.getShowGifs();
         console.log("Dark mode is ", this.currentDarkMode);
@@ -93,37 +82,8 @@ export class PokemonListComponent implements OnInit {
         console.log("itemsPerPage: ", this.pkmnPerPage);
 
         await this.gatherPokemon();
-        // if (this.chosenType !== 'none') {
-        //     if (!this.filteringInProgress.get(this.chosenType)) {
-        //         let skipCount = (this.page - 1) * this.pkmnPerPage;
-        //         console.log("skipCount: " + skipCount);
-        //         let added = 0;
-        //         let pokemonByType = this.filteredPokemonByType.get(this.chosenType);
-        //         if (pokemonByType && pokemonByType.length > 0) {
-        //             for(let i = 0; i < pokemonByType.length; i++) {
-        //                 if (i < skipCount) {
-        //                     // skip
-        //                 } else {
-        //                     if (added < this.pkmnPerPage) {
-        //                         let pkmn = pokemonByType[i];
-        //                         console.debug("adding pkmn to pokemonMap: " + JSON.stringify(pkmn));
-        //                         this.pokemonMap.set(pkmn.id, pkmn);
-        //                         added++;
-        //                     }
-        //                 }
-        //             }
-        //         } else {
-        //             await this.gatherPokemon();
-        //         }
-        //     }
-        //     else {
-        //         await this.gatherPokemon();
-        //     }
-        // }
-        // else {
-        //     await this.gatherPokemon();
-        // }
         this.blankPageNumber = '';
+        this.cdr.detectChanges();
     }
 
     getPokemonMapValues() {
@@ -257,15 +217,16 @@ export class PokemonListComponent implements OnInit {
 
     async navigateToPokedex(): Promise<void> {
         let pokemonId = this.pokemonIDName;
-        const idPattern = /^[1-9][0-9]{0,5}$/; // Matches numbers from 1 to 99,999
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const idPattern = /^[1-9][0-9]{0,5}$/; // Matches numbers from 1 to 99_999
         const isNumeric = /^\d+$/.test(pokemonId);
 
         if (isNumeric) {
-            if (!idPattern.test(pokemonId)) {
+            if (!idPattern.test(pokemonId) && !isMobile) {
                 alert("Pok\u00e9mon not found. Please check the ID and try again.");
                 return;
             }
-        } else if (pokemonId === '') {
+        } else if ((pokemonId === undefined || pokemonId.trim() === '') && !isMobile) {
             alert('Pok\u00e9mon not found. Please check the Name and try again.');
             return;
         }
@@ -274,8 +235,8 @@ export class PokemonListComponent implements OnInit {
         }
         try {
             const pokemon = await this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon && pokemon.id) {
-                pokemonId = pokemon.id.toString();
+            if (pokemon && pokemonId) {
+                pokemonId = pokemonId.toString();
             }
         } catch (error) {
             console.error('Failed to fetch Pok\u00e9mon data for: ' + pokemonId, error);
