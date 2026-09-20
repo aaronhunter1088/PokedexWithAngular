@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Pokedex, Pokemon, PokemonSpecies} from "pokeapi-js-wrapper";
+import {firstValueFrom} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -28,15 +29,6 @@ export class PokemonService {
         }
         return this.Pokedex.getPokemonsList(interval);
     }
-
-    // async getTotalPokemon(pokedexId: string): Promise<number> {
-    //     const url = this.hostUrl + "/pokedex/" + (pokedexId ?? "1");
-    //     //console.log("Getting total Pokemon at: ", url);
-    //     const totalPokemon = await this.callURL(url).then((response => { return response; }));
-    //     // If the API returns an object with a 'pokemon' array:
-    //     //console.log("Pokedex results: ", totalPokemon);
-    //     return totalPokemon;
-    // }
 
     getPokemonByName(pokemonIDName: string | number) {
         return this.Pokedex.getPokemonByName(pokemonIDName);
@@ -176,8 +168,7 @@ export class PokemonService {
         }
     }
 
-    getPokemonLocationEncounters(pokemonID: string) {
-        //console.log("inside pokemonLocationEncounters pokemonID: ", pokemonID);
+    getPokemonLocationEncounters(pokemonID: string): Promise<object | undefined> {
         return this.Pokedex.getPokemonEncounterAreasByName(pokemonID);
     }
 
@@ -196,7 +187,7 @@ export class PokemonService {
     }
 
     callURL(url: any): Promise<object | undefined> {
-        return this.http.get(url).toPromise();
+        return firstValueFrom(this.http.get<object>(url));
     }
 
     saveCurrentPage(page: number) {

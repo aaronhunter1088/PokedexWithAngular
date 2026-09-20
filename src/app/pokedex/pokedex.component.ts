@@ -259,6 +259,9 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
             else {
                 console.log("searching for a new pokemon")
             }
+            if (this.pokemonID !== undefined) {
+                this.loadPokemon(this.pokemonID).then(r => {})
+            }
         })
     }
 
