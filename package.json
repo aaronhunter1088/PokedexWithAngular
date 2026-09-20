@@ -1,34 +1,44 @@
 {
   "name": "pokedex-with-angular",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "scripts": {
     "ng": "ng",
-    "npx": "npx",
     "startAngularApp": "ng serve",
     "startAngularAppAndMobile": "ng serve --host 0.0.0.0",
-    "startXAngularApp": "npx ng serve",
     "installAngularApp": "npm install",
     "deployAngularAppForServer": "ng build --base-href /angular/ --deploy-url /angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
   "private": true,
-  "packageManager": "npm@11.6.2",
+  "packageManager": "npm@12.0.2",
   "dependencies": {
     "@angular/animations": "^22.1.6",
-    "@angular/cdk": "^22.1.6",
+    "@angular/cdk": "^22.1.7",
     "@angular/common": "^22.1.6",
     "@angular/compiler": "^22.1.6",
     "@angular/core": "^22.1.6",
     "@angular/forms": "^22.1.6",
-    "@angular/material": "^22.1.6",
+    "@angular/material": "^22.1.7",
     "@angular/platform-browser": "^22.1.6",
     "@angular/platform-browser-dynamic": "^22.1.6",
     "@angular/router": "^22.1.6",
     "ng": "^0.0.0",
     "ngx-order-pipe": "^3.0.0",
     "ngx-pagination": "^6.0.3",
-    "npx": "^10.2.2",
+    "npx": "^3.0.0",
     "pokeapi-js-wrapper": "^1.2.8",
     "rxjs": "~7.8.2",
     "serve": "^14.2.6",
@@ -47,5 +57,12 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.3.0",
     "typescript": "~6.0.3"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true,
+    "lmdb@3.5.6": true,
+    "msgpackr-extract@3.0.4": true
   }
 }
