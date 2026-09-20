@@ -95,7 +95,7 @@
 
     <div class="mobile-menu-item">
         <button class="back-to-landing-btn icon" (click)="navigateToLandingPage()"
-                [style.background-color]="tileColorParam ?? 'darkred'"
+                [style.background-color]="tileColorParam !== '' ? tileColorParam : '#CCCCCC'"
                 title="Return to Landing Page">
             Back to Landing Page
         </button>

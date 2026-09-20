@@ -15,6 +15,7 @@ export class PokemonService {
     pkmnPerPage: number = 10
     allPokemon: any[] = [];
     showGifs: boolean = false;
+    chosenType: string = 'none';
     tileColorParam: string = '';
 
     constructor(private http: HttpClient) {
@@ -229,6 +230,10 @@ export class PokemonService {
 
     getShowGifs(): boolean {
         return this.showGifs;
+    }
+
+    getChosenType(): string {
+        return this.chosenType;
     }
 
     saveTileColorParam(tileColorParam: string) {
