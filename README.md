@@ -7,11 +7,11 @@
 
 - Angular Front End
 - Inception Year: 2022
-- Angular CLI: 21.0.4
-- Angular: 20.3.15
-- TypeScript: 5.9.3 (version check: npx tsc -v)
+- Angular CLI: 22.x
+- Angular: 20.x
+- TypeScript: 6.x (version check: npx tsc -v)
 - Node: 24.12.0
-- Package Manager: npm 11.6.2
+- Package Manager: npm 12.x
 
 The application starts at index.html. It defines the head, then the app-root component.
 
