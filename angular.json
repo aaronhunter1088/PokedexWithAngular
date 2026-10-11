@@ -85,13 +85,7 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "polyfills": [
-              "zone.js"
-            ]
-          }
+          "builder": "@angular/build:unit-test"
         }
       }
     }
