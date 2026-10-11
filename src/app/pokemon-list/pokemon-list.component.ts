@@ -1,5 +1,6 @@
 import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
-import {PokemonService} from "../services/pokemon.service";
+import {inject} from '@angular/core';
+import {PokemonService} from '../services/pokemon.service';
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
 import {environment} from "../../environments/environment";
@@ -12,6 +13,8 @@ import {ActivatedRoute, Router} from "@angular/router";
     standalone: false
 })
 export class PokemonListComponent implements OnInit {
+    protected pokemonService = inject(PokemonService);
+    private darkModeService = inject(DarkModeService);
 
     pokemonMap = new Map<number, any>();
     page: number = this.pokemonService.savedPageNumber;
@@ -34,11 +37,9 @@ export class PokemonListComponent implements OnInit {
     //filteringInProgress = new Map<string, boolean>();
     //retroactiveFetchingStarted: boolean = false;
 
-    constructor(public pokemonService: PokemonService,
-                private router: Router,
+    constructor(private router: Router,
                 private activatedRoute: ActivatedRoute,
                 private http: HttpClient,
-                private darkModeService: DarkModeService,
                 private cdr: ChangeDetectorRef)
     {}
 

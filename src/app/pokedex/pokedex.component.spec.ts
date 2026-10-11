@@ -1,6 +1,10 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
 import {PokedexComponent} from './pokedex.component';
+import {EvolutionsComponent} from '../evolutions/evolutions.component';
+import {MobileMenuComponent} from '../mobile-menu/mobile-menu.component';
+import {provideRouter, RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {PokemonListComponent} from '../pokemon-list/pokemon-list.component';
 
 describe('PokedexComponent', () => {
     let component: PokedexComponent;
@@ -8,9 +12,20 @@ describe('PokedexComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [PokedexComponent]
-        })
-            .compileComponents();
+            imports: [
+                CommonModule,
+                RouterModule,
+                MobileMenuComponent
+            ],
+            declarations: [
+                PokedexComponent,
+                PokemonListComponent,
+                EvolutionsComponent
+            ],
+            providers: [
+                provideRouter([])
+            ]
+        }).compileComponents();
 
         fixture = TestBed.createComponent(PokedexComponent);
         component = fixture.componentInstance;

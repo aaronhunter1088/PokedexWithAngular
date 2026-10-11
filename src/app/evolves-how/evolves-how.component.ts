@@ -60,7 +60,6 @@ export class EvolvesHowComponent implements OnInit {
         console.log("Chain: ", this.pokemonChainID)
         // @ts-ignore
         this.family = this.pokemonIDToEvolutionChainMap.get(this.pokemonChainID);
-        // @ts-ignore
         this.family.forEach(list => {
             list.forEach((id: number) => {
                 this.allIDs.push(id)
