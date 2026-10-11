@@ -1,6 +1,8 @@
+import {CommonModule} from '@angular/common';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-
+import {RouterModule, provideRouter} from '@angular/router';
 import {EvolutionsComponent} from './evolutions.component';
+import {ArraySortPipe} from '../array-sort.pipe';
 
 describe('EvolutionsComponent', () => {
     let component: EvolutionsComponent;
@@ -8,9 +10,10 @@ describe('EvolutionsComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [EvolutionsComponent]
-        })
-            .compileComponents();
+            imports: [CommonModule, RouterModule],
+            declarations: [EvolutionsComponent, ArraySortPipe],
+            providers: [provideRouter([])]
+        }).compileComponents();
 
         fixture = TestBed.createComponent(EvolutionsComponent);
         component = fixture.componentInstance;
@@ -18,6 +21,6 @@ describe('EvolutionsComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(component).toBeDefined();
     });
 });

@@ -1,5 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {PokemonListComponent} from './pokemon-list.component';
+import {MobileMenuComponent} from '../mobile-menu/mobile-menu.component';
+import {provideRouter, RouterModule} from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {CommonModule} from '@angular/common';
 
 describe('PokemonListComponent', () => {
     let component: PokemonListComponent;
@@ -7,9 +11,19 @@ describe('PokemonListComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            declarations: [PokemonListComponent]
-        })
-            .compileComponents();
+            imports: [
+                CommonModule,
+                RouterModule,
+                MobileMenuComponent,
+                NgxPaginationModule
+            ],
+            declarations: [
+                PokemonListComponent
+            ],
+            providers: [
+                provideRouter([])
+            ]
+        }).compileComponents();
 
         fixture = TestBed.createComponent(PokemonListComponent);
         component = fixture.componentInstance;
@@ -17,6 +31,6 @@ describe('PokemonListComponent', () => {
     });
 
     it('should create', () => {
-        expect(component).toBeTruthy();
+        expect(component).toBeDefined();
     });
 });

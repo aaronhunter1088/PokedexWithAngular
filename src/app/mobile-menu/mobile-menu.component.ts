@@ -1,5 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter, OnChanges} from '@angular/core';
-import {PokemonService} from "../services/pokemon.service";
+import {inject} from '@angular/core';
+import {PokemonService} from '../services/pokemon.service';
 import {HttpClient} from "@angular/common/http";
 import {DarkModeService} from "../services/dark-mode.service";
 import {Router, RouterLink} from "@angular/router";
@@ -18,6 +19,9 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   styleUrl: './mobile-menu.component.css',
 })
 export class MobileMenuComponent implements OnInit {
+    protected pokemonService = inject(PokemonService);
+    private darkModeService = inject(DarkModeService);
+
     @Input() showGifs: boolean = this.pokemonService.getShowGifs();
     @Input() currentDarkMode: boolean = this.darkModeService.isDarkMode();
     @Input() pokemonMap: Map<number, any> = new Map<number, any>();
@@ -39,10 +43,8 @@ export class MobileMenuComponent implements OnInit {
         "rock", "shadow", "steel", "stellar", "unknown", "water"];
     landingPageUrl: string = environment.landingPageUrl;
 
-    constructor(protected pokemonService: PokemonService,
-                private router: Router,
-                private http: HttpClient,
-                private darkModeService: DarkModeService) {
+    constructor(private router: Router,
+                private http: HttpClient) {
     }
 
     ngOnInit(): void {
