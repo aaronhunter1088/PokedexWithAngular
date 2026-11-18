@@ -487,15 +487,15 @@ export class PokemonListComponent implements OnInit {
                     }
 
                     // edit weight
-                    let weight: string | number = pokemonData.weight.toString();
-                    weight = weight.slice(0, -1) + '.' + weight.slice(-1);
-                    weight = weight != null ? 10 * (Number.parseInt(weight) * 0.220462) : 0;
+                    const weightStr: string = pokemonData.weight.toString();
+                    const weightWithDecimal: string = weightStr.slice(0, -1) + '.' + weightStr.slice(-1);
+                    const weight: number = 10 * (Number.parseInt(weightWithDecimal) * 0.220462);
                     pokemonData.weight = Math.round(weight);
 
                     // edit height
-                    let height: string | number = pokemonData.height.toString();
-                    height = height != null ? (Number.parseInt(height) * 3.93701) : 0;
-                    pokemonData.height = Math.round(Number(height));
+                    const heightStr: string = pokemonData.height.toString();
+                    const height: number = Number.parseInt(heightStr) * 3.93701;
+                    pokemonData.height = Math.round(height);
 
                     this.pokemonMap.set(pokemonData.id, pokemonData);
                 } catch (error) {

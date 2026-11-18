@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Pokedex, Pokemon, PokemonSpecies} from "pokeapi-js-wrapper";
+import {Pokedex} from "pokeapi-js-wrapper";
 import {firstValueFrom} from "rxjs";
 
 @Injectable({
@@ -8,9 +8,8 @@ import {firstValueFrom} from "rxjs";
 })
 export class PokemonService {
 
-    Pokedex = new Pokedex({
-        cache: true
-    });
+    // pokeapi-js-wrapper v2 requires Pokedex.init() so config defaults and the cache are set up
+    private pokedexPromise: Promise<any> = Pokedex.init({cache: true});
     savedPageNumber: number = 1;
     pokemonID: number = 0;
     pkmnPerPage: number = 10
@@ -22,28 +21,28 @@ export class PokemonService {
     constructor(private http: HttpClient) {
     }
 
-    getPokemonList(_limit: number, _offset: number) {
+    async getPokemonList(_limit: number, _offset: number): Promise<any> {
         const interval = {
             limit: _limit,
             offset: _offset
         }
-        return this.Pokedex.getPokemonsList(interval);
+        return (await this.pokedexPromise).getPokemonsList(interval);
     }
 
-    getPokemonByName(pokemonIDName: string | number) {
-        return this.Pokedex.getPokemonByName(pokemonIDName);
+    async getPokemonByName(pokemonIDName: string | number): Promise<any> {
+        return (await this.pokedexPromise).getPokemonByName(pokemonIDName);
     }
 
     async getPokemonByType(type: string) {
-        return this.Pokedex.getTypeByName(type);
+        return (await this.pokedexPromise).getTypeByName(type);
     }
 
     async getPokemonSpecificData(pokemonName: string) {
-        return await this.Pokedex.getPokemonByName(pokemonName);
+        return (await this.pokedexPromise).getPokemonByName(pokemonName);
     }
 
-    getPokemonData(pokemon: any) {
-        return this.Pokedex.getPokemonByName(pokemon.name);
+    async getPokemonData(pokemon: any): Promise<any> {
+        return (await this.pokedexPromise).getPokemonByName(pokemon.name);
     }
 
     /**
@@ -98,7 +97,7 @@ export class PokemonService {
      */
     async getPokemonSpeciesData(pokemon: any): Promise<object | undefined> {
         try {
-            const res = await this.Pokedex.getPokemonSpeciesByName(pokemon.name);
+            const res = await (await this.pokedexPromise).getPokemonSpeciesByName(pokemon.name);
             if (res !== undefined && res.id !== 0) {
                 return res;
             } else {
@@ -129,13 +128,13 @@ export class PokemonService {
         const limit = 1025; // TODO: Use 'Pokedex.getPokemonsList()' to get the total count of Pokemon and set limit accordingly, instead of hardcoding it to 1350
         if (this.allPokemon.length === 0) {
             let pokemonList = await this.getPokemonList(limit, offset);
-            let pokemon: Pokemon;
-            let species: PokemonSpecies;
+            let pokemon: any;
+            let species: any;
             for (const p of pokemonList.results) {
-                pokemon = await this.getPokemonData(p).then((pokemonData => {
+                pokemon = await this.getPokemonData(p).then(((pokemonData: any) => {
                     return pokemonData
                 }));
-                species = <PokemonSpecies>await this.getPokemonSpeciesData(pokemon).then((speciesData => {
+                species = await this.getPokemonSpeciesData(pokemon).then(((speciesData: any) => {
                     return speciesData
                 }));
 
@@ -168,12 +167,12 @@ export class PokemonService {
         }
     }
 
-    getPokemonLocationEncounters(pokemonID: string): Promise<object | undefined> {
-        return this.Pokedex.getPokemonEncounterAreasByName(pokemonID);
+    async getPokemonLocationEncounters(pokemonID: string): Promise<object | undefined> {
+        return (await this.pokedexPromise).getPokemonEncounterAreasByName(pokemonID);
     }
 
     async getPokemonChainData(pokemonChainID: string): Promise<object> {
-        return await this.Pokedex.getEvolutionChainById(Number.parseInt(pokemonChainID))
+        return (await this.pokedexPromise).getEvolutionChainById(Number.parseInt(pokemonChainID))
     }
 
     getPokemonNamesThatEvolveFromTrading(): any {

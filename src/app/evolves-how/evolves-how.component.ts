@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PokemonService} from "../services/pokemon.service";
 
@@ -6,7 +6,8 @@ import {PokemonService} from "../services/pokemon.service";
     selector: 'app-evolves-how',
     templateUrl: './evolves-how.component.html',
     styleUrls: ['./evolves-how.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class EvolvesHowComponent implements OnInit {
 
