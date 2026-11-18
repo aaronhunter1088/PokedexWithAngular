@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {PokemonService} from "../services/pokemon.service";
 import {Router} from "@angular/router";
 import {DarkModeService} from "../services/dark-mode.service";
@@ -7,7 +7,8 @@ import {DarkModeService} from "../services/dark-mode.service";
     selector: 'app-search',
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class SearchComponent implements OnInit {
 
@@ -93,9 +94,10 @@ export class SearchComponent implements OnInit {
         }
         try {
             const pokemon = await this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon && pokemon.id) {
-                pokemonId = pokemon.id.toString();
+            if (!pokemon?.id) {
+                throw new Error('Pok\u00e9mon not found');
             }
+            pokemonId = pokemon.id.toString();
         } catch (error) {
             console.error('Failed to fetch Pok\u00e9mon data for: ' + pokemonId, error);
             alert('Pok\u00e9mon not found. Please check the ID or Name and try again.');

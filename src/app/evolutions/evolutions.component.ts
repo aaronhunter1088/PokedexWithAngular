@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PokemonService} from "../services/pokemon.service";
 
@@ -6,7 +6,8 @@ import {PokemonService} from "../services/pokemon.service";
     selector: 'app-evolutions',
     templateUrl: './evolutions.component.html',
     styleUrls: ['./evolutions.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class EvolutionsComponent implements OnInit, OnChanges {
 
@@ -49,7 +50,7 @@ export class EvolutionsComponent implements OnInit, OnChanges {
                     this.resetEvolutionParameters()
                     this.pokemonChainID = this.getEvolutionChainID(Number.parseInt(this.pokemonID.toString()))
                     Array.of(this.pokemonIDToEvolutionChainMap.get(this.pokemonChainID)).forEach(family => {
-                        // @ts-ignore
+                        if (family == null) return;
                         this.pokemonFamilyIDs = family; // a list of list of IDs [ [1], [2], [3,10033,10195] ]
                         this.setFamilySize();
                         this.setStages();

@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
 import {DarkModeService} from "./services/dark-mode.service";
 import {PokemonService} from "./services/pokemon.service";
@@ -7,7 +7,8 @@ import {PokemonService} from "./services/pokemon.service";
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class AppComponent implements OnInit, OnChanges {
 

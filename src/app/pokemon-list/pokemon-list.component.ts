@@ -1,4 +1,4 @@
-import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {inject} from '@angular/core';
 import {PokemonService} from '../services/pokemon.service';
 import {HttpClient} from "@angular/common/http";
@@ -10,7 +10,8 @@ import {ActivatedRoute, Router} from "@angular/router";
     selector: 'app-pokemon-list',
     templateUrl: './pokemon-list.component.html',
     styleUrls: ['./pokemon-list.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class PokemonListComponent implements OnInit {
     protected pokemonService = inject(PokemonService);
@@ -217,7 +218,7 @@ export class PokemonListComponent implements OnInit {
     }
 
     async navigateToPokedex(): Promise<void> {
-        let pokemonId = this.pokemonIDName;
+        let pokemonId = this.pokemonIDName?.toLowerCase()?.trim() ?? '';
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const idPattern = /^[1-9][0-9]{0,5}$/; // Matches numbers from 1 to 99_999
         const isNumeric = /^\d+$/.test(pokemonId);
@@ -236,9 +237,10 @@ export class PokemonListComponent implements OnInit {
         }
         try {
             const pokemon = await this.pokemonService.getPokemonByName(pokemonId);
-            if (pokemon && pokemonId) {
-                pokemonId = pokemonId.toString();
+            if (!pokemon?.id) {
+                throw new Error('Pok\u00e9mon not found');
             }
+            pokemonId = pokemon.id.toString();
         } catch (error) {
             console.error('Failed to fetch Pok\u00e9mon data for: ' + pokemonId, error);
             alert('Pok\u00e9mon not found. Please check the ID or Name and try again.');

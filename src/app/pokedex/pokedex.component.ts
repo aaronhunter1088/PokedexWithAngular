@@ -1,4 +1,4 @@
-import {Component, HostListener, Input, OnChanges, OnDestroy, OnInit, ChangeDetectorRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostListener, Input, OnChanges, OnDestroy, OnInit, ChangeDetectorRef} from '@angular/core';
 import {PokemonService} from '../services/pokemon.service';
 import {ActivatedRoute} from '@angular/router';
 import {DarkModeService} from '../services/dark-mode.service';
@@ -20,7 +20,8 @@ type PokemonTypeEntry = {
     selector: 'app-pokedex',
     templateUrl: './pokedex.component.html',
     styleUrls: ['./pokedex.component.css'],
-    standalone: false
+    standalone: false,
+    changeDetection: ChangeDetectionStrategy.Eager
 })
 export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
     @Input() pokemonSprites: Record<string, unknown> = {};

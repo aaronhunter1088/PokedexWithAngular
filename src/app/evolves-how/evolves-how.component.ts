@@ -471,11 +471,27 @@ export class EvolvesHowComponent implements OnInit {
         this.pokemonIdAndAttributesMap.set(Number.parseInt(details.id), this.specificAttributesMap)
     }
 
+    // removes repeated values from every list attribute (e.g. thunder-stone listed twice)
+    removeDuplicateValues(attributesMap: Map<string, any>): void {
+        attributesMap.forEach((value: any, key: string) => {
+            if (Array.isArray(value)) {
+                const seen = new Set<string>()
+                attributesMap.set(key, value.filter((item: any) => {
+                    const id = JSON.stringify(item)
+                    if (seen.has(id)) return false
+                    seen.add(id)
+                    return true
+                }))
+            }
+        })
+    }
+
     // clean up map, remove unnecessary duplicates
     cleanupAttributesMap() {
         console.log("All attributes maps created: ", this.pokemonIdAndAttributesMap.size)
         Array.from(this.pokemonIdAndAttributesMap).forEach((innerMap) => {
             console.log("id: ", innerMap[0], " , map: ", innerMap[1])
+            this.removeDuplicateValues(innerMap[1])
             // clean up min_happiness
             let minHappinessValues = innerMap[1]?.get("min_happiness")
             if (minHappinessValues != null) {
