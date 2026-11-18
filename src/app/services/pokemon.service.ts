@@ -19,6 +19,7 @@ export class PokemonService {
     tileColorParam: string = '';
 
     constructor(private http: HttpClient) {
+        this.http = http;
     }
 
     async getPokemonList(_limit: number, _offset: number): Promise<any> {
@@ -98,7 +99,8 @@ export class PokemonService {
     async getPokemonSpeciesData(pokemon: any): Promise<object | undefined> {
         try {
             const res = await (await this.pokedexPromise).getPokemonSpeciesByName(pokemon.name);
-            if (res !== undefined && res.id !== 0) {
+            // wrapper v2 resolves 404s (e.g. pikachu-gmax) as {status, message}, so require a real id
+            if (res?.id > 0) {
                 return res;
             } else {
                 try {
