@@ -263,13 +263,15 @@ img {
     /* Pokemon Grid - Change to single column */
     .pokemon-grid {
         grid-template-columns: 1fr !important;
-        padding: 10px;
+        padding: 10px 20px;
+        box-sizing: border-box;
         grid-gap: 10px;
     }
 
     .pokemon-grid .box {
         width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
         height: auto !important;
         min-height: 400px;
         padding: 15px;
