@@ -48,6 +48,27 @@
               ],
               "outputHashing": "all"
             },
+            "localprod": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "900kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "5kb",
+                  "maximumError": "6kb"
+                }
+              ],
+              "outputHashing": "all",
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.localprod.ts"
+                }
+              ]
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -68,6 +89,9 @@
           "configurations": {
             "production": {
               "buildTarget": "PokedexAngular:build:production"
+            },
+            "localprod": {
+              "buildTarget": "PokedexAngular:build:localprod"
             },
             "development": {
               "buildTarget": "PokedexAngular:build:development"

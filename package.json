@@ -5,6 +5,8 @@
     "ng": "ng",
     "startAngularApp": "ng serve",
     "startAngularAppAndMobile": "ng serve --host 0.0.0.0",
+    "startAngularAppProdLocal": "ng serve --configuration localprod",
+    "startAngularAppAndMobileProdLocal": "ng serve --configuration localprod --host 0.0.0.0",
     "installAngularApp": "npm install",
     "cleanInstall": "npm ci",
     "deployAngularAppForServer": "ng build --base-href /angular/ --deploy-url /angular/",
