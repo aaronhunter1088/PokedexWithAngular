@@ -3,6 +3,33 @@ import {HttpClient} from "@angular/common/http";
 import {Pokedex} from "pokeapi-js-wrapper";
 import {firstValueFrom} from "rxjs";
 
+const PKMN_PER_PAGE_KEY = 'pkmnPerPage';
+const SHOW_GIFS_KEY = 'showGifs';
+const DEFAULT_PKMN_PER_PAGE = 10;
+const MAX_PKMN_PER_PAGE = 50;
+
+// sessionStorage keeps these settings for the browser tab's session and survives reloads
+function readSession(key: string): string | null {
+    try {
+        return sessionStorage.getItem(key);
+    } catch {
+        return null;
+    }
+}
+
+function writeSession(key: string, value: string): void {
+    try {
+        sessionStorage.setItem(key, value);
+    } catch {
+        // storage unavailable: the in-memory value is still used
+    }
+}
+
+function readStoredPkmnPerPage(): number {
+    const stored = Number.parseInt(readSession(PKMN_PER_PAGE_KEY) ?? '', 10);
+    return stored >= 1 && stored <= MAX_PKMN_PER_PAGE ? stored : DEFAULT_PKMN_PER_PAGE;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -12,9 +39,9 @@ export class PokemonService {
     private pokedexPromise: Promise<any> = Pokedex.init({cache: true});
     savedPageNumber: number = 1;
     pokemonID: number = 0;
-    pkmnPerPage: number = 10
+    pkmnPerPage: number = readStoredPkmnPerPage();
     allPokemon: any[] = [];
-    showGifs: boolean = false;
+    showGifs: boolean = readSession(SHOW_GIFS_KEY) === 'true';
     chosenType: string = 'none';
     tileColorParam: string = '';
 
@@ -207,7 +234,8 @@ export class PokemonService {
 
     saveNumberOfPokemonPerPage(itemsPerPage: number) {
         console.log("saving number of pokemon viewable")
-        this.pkmnPerPage = itemsPerPage
+        this.pkmnPerPage = itemsPerPage;
+        writeSession(PKMN_PER_PAGE_KEY, String(itemsPerPage));
     }
 
     getNumberOfPokemonPerPage(): number {
@@ -218,6 +246,7 @@ export class PokemonService {
     saveShowGifs(showGifs: boolean) {
         console.log("saving showGifs: ", showGifs);
         this.showGifs = showGifs;
+        writeSession(SHOW_GIFS_KEY, String(showGifs));
     }
 
     getShowGifs(): boolean {

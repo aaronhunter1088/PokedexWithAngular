@@ -22,6 +22,8 @@ html * {
     margin: 0;
 }
 html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -164,7 +166,7 @@ app-mobile-menu .mobile-menu-overlay {
 }
 
 /* Mobile Media Query - Show mobile menu on screens <= 650px */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 650px), screen and (orientation: landscape) and (max-height: 500px) {
     /* Show mobile header */
     app-mobile-menu .mobile-header {
         display: flex !important;

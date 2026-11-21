@@ -285,6 +285,17 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
         this.styleFlag = this.screenWidth > 400 && this.screenHeight > 400;
     }
 
+    // Mirrors the Springboot behavior: keep the displayed image in line with the GIF toggle.
+    onShowGifsChange(showGifs: boolean): void {
+        this.showGifs = showGifs;
+        this.pokemonService.saveShowGifs(showGifs);
+        if (showGifs && this.gifImage && this.pokemonImage === this.getSpriteValue('front_default')) {
+            this.showImage('gif');
+        } else if (!showGifs && this.gifImage && this.pokemonImage === this.gifImage) {
+            this.showImage('default');
+        }
+    }
+
     // Switches the displayed Pokemon image.
     showImage(option: string): void {
         const pokeballImage: string = './assets/images/pokeball1.jpg';
@@ -465,6 +476,10 @@ export class PokedexComponent implements OnInit, OnChanges, OnDestroy {
             this.pokemonLocations = this.formatLocations(locations);
             this.pokemonMoves = this.formatMoves(pokemon.moves ?? []);
 
+            this.cdr.detectChanges();
+            if (this.showGifs && this.gifImage) {
+                this.showImage('gif');
+            }
             this.cdr.detectChanges();
         } catch (error: unknown) {
             console.log(`Couldn't get Pokemon info with: '${normalizedPokemonId}'`);

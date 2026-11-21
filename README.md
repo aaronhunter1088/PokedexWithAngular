@@ -80,7 +80,9 @@ We now have a GitHub Action to deploy and revert to the previous version. Use th
 
 ## Running unit tests
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` (or `ng test`) to execute the unit tests with [Vitest](https://vitest.dev) through the Angular
+`@angular/build:unit-test` builder. Tests run in a real browser via Playwright, so install the browser once with
+`npx playwright install`.
 
 ## Running end-to-end tests
 

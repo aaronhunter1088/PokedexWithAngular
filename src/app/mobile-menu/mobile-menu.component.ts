@@ -135,8 +135,7 @@ export class MobileMenuComponent implements OnInit {
         }
         else {
             this.pkmnPerPage = Number(pkmnPerPage);
-            this.pkmnPerPageChange.emit(this.pkmnPerPage);
-        }// reset input field after submission
+        }
     }
 
     toggleShowGifs() {

@@ -25,7 +25,7 @@ nav {
 
 
 /* Mobile Media Query - Show mobile menu on screens <= 650px */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 650px), screen and (orientation: landscape) and (max-height: 500px) {
     /* Hide desktop header logo on mobile */
     #indexSearchImg {
         display: none !important;
