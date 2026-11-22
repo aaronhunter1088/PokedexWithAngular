@@ -254,7 +254,7 @@ img {
 }
 
 /* Mobile Media Query */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 650px), screen and (orientation: landscape) and (max-height: 500px) {
     /* Hide desktop controls */
     .desktop-controls {
         display: none !important;
@@ -263,13 +263,15 @@ img {
     /* Pokemon Grid - Change to single column */
     .pokemon-grid {
         grid-template-columns: 1fr !important;
-        padding: 10px;
+        padding: 10px 20px;
+        box-sizing: border-box;
         grid-gap: 10px;
     }
 
     .pokemon-grid .box {
         width: 100%;
         max-width: 100%;
+        box-sizing: border-box;
         height: auto !important;
         min-height: 400px;
         padding: 15px;
@@ -294,28 +296,5 @@ img {
     #indexSearchImgSearchLink,
     #pokedexSearchImgSearchLink {
         display: none !important;
-    }
-}
-
-/* Landscape rotation - show and center desktop controls */
-@media screen and (max-height: 650px) and (orientation: landscape) {
-    #desktopHeader {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        width: 100vw !important;
-        margin-left: calc(50% - 50vw) !important;
-        text-align: center !important;
-    }
-    .desktop-controls {
-        display: flex !important;
-        width: 100% !important;
-        justify-content: center !important;
-        align-items: center !important;
-        flex-wrap: wrap;
-        gap: 15px;
-        padding-bottom: 10px;
-        box-sizing: border-box;
     }
 }

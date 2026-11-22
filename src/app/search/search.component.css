@@ -1,4 +1,4 @@
 /* Mobile Media Query - Show mobile menu on screens <= 650px */
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 650px), screen and (orientation: landscape) and (max-height: 500px) {
 
 }

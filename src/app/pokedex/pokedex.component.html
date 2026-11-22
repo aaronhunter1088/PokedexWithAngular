@@ -1,5 +1,6 @@
 <app-mobile-menu
-        [(showGifs)]="showGifs"
+        [showGifs]="showGifs"
+        (showGifsChange)="onShowGifsChange($event)"
         [(currentDarkMode)]="currentDarkMode"
 ></app-mobile-menu>
 
