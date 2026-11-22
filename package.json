@@ -30,7 +30,7 @@
   "private": true,
   "packageManager": "npm@12.0.2",
   "dependencies": {
-    "@angular/animations": "22.2.5",
+    "@angular/animations": "22.2.6",
     "@angular/cdk": "^22.3.0",
     "@angular/common": "22.2.6",
     "@angular/compiler": "22.2.6",
@@ -38,7 +38,7 @@
     "@angular/forms": "22.2.6",
     "@angular/material": "^22.3.0",
     "@angular/platform-browser": "22.2.6",
-    "@angular/platform-browser-dynamic": "22.2.5",
+    "@angular/platform-browser-dynamic": "22.2.6",
     "@angular/router": "22.2.6",
     "ng": "^0.0.0",
     "ngx-order-pipe": "^3.0.0",
@@ -55,7 +55,7 @@
     "@vitest/browser-playwright": "^5.1.1",
     "jsdom": "^31.0.1",
     "playwright": "^1.65.1",
-    "typescript": "~7.0.2",
+    "typescript": "~6.0.3",
     "vitest": "^5.0.3"
   },
   "allowScripts": {
